@@ -1,9 +1,12 @@
 package org.habittracker.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jdk.jfr.Frequency;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+
+
+
 
 @Entity
 public class Habit {
@@ -12,10 +15,22 @@ public class Habit {
     private Long id;
     private String name;
     private boolean isCompleted;
+    private LocalDate creationDate;
 
-    public Habit(String name){
+    @Enumerated(EnumType.STRING)
+    private Frequency frequency;
+
+    private int streakCounter;
+
+    public Habit() {
+    }
+
+    public Habit(String name, Frequency frequency){
         this.name = name;
         this.isCompleted = false;
+        this.creationDate = LocalDate.now();
+        this.frequency = frequency;
+        this.streakCounter = 0;
     }
 
     public Long getId() {
@@ -41,4 +56,39 @@ public class Habit {
     public void setCompleted(boolean completed) {
         isCompleted = completed;
     }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Frequency getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(Frequency frequency) {
+        this.frequency = frequency;
+    }
+
+    public int getStreakCount() {
+        return streakCounter;
+    }
+
+    public void incrementStreak() {
+        this.streakCounter++;
+    }
+
+    public void resetStreak() {
+        this.streakCounter = 0;
+    }
+
+    public enum Frequency {
+        DAILY,
+        WEEKLY,
+        MONTHLY
+    }
+
 }
