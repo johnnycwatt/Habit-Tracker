@@ -28,7 +28,6 @@ public class AddHabitController {
 
     @FXML
     private void initialize() {
-        // Set default frequency if needed
         frequencyChoiceBox.setValue("Daily");
     }
 
@@ -80,5 +79,13 @@ public class AddHabitController {
         habitNameField.clear();
         frequencyChoiceBox.setValue("Daily");
         startDatePicker.setValue(null);
+    }
+
+    public void setHabitData(Habit habit) {
+        if (habit != null) {
+            habitNameField.setText(habit.getName());
+            frequencyChoiceBox.setValue(habit.getFrequency().toString());
+            startDatePicker.setValue(habit.getCreationDate());
+        }
     }
 }

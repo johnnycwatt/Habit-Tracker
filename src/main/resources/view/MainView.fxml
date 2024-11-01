@@ -8,5 +8,7 @@
 <VBox alignment="CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.MainController">
     <Label text="Habit Tracker" />
     <Button text="Add New Habit" onAction="#openAddHabitView"/>
+    <Button text="View Habits" onAction="#openHabitListView"/>
+
 
 </VBox>

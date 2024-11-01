@@ -55,4 +55,17 @@ public class HabitRepositoryIntegrationTest {
         assertEquals(1, updatedHabit.getStreakCount());
     }
 
+    @Test
+    void testFindHabitByName() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
+        habitRepository.addHabit(habit);
+
+        Habit foundHabit = habitRepository.findHabitByName("Exercise");
+        assertNotNull(foundHabit);
+        assertEquals("Exercise", foundHabit.getName());
+
+        habitRepository.deleteHabit(foundHabit);
+    }
+
+
 }

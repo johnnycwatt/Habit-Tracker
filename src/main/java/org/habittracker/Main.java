@@ -42,6 +42,21 @@ public class Main extends Application {
         }
     }
 
+    public void openHabitListView() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/HabitListView.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 450, 400); // Adjust size as needed
+            Stage stage = new Stage();
+            stage.setTitle("Habit List");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading HabitListView: " + e.getMessage());
+        }
+    }
+
+
     public static void main(String[] args) {
         launch(args);
     }

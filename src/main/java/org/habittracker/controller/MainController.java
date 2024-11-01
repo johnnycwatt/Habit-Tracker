@@ -15,4 +15,10 @@ public class MainController {
     private void openAddHabitView() {
         mainApp.openAddHabitView();
     }
+
+    @FXML
+    private void openHabitListView() {
+        mainApp.openHabitListView();
+    }
+
 }

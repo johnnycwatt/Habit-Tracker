@@ -38,6 +38,19 @@ public class HabitRepository {
         }
     }
 
+    public Habit findHabitByName(String name) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            List<Habit> habits = em.createQuery("SELECT h FROM Habit h WHERE h.name = :name", Habit.class)
+                    .setParameter("name", name)
+                    .getResultList();
+            return habits.isEmpty() ? null : habits.get(0);
+        } finally {
+            em.close();
+        }
+    }
+
+
     public void updateHabit(Habit habit) {
         EntityManager em = entityManagerFactory.createEntityManager();
         try {
