@@ -1,15 +1,18 @@
 package org.habittracker.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import org.habittracker.Main;
 
 public class MainController {
+
+    private Main mainApp;
+
+    public void setMainApp(Main mainApp) {
+        this.mainApp = mainApp;
+    }
+
     @FXML
-    private void handleAddHabit() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Habit Added");
-        alert.setHeaderText(null);
-        alert.setContentText("New habit has been added! Well done, you have taken the first step!");
-        alert.showAndWait();
+    private void openAddHabitView() {
+        mainApp.openAddHabitView();
     }
 }
