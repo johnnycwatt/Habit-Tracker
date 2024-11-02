@@ -46,7 +46,8 @@ public class HabitListController {
         habitListView.getItems().clear();
         List<Habit> habits = habitRepository.getAllHabits();
         for (Habit habit : habits) {
-            habitListView.getItems().add(habit.getName() + " - " + habit.getFrequency() + " - " + habit.getCreationDate());
+            String streakInfo = " (Streak: " + habit.getStreakCounter() + ")";
+            habitListView.getItems().add(habit.getName() + " - " + habit.getFrequency() + " - " + habit.getCreationDate()+ " - " + streakInfo);
         }
     }
 
@@ -121,22 +122,21 @@ public class HabitListController {
     private void onMarkAsCompleted() {
         if (selectedHabit != null) {
             if (selectedHabit.isCompletedToday()) {
-                Alert alert = new Alert(AlertType.INFORMATION, "Habit already marked as completed for today.");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Habit already marked as completed for today.");
                 alert.showAndWait();
                 return;
             }
 
             // Mark the habit as completed and update the repository
-            selectedHabit.markAsCompleted();
+            selectedHabit.markAsCompleted();  // handles streak update logic
             habitRepository.updateHabit(selectedHabit);
-
 
             loadHabitList();
 
-            Alert alert = new Alert(AlertType.INFORMATION, "Habit marked as completed for today!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Habit marked as completed for today! Streak: " + selectedHabit.getStreakCounter());
             alert.showAndWait();
         } else {
-            Alert alert = new Alert(AlertType.WARNING, "Please select a habit to mark as completed.");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a habit to mark as completed.");
             alert.showAndWait();
         }
     }

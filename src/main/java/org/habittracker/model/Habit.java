@@ -42,10 +42,36 @@ public class Habit {
     //mark the habit as complete for the day
     public void markAsCompleted() {
         LocalDate today = LocalDate.now();
-        if (lastCompletedDate == null || !lastCompletedDate.equals(today)) {
-            lastCompletedDate = today;
-            streakCounter++;
+        if (lastCompletedDate != null) {
+            switch (frequency) {
+                case DAILY:
+                    if (lastCompletedDate.plusDays(1).equals(today)) {
+                        streakCounter++;
+                    } else if (!lastCompletedDate.equals(today)) {
+                        streakCounter = 1; // Reset streak if not consecutive
+                    }
+                    break;
+                case WEEKLY:
+                    if (lastCompletedDate.plusWeeks(1).equals(today)) {
+                        streakCounter++;
+                    } else if (!lastCompletedDate.equals(today)) {
+                        streakCounter = 1;
+                    }
+                    break;
+                case MONTHLY:
+                    if (lastCompletedDate.plusMonths(1).equals(today)) {
+                        streakCounter++;
+                    } else if (!lastCompletedDate.equals(today)) {
+                        streakCounter = 1;
+                    }
+                    break;
+            }
+        } else {
+            streakCounter = 1; // Start the streak
         }
+
+        lastCompletedDate = today; // Update last completion date
+        isCompleted = true; 
     }
 
 
@@ -94,7 +120,7 @@ public class Habit {
         this.frequency = frequency;
     }
 
-    public int getStreakCount() {
+    public int getStreakCounter() {
         return streakCounter;
     }
 
@@ -105,6 +131,12 @@ public class Habit {
     public void resetStreak() {
         this.streakCounter = 0;
     }
+
+    public void setLastCompletedDate(LocalDate date) {
+        incrementStreak();
+        this.lastCompletedDate = date;
+    }
+
 
     public enum Frequency {
         DAILY,

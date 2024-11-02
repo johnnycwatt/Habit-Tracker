@@ -52,7 +52,7 @@ public class HabitRepositoryIntegrationTest {
         habitRepository.updateHabit(habit);
 
         Habit updatedHabit = habitRepository.findHabitById(habit.getId());
-        assertEquals(1, updatedHabit.getStreakCount());
+        assertEquals(1, updatedHabit.getStreakCounter());
     }
 
     @Test
