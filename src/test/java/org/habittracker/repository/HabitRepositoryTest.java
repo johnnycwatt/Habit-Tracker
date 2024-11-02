@@ -2,6 +2,9 @@ package org.habittracker.repository;
 import org.habittracker.model.Habit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HabitRepositoryTest {
@@ -47,4 +50,29 @@ public class HabitRepositoryTest {
         habitRepository.deleteHabit(habit);
         assertNull(habitRepository.findHabitByName("Meditate"));
     }
+
+    @Test
+    void testEditHabit(){
+        //Create and add new habit
+        Habit originalHabit = new Habit("Exercise", Habit.Frequency.DAILY);
+        originalHabit.setCreationDate(LocalDate.now().minusDays(10));
+        habitRepository.addHabit(originalHabit);
+
+        //Retrieve the habit, modify it and update it.
+        Habit habitToEdit = habitRepository.findHabitByName("Exercise");
+        habitToEdit.setName("Exercise Updated");
+        habitToEdit.setFrequency(Habit.Frequency.WEEKLY);
+        habitToEdit.setCreationDate(LocalDate.now().minusDays(5));
+        habitRepository.updateHabit(habitToEdit);
+
+        //Verify the changes
+        Habit updatedHabit = habitRepository.findHabitByName("Exercise Updated");
+        assertNotNull(updatedHabit);
+        assertEquals("Exercise Updated", updatedHabit.getName());
+        assertEquals(Habit.Frequency.WEEKLY, updatedHabit.getFrequency());
+        assertEquals(LocalDate.now().minusDays(5), updatedHabit.getCreationDate());
+
+        habitRepository.deleteHabit(updatedHabit);
+    }
+
 }

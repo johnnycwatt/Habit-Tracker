@@ -20,11 +20,13 @@ public class Habit {
 
     private boolean isCompleted;
     private LocalDate creationDate;
+    private LocalDate lastCompletedDate;
 
     @Enumerated(EnumType.STRING)
     private Frequency frequency;
 
     private int streakCounter;
+
 
     public Habit() {
     }
@@ -36,6 +38,21 @@ public class Habit {
         this.frequency = frequency;
         this.streakCounter = 0;
     }
+
+    //mark the habit as complete for the day
+    public void markAsCompleted() {
+        LocalDate today = LocalDate.now();
+        if (lastCompletedDate == null || !lastCompletedDate.equals(today)) {
+            lastCompletedDate = today;
+            streakCounter++;
+        }
+    }
+
+
+    public boolean isCompletedToday() {
+        return lastCompletedDate != null && lastCompletedDate.equals(LocalDate.now());
+    }
+
 
     public Long getId() {
         return id;

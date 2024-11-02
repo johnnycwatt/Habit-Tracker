@@ -52,46 +52,40 @@ public class HabitListController {
 
     @FXML
     public void onEditHabit(ActionEvent event) {
-        // Get the selected item from the ListView
         String selectedItem = habitListView.getSelectionModel().getSelectedItem();
-
         if (selectedItem == null) {
-            // If no habit is selected, show an alert
-            Alert alert = new Alert(AlertType.WARNING, "Please select a habit to edit.");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a habit to edit.");
             alert.showAndWait();
             return;
         }
 
-        // Find the selected Habit based on its name
-        String habitName = selectedItem.split(" - ")[0];
-        selectedHabit = habitRepository.findHabitByName(habitName);
+        String habitName = selectedItem.split(" - ")[0]; // Extract the habit name
+        Habit selectedHabit = habitRepository.findHabitByName(habitName);
 
-        if (selectedHabit != null) {
-            // Load the Edit Habit view and populate it with the selected habit’s data
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddHabitView.fxml"));
-                Parent editHabitRoot = loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditHabitView.fxml"));
+            Parent editHabitRoot = loader.load();
 
-                // Pass the selected habit to the AddHabitController for editing
-                AddHabitController addHabitController = loader.getController();
-                addHabitController.setHabitData(selectedHabit);  // Method to pre-fill data
+            // Get the controller and pass the selected habit and repository
+            EditHabitController editHabitController = loader.getController();
+            editHabitController.setHabit(selectedHabit);
+            editHabitController.setHabitRepository(habitRepository);
 
-                // Create a new window for editing the habit
-                Stage editStage = new Stage();
-                editStage.setScene(new Scene(editHabitRoot));
-                editStage.initModality(Modality.APPLICATION_MODAL);
-                editStage.setTitle("Edit Habit");
-                editStage.showAndWait();
+            Stage editStage = new Stage();
+            editStage.setScene(new Scene(editHabitRoot));
+            editStage.initModality(Modality.APPLICATION_MODAL);
+            editStage.setTitle("Edit Habit");
+            editStage.showAndWait();
 
-                // Refresh the list view after editing
-                loadHabitList();
+            // Refresh habit list after editing
+            loadHabitList();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Error loading Habit edit view: " + e.getMessage());
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading Edit Habit view: " + e.getMessage());
         }
     }
+
 
     @FXML
     private void onHabitSelected() {
@@ -124,25 +118,30 @@ public class HabitListController {
     }
 
     @FXML
-    private void onSaveChanges() {
+    private void onMarkAsCompleted() {
         if (selectedHabit != null) {
-            // Update habit details with data from the form
-            selectedHabit.setName(editHabitNameField.getText());
-            selectedHabit.setFrequency(Habit.Frequency.valueOf(editFrequencyChoiceBox.getValue().toUpperCase()));
-            selectedHabit.setCreationDate(editStartDatePicker.getValue());
+            if (selectedHabit.isCompletedToday()) {
+                Alert alert = new Alert(AlertType.INFORMATION, "Habit already marked as completed for today.");
+                alert.showAndWait();
+                return;
+            }
 
-            // Persist changes to the database
+            // Mark the habit as completed and update the repository
+            selectedHabit.markAsCompleted();
             habitRepository.updateHabit(selectedHabit);
 
-            // Refresh the list view and clear the form
+
             loadHabitList();
-            selectedHabit = null;
-            clearEditForm();
-            System.out.println("Habit updated successfully!");
+
+            Alert alert = new Alert(AlertType.INFORMATION, "Habit marked as completed for today!");
+            alert.showAndWait();
         } else {
-            System.out.println("No habit selected for editing.");
+            Alert alert = new Alert(AlertType.WARNING, "Please select a habit to mark as completed.");
+            alert.showAndWait();
         }
     }
+
+
 
     private void clearEditForm() {
         editHabitNameField.clear();

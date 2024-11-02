@@ -10,6 +10,21 @@ import java.util.List;
 public class HabitRepository {
     private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("habittracker");
 
+    // Singleton instance
+    private static HabitRepository instance;
+
+    // Private constructor to prevent instantiation
+    public HabitRepository() {}
+
+    // Method to get the singleton instance
+    public static HabitRepository getInstance() {
+        if (instance == null) {
+            instance = new HabitRepository();
+        }
+        return instance;
+    }
+
+
     public void addHabit(Habit habit) {
         EntityManager em = entityManagerFactory.createEntityManager();
         try {
