@@ -1,10 +1,7 @@
 package org.habittracker.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 
@@ -51,16 +48,26 @@ public class AddHabitController {
             return;
         }
 
-        // Create new Habit instance and save it to the repository
-        Habit.Frequency habitFrequency = Habit.Frequency.valueOf(frequency.toUpperCase());
-        Habit newHabit = new Habit(habitName, habitFrequency);
+        // Check for duplicate habit name
+        if (habitRepository.habitExistsByName(habitName)) {
+            showAlert("A habit with this name already exists. Please choose a different name.");
+            return;
+        }
+
+        Habit newHabit = new Habit(habitName, Habit.Frequency.valueOf(frequency.toUpperCase()));
         newHabit.setCreationDate(startDate);
 
         habitRepository.addHabit(newHabit);
-
-        System.out.println("Habit added: " + newHabit);
         showConfirmationMessage();
         clearForm();
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Duplicate Habit");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private void showConfirmationMessage() {
