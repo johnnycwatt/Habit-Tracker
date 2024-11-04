@@ -4,14 +4,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +35,9 @@ public class MainController {
     @FXML
     private VBox dynamicViewContainer;
 
+    @FXML
+    private GridPane calendarGrid;
+
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
     }
@@ -46,6 +53,7 @@ public class MainController {
         dynamicViewContainer.setVisible(false);
         dynamicViewContainer.getChildren().clear();
         updateHabitsDueToday();
+        populateCalendar(LocalDate.now());
     }
 
     @FXML
@@ -110,6 +118,41 @@ public class MainController {
                 return !habit.getCreationDate().isAfter(today.minusMonths(1)); // Due if a month has passed
             default:
                 return false;
+        }
+    }
+
+    private void populateCalendar(LocalDate referenceDate) {
+        calendarGrid.getChildren().clear();
+
+        YearMonth yearMonth = YearMonth.from(referenceDate);
+        LocalDate firstOfMonth = yearMonth.atDay(1);
+        int daysInMonth = yearMonth.lengthOfMonth();
+
+
+        int startDay = firstOfMonth.getDayOfWeek().getValue();
+
+        for (int day = 1; day <= daysInMonth; day++) {
+            LocalDate date = yearMonth.atDay(day);
+            Text dayText = new Text(String.valueOf(day));
+
+            List<Habit> dueHabits = habitRepository.getAllHabits().stream()
+                    .filter(habit -> isHabitDueToday(habit, date))
+                    .collect(Collectors.toList());
+
+            // Tooltip for habits due on that day
+            if (!dueHabits.isEmpty()) {
+                Tooltip tooltip = new Tooltip(
+                        dueHabits.stream()
+                                .map(Habit::getName)
+                                .collect(Collectors.joining("\n"))
+                );
+                Tooltip.install(dayText, tooltip);
+            }
+
+            int row = (day + startDay - 2) / 7 + 1;
+            int col = (day + startDay - 2) % 7;
+
+            calendarGrid.add(dayText, col, row);
         }
     }
 

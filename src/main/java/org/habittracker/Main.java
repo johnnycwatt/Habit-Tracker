@@ -21,7 +21,7 @@ public class Main extends Application {
 
             mainController = fxmlLoader.getController(); // Capture MainController instance
             mainController.setMainApp(this);
-
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             primaryStage.setTitle("Habit Tracker");
             primaryStage.setScene(scene);
             primaryStage.show();

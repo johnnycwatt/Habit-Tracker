@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.CalendarController">
+    <HBox alignment="CENTER" spacing="10">
+        <Label fx:id="monthLabel" text="November 2024" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <!-- Calendar Grid -->
+    <GridPane fx:id="calendarGrid" hgap="10" vgap="10">
+        <!-- Day Labels (Sunday to Saturday) -->
+        <Label text="Sun" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+        <Label text="Mon" GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-font-weight: bold;"/>
+        <Label text="Tue" GridPane.rowIndex="0" GridPane.columnIndex="2" style="-fx-font-weight: bold;"/>
+        <Label text="Wed" GridPane.rowIndex="0" GridPane.columnIndex="3" style="-fx-font-weight: bold;"/>
+        <Label text="Thu" GridPane.rowIndex="0" GridPane.columnIndex="4" style="-fx-font-weight: bold;"/>
+        <Label text="Fri" GridPane.rowIndex="0" GridPane.columnIndex="5" style="-fx-font-weight: bold;"/>
+        <Label text="Sat" GridPane.rowIndex="0" GridPane.columnIndex="6" style="-fx-font-weight: bold;"/>
+    </GridPane>
+</VBox>

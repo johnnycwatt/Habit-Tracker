@@ -1,0 +1,43 @@
+#calendarGrid {
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}
+
+#calendarGrid Text {
+    -fx-font-size: 14px;
+    -fx-padding: 5px;
+}
+
+#calendarGrid Text:hover {
+    -fx-background-color: lightblue;
+    -fx-border-color: blue;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+
+
+.due-date {
+    -fx-background-color: #d4edda;
+    -fx-text-fill: #155724;
+    -fx-padding: 5px;
+    -fx-background-radius: 5px;
+}
+
+
+.label-heading {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+/* Style for buttons */
+.button {
+    -fx-background-color: #e0f7fa;
+    -fx-border-color: #0288d1;
+    -fx-border-radius: 3px;
+    -fx-padding: 8px 12px;
+}
+
+.button:hover {
+    -fx-background-color: #b2ebf2;
+}
