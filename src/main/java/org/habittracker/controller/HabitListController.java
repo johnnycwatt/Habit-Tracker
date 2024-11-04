@@ -95,13 +95,6 @@ public class HabitListController {
             // Find the habit based on its name in the selected item
             String habitName = selectedItem.split(" - ")[0];
             selectedHabit = habitRepository.findHabitByName(habitName);
-
-            if (selectedHabit != null) {
-                // Populate the edit fields with the selected habit’s data
-                editHabitNameField.setText(selectedHabit.getName());
-                editFrequencyChoiceBox.setValue(selectedHabit.getFrequency().toString());
-                editStartDatePicker.setValue(selectedHabit.getCreationDate());
-            }
         }
     }
 
@@ -111,7 +104,6 @@ public class HabitListController {
             habitRepository.deleteHabit(selectedHabit);
             habitListView.getItems().remove(habitListView.getSelectionModel().getSelectedItem());
             selectedHabit = null; // Clear selection
-            clearEditForm();
             System.out.println("Habit deleted successfully!");
         } else {
             System.out.println("No habit selected for deletion.");
@@ -143,11 +135,6 @@ public class HabitListController {
 
 
 
-    private void clearEditForm() {
-        editHabitNameField.clear();
-        editFrequencyChoiceBox.setValue("Daily");
-        editStartDatePicker.setValue(null);
-    }
 
     @FXML
     private void closeHabitList() {

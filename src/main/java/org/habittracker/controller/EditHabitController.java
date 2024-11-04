@@ -16,7 +16,7 @@ import java.util.Optional;
 public class EditHabitController {
 
     @FXML
-    private TextField habitNameField;
+    private TextField editHabitNameField;
 
     @FXML
     private ChoiceBox<String> frequencyChoiceBox;
@@ -29,7 +29,7 @@ public class EditHabitController {
 
     public void setHabit(Habit habit) {
         this.habit = habit;
-        habitNameField.setText(habit.getName());
+        editHabitNameField.setText(habit.getName());
         frequencyChoiceBox.setValue(habit.getFrequency().toString());
         startDatePicker.setValue(habit.getCreationDate());
     }
@@ -41,7 +41,7 @@ public class EditHabitController {
     @FXML
     private void onSaveChanges(ActionEvent event) {
         if (habit != null && habitRepository != null) {
-            String newName = habitNameField.getText();
+            String newName = editHabitNameField.getText();
 
             Habit existingHabit = habitRepository.findHabitByName(newName);
             if (existingHabit != null && !existingHabit.getId().equals(habit.getId())) {
@@ -53,7 +53,7 @@ public class EditHabitController {
 
 
             // Update the habit with the new values
-            habit.setName(habitNameField.getText());
+            habit.setName(editHabitNameField.getText());
             habit.setFrequency(Habit.Frequency.valueOf(frequencyChoiceBox.getValue().toUpperCase()));
             habit.setCreationDate(startDatePicker.getValue());
             System.out.println("Test in If Statement");
@@ -77,7 +77,7 @@ public class EditHabitController {
     }
 
     private void closeWindow() {
-        Stage stage = (Stage) habitNameField.getScene().getWindow();
+        Stage stage = (Stage) editHabitNameField.getScene().getWindow();
         stage.close();
     }
 }

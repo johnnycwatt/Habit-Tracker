@@ -14,7 +14,7 @@
     <VBox spacing="5" alignment="CENTER" style="-fx-padding: 10;">
 
         <Label text="Habit Name:"/>
-        <TextField fx:id="habitNameField" promptText="Enter habit name"/>
+        <TextField fx:id="editHabitNameField" promptText="Enter habit name"/>
 
         <Label text="Frequency:"/>
         <ChoiceBox fx:id="frequencyChoiceBox">
