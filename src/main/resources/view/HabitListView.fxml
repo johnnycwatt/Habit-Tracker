@@ -22,5 +22,6 @@
     </VBox>
 
     <!-- Close Button at the Bottom -->
+    <Label fx:id="notificationLabel" text="" style="-fx-text-fill: red;" visible="false"/>
     <Button text="Back" onAction="#goBack" style="-fx-padding: 5 20;" />
 </VBox>

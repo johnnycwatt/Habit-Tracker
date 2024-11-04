@@ -1,9 +1,9 @@
 package org.habittracker.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,9 +13,6 @@ import javafx.stage.Stage;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,6 +27,9 @@ public class HabitListController {
 
     @FXML
     private DatePicker editStartDatePicker;
+
+    @FXML
+    private Label notificationLabel;
 
     @FXML
     private ListView<String> habitListView;
@@ -60,8 +60,7 @@ public class HabitListController {
     public void onEditHabit(ActionEvent event) {
         String selectedItem = habitListView.getSelectionModel().getSelectedItem();
         if (selectedItem == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a habit to edit.");
-            alert.showAndWait();
+            showTemporaryMessage("Please select a habit to edit.");
             return;
         }
 
@@ -111,6 +110,7 @@ public class HabitListController {
             habitListView.getSelectionModel().clearSelection(); // Clear the selection
             selectedHabit = null; // Clear the habit reference
             System.out.println("Habit deleted successfully!");
+            showTemporaryMessage("Habit deleted successfully!");
         } else {
             System.out.println("No habit selected for deletion.");
         }
@@ -121,8 +121,7 @@ public class HabitListController {
     private void onMarkAsCompleted() {
         if (selectedHabit != null) {
             if (selectedHabit.isCompletedToday()) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Habit already marked as completed for today.");
-                alert.showAndWait();
+                showTemporaryMessage("Habit already marked as completed for today.");
                 return;
             }
 
@@ -132,11 +131,9 @@ public class HabitListController {
 
             loadHabitList();
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Habit marked as completed for today! Streak: " + selectedHabit.getStreakCounter());
-            alert.showAndWait();
+            showTemporaryMessage("Habit marked as completed for today! Streak: " + selectedHabit.getStreakCounter());
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a habit to mark as completed.");
-            alert.showAndWait();
+            showTemporaryMessage("Please select a habit to mark as completed.");
         }
     }
 
@@ -144,8 +141,7 @@ public class HabitListController {
     private void onViewProgress() {
         String selectedItem = habitListView.getSelectionModel().getSelectedItem();
         if (selectedItem == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a habit to view progress.");
-            alert.showAndWait();
+            showTemporaryMessage("Please select a habit to view progress.");
             return;
         }
 
@@ -178,5 +174,19 @@ public class HabitListController {
     @FXML
     private void goBack() {
         mainApp.getMainController().showMainView();
+    }
+
+    private void showTemporaryMessage(String message) {
+        notificationLabel.setText(message);
+        notificationLabel.setVisible(true);
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000); // 2-second delay
+                Platform.runLater(() -> notificationLabel.setVisible(false));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }
