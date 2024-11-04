@@ -14,6 +14,7 @@
 
         <!-- Control Buttons -->
         <HBox spacing="10" alignment="CENTER">
+            <Button text="View Progress" onAction="#onViewProgress" />
             <Button fx:id="editButton" onAction="#onEditHabit" text="Edit Habit" />
             <Button text="Delete Selected" onAction="#onDeleteHabit" />
             <Button text="Mark as Completed" onAction="#onMarkAsCompleted" />

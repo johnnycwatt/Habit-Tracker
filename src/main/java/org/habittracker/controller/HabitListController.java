@@ -103,12 +103,14 @@ public class HabitListController {
         if (selectedHabit != null) {
             habitRepository.deleteHabit(selectedHabit);
             habitListView.getItems().remove(habitListView.getSelectionModel().getSelectedItem());
-            selectedHabit = null; // Clear selection
+            habitListView.getSelectionModel().clearSelection(); // Clear the selection
+            selectedHabit = null; // Clear the habit reference
             System.out.println("Habit deleted successfully!");
         } else {
             System.out.println("No habit selected for deletion.");
         }
     }
+
 
     @FXML
     private void onMarkAsCompleted() {
@@ -132,6 +134,36 @@ public class HabitListController {
             alert.showAndWait();
         }
     }
+
+    @FXML
+    private void onViewProgress() {
+        String selectedItem = habitListView.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a habit to view progress.");
+            alert.showAndWait();
+            return;
+        }
+
+        String habitName = selectedItem.split(" - ")[0]; // Extract the habit name
+        Habit selectedHabit = habitRepository.findHabitByName(habitName);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProgressView.fxml"));
+            Parent root = loader.load();
+
+            ProgressController progressController = loader.getController();
+            progressController.setHabit(selectedHabit);
+
+            Stage stage = new Stage();
+            stage.setTitle("Habit Progress");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 

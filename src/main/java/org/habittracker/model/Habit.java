@@ -4,8 +4,8 @@ import jdk.jfr.Frequency;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-
-
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -26,6 +26,11 @@ public class Habit {
     private Frequency frequency;
 
     private int streakCounter;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "habit_completed_dates", joinColumns = @JoinColumn(name = "habit_id"))
+    @Column(name = "completed_date")
+    private Set<LocalDate> completedDates = new HashSet<>();
 
 
     public Habit() {
@@ -78,6 +83,12 @@ public class Habit {
     public boolean isCompletedToday() {
         return lastCompletedDate != null && lastCompletedDate.equals(LocalDate.now());
     }
+
+    // Getter for completedDates (if not already present)
+    public Set<LocalDate> getCompletedDates() {
+        return completedDates;
+    }
+
 
 
     public Long getId() {
