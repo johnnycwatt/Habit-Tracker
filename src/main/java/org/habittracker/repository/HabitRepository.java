@@ -88,6 +88,7 @@ public class HabitRepository {
             em.getTransaction().begin();
             em.merge(habit);
             em.getTransaction().commit();
+
         } finally {
             em.close();
         }

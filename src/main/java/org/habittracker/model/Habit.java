@@ -148,6 +148,10 @@ public class Habit {
         this.lastCompletedDate = date;
     }
 
+    public LocalDate getLastCompletedDate(){
+        return lastCompletedDate;
+    }
+
 
     public enum Frequency {
         DAILY,

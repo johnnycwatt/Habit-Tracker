@@ -75,6 +75,7 @@ public class AddHabitController {
         habitRepository.addHabit(newHabit);
         showConfirmationMessage();
         clearForm();
+        mainApp.getMainController().updateHabitsDueToday();
     }
 
     private void showAlert(String message) {
