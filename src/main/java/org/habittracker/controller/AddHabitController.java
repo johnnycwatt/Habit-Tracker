@@ -2,11 +2,15 @@ package org.habittracker.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddHabitController {
 
@@ -23,6 +27,17 @@ public class AddHabitController {
 
     @FXML
     private Label confirmationMessageLabel;
+
+    @FXML
+    private HBox customDaysContainer;
+    @FXML
+    private CheckBox mondayCheckBox, tuesdayCheckBox, wednesdayCheckBox, thursdayCheckBox, fridayCheckBox, saturdayCheckBox, sundayCheckBox;
+
+    @FXML
+    private void onFrequencyChanged() {
+        String selectedFrequency = frequencyChoiceBox.getValue();
+        customDaysContainer.setVisible("Custom".equals(selectedFrequency));
+    }
 
     @FXML
     private void initialize() {
@@ -71,6 +86,20 @@ public class AddHabitController {
 
         Habit newHabit = new Habit(habitName, Habit.Frequency.valueOf(frequency.toUpperCase()));
         newHabit.setCreationDate(startDate);
+
+        if ("Custom".equals(frequency)) {
+            List<DayOfWeek> selectedDays = new ArrayList<>();
+            if (mondayCheckBox.isSelected()) selectedDays.add(DayOfWeek.MONDAY);
+            if (tuesdayCheckBox.isSelected()) selectedDays.add(DayOfWeek.TUESDAY);
+            if (wednesdayCheckBox.isSelected()) selectedDays.add(DayOfWeek.WEDNESDAY);
+            if (thursdayCheckBox.isSelected()) selectedDays.add(DayOfWeek.THURSDAY);
+            if (fridayCheckBox.isSelected()) selectedDays.add(DayOfWeek.FRIDAY);
+            if (saturdayCheckBox.isSelected()) selectedDays.add(DayOfWeek.SATURDAY);
+            if (sundayCheckBox.isSelected()) selectedDays.add(DayOfWeek.SUNDAY);
+            newHabit.setCustomDays(selectedDays);
+        }
+
+
 
         habitRepository.addHabit(newHabit);
         showConfirmationMessage();

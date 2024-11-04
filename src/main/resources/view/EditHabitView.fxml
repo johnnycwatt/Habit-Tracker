@@ -2,39 +2,49 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
-
 <?import javafx.scene.layout.HBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
+
 <VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/javafx"
-     fx:controller="org.habittracker.controller.EditHabitController">
+      fx:controller="org.habittracker.controller.EditHabitController">
 
     <Label text="Edit Habit" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
     <VBox spacing="5" alignment="CENTER" style="-fx-padding: 10;">
-
         <Label text="Habit Name:"/>
         <TextField fx:id="editHabitNameField" promptText="Enter habit name"/>
 
         <Label text="Frequency:"/>
-        <ChoiceBox fx:id="frequencyChoiceBox">
+        <ChoiceBox fx:id="frequencyChoiceBox" styleClass="rounded-choicebox" onAction="#onFrequencyChanged">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Daily"/>
                     <String fx:value="Weekly"/>
                     <String fx:value="Monthly"/>
+                    <String fx:value="Custom"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
 
+        <!-- Custom frequency checkboxes container, hidden initially -->
+        <HBox fx:id="customDaysContainer" spacing="10" visible="false">
+            <CheckBox fx:id="mondayCheckBox" text="Mon"/>
+            <CheckBox fx:id="tuesdayCheckBox" text="Tue"/>
+            <CheckBox fx:id="wednesdayCheckBox" text="Wed"/>
+            <CheckBox fx:id="thursdayCheckBox" text="Thu"/>
+            <CheckBox fx:id="fridayCheckBox" text="Fri"/>
+            <CheckBox fx:id="saturdayCheckBox" text="Sat"/>
+            <CheckBox fx:id="sundayCheckBox" text="Sun"/>
+        </HBox>
+
         <Label text="Start Date:"/>
         <DatePicker fx:id="startDatePicker"/>
-
     </VBox>
 
     <HBox spacing="10" alignment="CENTER">
         <Button text="Save Changes" onAction="#onSaveChanges" styleClass="primary-button"/>
-        <Button text="Cancel" onAction="#onCancel" />
+        <Button text="Cancel" onAction="#onCancel"/>
     </HBox>
 
 </VBox>

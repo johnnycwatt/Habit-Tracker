@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
+import java.time.DayOfWeek;
+import java.util.Arrays;
 
 
 public class MainControllerTest {
@@ -86,4 +88,51 @@ public class MainControllerTest {
         LocalDate endOfAprilDueDate = LocalDate.of(2024, 4, 30); // April has only 30 days
         assertTrue(mainController.isHabitDueToday(endOfMonthHabit, endOfAprilDueDate));
     }
+
+    @Test
+    void testCustomHabitDueOnSelectedDays() {
+        // habit set to occur on Monday, Wednesday, and Friday
+        Habit customHabit = new Habit("Custom Habit", Habit.Frequency.CUSTOM);
+        customHabit.setCreationDate(LocalDate.of(2024, 11, 8));
+        customHabit.setCustomDays(Arrays.asList(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY));
+
+        // Check if the habit is due
+        assertTrue(mainController.isHabitDueToday(customHabit, LocalDate.of(2024, 11, 8))); // Friday
+        assertFalse(mainController.isHabitDueToday(customHabit, LocalDate.of(2024, 11, 9))); // Saturday
+        assertFalse(mainController.isHabitDueToday(customHabit, LocalDate.of(2024, 11, 10))); // Sunday
+        assertTrue(mainController.isHabitDueToday(customHabit, LocalDate.of(2024, 11, 11))); // Monday
+        assertFalse(mainController.isHabitDueToday(customHabit, LocalDate.of(2024, 11, 12))); // Tuesday
+        assertTrue(mainController.isHabitDueToday(customHabit, LocalDate.of(2024, 11, 13))); // Wednesday
+    }
+
+
+    @Test
+    void testCustomHabitDueOnWeekendsOnly() {
+        //habit set to occur on Saturday and Sunday
+        Habit weekendHabit = new Habit("Weekend Habit", Habit.Frequency.CUSTOM);
+        weekendHabit.setCreationDate(LocalDate.of(2024, 11, 8));
+        weekendHabit.setCustomDays(Arrays.asList(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
+
+        // Check if habit is due on Saturday and Sunday
+        assertTrue(mainController.isHabitDueToday(weekendHabit, LocalDate.of(2024, 11, 9))); // Saturday
+        assertTrue(mainController.isHabitDueToday(weekendHabit, LocalDate.of(2024, 11, 10))); // Sunday
+        assertFalse(mainController.isHabitDueToday(weekendHabit, LocalDate.of(2024, 11, 11))); // Monday
+        assertFalse(mainController.isHabitDueToday(weekendHabit, LocalDate.of(2024, 11, 12))); // Tuesday
+    }
+
+
+    @Test
+    void testCustomHabitDueOnSpecificDaysWithOffsetStartDate() {
+        // starting on a non-selected day, but due on Tuesday and Friday
+        Habit offsetHabit = new Habit("Offset Habit", Habit.Frequency.CUSTOM);
+        offsetHabit.setCreationDate(LocalDate.of(2024, 11, 6)); // Start date is Wednesday
+        offsetHabit.setCustomDays(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY));
+
+        // Check if the habit is due on Thursday and Friday and not Wednesday
+        assertFalse(mainController.isHabitDueToday(offsetHabit, LocalDate.of(2024, 11, 6))); // Wednesday (start date)
+        assertTrue(mainController.isHabitDueToday(offsetHabit, LocalDate.of(2024, 11, 7))); // Thursday
+        assertTrue(mainController.isHabitDueToday(offsetHabit, LocalDate.of(2024, 11, 8))); // Friday
+        assertFalse(mainController.isHabitDueToday(offsetHabit, LocalDate.of(2024, 11, 9))); // Saturday
+    }
+
 }

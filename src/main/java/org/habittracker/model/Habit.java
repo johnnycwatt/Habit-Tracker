@@ -6,7 +6,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
+import java.time.DayOfWeek;
+import java.util.List;
 
 @Entity
 @Table(name = "Habit", uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
@@ -22,6 +23,11 @@ public class Habit {
     private boolean isCompleted;
     private LocalDate creationDate;
     private LocalDate lastCompletedDate;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "habit_custom_days", joinColumns = @JoinColumn(name = "habit_id"))
+    @Enumerated(EnumType.STRING)
+    private List<DayOfWeek> customDays;
 
     @Enumerated(EnumType.STRING)
     private Frequency frequency;
@@ -153,11 +159,20 @@ public class Habit {
         return lastCompletedDate;
     }
 
+    public List<DayOfWeek> getCustomDays() {
+        return customDays;
+    }
+
+    public void setCustomDays(List<DayOfWeek> customDays) {
+        this.customDays = customDays;
+    }
+
 
     public enum Frequency {
         DAILY,
         WEEKLY,
-        MONTHLY
+        MONTHLY,
+        CUSTOM
     }
 
 }

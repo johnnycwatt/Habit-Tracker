@@ -15,16 +15,27 @@
 
     <VBox spacing="5" alignment="CENTER_LEFT">
         <Label text="Frequency:" styleClass="input-label"/>
-        <ChoiceBox fx:id="frequencyChoiceBox" styleClass="rounded-choicebox">
+        <ChoiceBox fx:id="frequencyChoiceBox" styleClass="rounded-choicebox" onAction="#onFrequencyChanged">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Daily"/>
                     <String fx:value="Weekly"/>
                     <String fx:value="Monthly"/>
+                    <String fx:value="Custom"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
     </VBox>
+
+    <HBox spacing="10" alignment="CENTER" fx:id="customDaysContainer" visible="false">
+        <CheckBox text="Mon" fx:id="mondayCheckBox"/>
+        <CheckBox text="Tue" fx:id="tuesdayCheckBox"/>
+        <CheckBox text="Wed" fx:id="wednesdayCheckBox"/>
+        <CheckBox text="Thu" fx:id="thursdayCheckBox"/>
+        <CheckBox text="Fri" fx:id="fridayCheckBox"/>
+        <CheckBox text="Sat" fx:id="saturdayCheckBox"/>
+        <CheckBox text="Sun" fx:id="sundayCheckBox"/>
+    </HBox>
 
     <VBox spacing="5" alignment="CENTER_LEFT">
         <Label text="Start Date:" styleClass="input-label"/>

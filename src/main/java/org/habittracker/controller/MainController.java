@@ -122,6 +122,11 @@ public class MainController {
                 int daysInCurrentMonth = today.lengthOfMonth();
                 int dueDayOfMonth = Math.min(startDayOfMonth, daysInCurrentMonth);
                 return today.getDayOfMonth() == dueDayOfMonth && monthsBetween(startDate, today) % 1 == 0;
+            case CUSTOM:
+                System.out.println(habit.getCustomDays());
+                System.out.println(today.getDayOfWeek());
+                return habit.getCustomDays() != null && habit.getCustomDays().contains(today.getDayOfWeek());
+
 
             default:
                 return false;
