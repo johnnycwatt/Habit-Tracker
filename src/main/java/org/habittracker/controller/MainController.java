@@ -16,6 +16,7 @@ import org.habittracker.repository.HabitRepository;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,8 @@ public class MainController {
 
     @FXML
     private GridPane calendarGrid;
+
+
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
@@ -104,21 +107,33 @@ public class MainController {
     }
 
     // Check if the habit is due today based on its frequency and last completed date
-    private boolean isHabitDueToday(Habit habit, LocalDate today) {
+    public boolean isHabitDueToday(Habit habit, LocalDate today) {
         if (habit.getCreationDate().isAfter(today)) {
             return false;
         }
-
+        LocalDate startDate = habit.getCreationDate();
         switch (habit.getFrequency()) {
             case DAILY:
                 return true;
             case WEEKLY:
-                return !habit.getCreationDate().isAfter(today.minusWeeks(1)); // Due if a week has passed
+                return !startDate.isAfter(today) && (daysBetween(startDate, today) % 7 == 0); // Due if a week has passed
             case MONTHLY:
-                return !habit.getCreationDate().isAfter(today.minusMonths(1)); // Due if a month has passed
+                int startDayOfMonth = startDate.getDayOfMonth();
+                int daysInCurrentMonth = today.lengthOfMonth();
+                int dueDayOfMonth = Math.min(startDayOfMonth, daysInCurrentMonth);
+                return today.getDayOfMonth() == dueDayOfMonth && monthsBetween(startDate, today) % 1 == 0;
+
             default:
                 return false;
         }
+    }
+
+    private long daysBetween(LocalDate start, LocalDate end) {
+        return java.time.temporal.ChronoUnit.DAYS.between(start, end);
+    }
+
+    private long monthsBetween(LocalDate startDate, LocalDate endDate) {
+        return ChronoUnit.MONTHS.between(YearMonth.from(startDate), YearMonth.from(endDate));
     }
 
     private void populateCalendar(LocalDate referenceDate) {
