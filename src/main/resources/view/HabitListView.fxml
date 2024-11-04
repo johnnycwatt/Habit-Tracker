@@ -22,5 +22,5 @@
     </VBox>
 
     <!-- Close Button at the Bottom -->
-    <Button text="Close" onAction="#closeHabitList" style="-fx-padding: 5 20;" />
+    <Button text="Back" onAction="#goBack" style="-fx-padding: 5 20;" />
 </VBox>

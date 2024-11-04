@@ -26,6 +26,7 @@
     <DatePicker fx:id="startDatePicker"/>
 
     <Button text="Add Habit" onAction="#addHabit"/>
+    <Button text="Back" onAction="#goBack"/>
 
     <!--Confirmation message label-->
     <Label fx:id="confirmationMessageLabel" text="Habit added successfully!" visible="false" style="-fx-text-fill: green; -fx-font-weight: bold;"/>

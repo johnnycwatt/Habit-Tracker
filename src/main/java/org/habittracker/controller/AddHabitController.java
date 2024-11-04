@@ -2,6 +2,7 @@ package org.habittracker.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 
@@ -27,6 +28,20 @@ public class AddHabitController {
     private void initialize() {
         frequencyChoiceBox.setValue("Daily");
     }
+
+    private Main mainApp;
+
+
+    public void setMainApp(Main mainApp) {
+        this.mainApp = mainApp;
+    }
+
+    @FXML
+    private void goBack() {
+        mainApp.getMainController().showMainView();
+    }
+
+
 
     @FXML
     private void addHabit() {

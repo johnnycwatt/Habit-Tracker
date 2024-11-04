@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import javafx.scene.control.ChoiceBox;
@@ -36,6 +37,10 @@ public class HabitListController {
     private Habit selectedHabit;
 
     private final HabitRepository habitRepository = new HabitRepository();
+    private Main mainApp;
+
+
+
 
     @FXML
     private void initialize() {
@@ -165,13 +170,13 @@ public class HabitListController {
     }
 
 
-
+    public void setMainApp(Main mainApp) {
+        this.mainApp = mainApp;
+    }
 
 
     @FXML
-    private void closeHabitList() {
-        // Close the current window
-        Stage stage = (Stage) habitListView.getScene().getWindow();
-        stage.close();
+    private void goBack() {
+        mainApp.getMainController().showMainView();
     }
 }
