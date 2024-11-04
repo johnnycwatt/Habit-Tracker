@@ -3,25 +3,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<VBox spacing="15" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.HabitListController" style="-fx-padding: 20;">
+<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.HabitListController" styleClass="habit-list-container">
     <!-- Header -->
-    <Label text="Habit Tracker" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <Label text="Habit Tracker" styleClass="title-label"/>
 
     <!-- Habit List Section -->
-    <VBox spacing="10">
-        <Label text="Your Habits" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-        <ListView fx:id="habitListView" prefHeight="250" prefWidth="400" onMouseClicked="#onHabitSelected"/>
-
-        <!-- Control Buttons -->
-        <HBox spacing="10" alignment="CENTER">
-            <Button text="View Progress" onAction="#onViewProgress" />
-            <Button fx:id="editButton" onAction="#onEditHabit" text="Edit Habit" />
-            <Button text="Delete Selected" onAction="#onDeleteHabit" />
-            <Button text="Mark as Completed" onAction="#onMarkAsCompleted" />
-        </HBox>
+    <VBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Your Habits" styleClass="input-label"/>
+        <ListView fx:id="habitListView" prefHeight="250" prefWidth="400" styleClass="rounded-list-view" onMouseClicked="#onHabitSelected"/>
     </VBox>
 
-    <!-- Close Button at the Bottom -->
-    <Label fx:id="notificationLabel" text="" style="-fx-text-fill: red;" visible="false"/>
-    <Button text="Back" onAction="#goBack" style="-fx-padding: 5 20;" />
+    <!-- Control Buttons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="View Progress" onAction="#onViewProgress" styleClass="primary-button"/>
+        <Button fx:id="editButton" onAction="#onEditHabit" text="Edit Habit" styleClass="primary-button"/>
+        <Button text="Delete Selected" onAction="#onDeleteHabit" styleClass="primary-button"/>
+        <Button text="Mark as Completed" onAction="#onMarkAsCompleted" styleClass="primary-button"/>
+    </HBox>
+
+    <!-- Notification Label for messages like "Please select a habit to edit" -->
+    <Label fx:id="notificationLabel" text="" styleClass="notification-label" visible="false"/>
+
+    <!-- Back Button at the Bottom -->
+    <Button text="Back" onAction="#goBack" styleClass="secondary-button"/>
 </VBox>

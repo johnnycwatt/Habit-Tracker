@@ -13,6 +13,7 @@ import java.util.Set;
 public class Habit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "INTEGER")
     private Long id;
 
     @Column(name = "name", nullable = false, unique = true)

@@ -41,3 +41,88 @@
 .button:hover {
     -fx-background-color: #b2ebf2;
 }
+
+/* General container style */
+.add-habit-container {
+    -fx-padding: 20;
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-alignment: center;
+}
+
+/* Title label style */
+.title-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+/* Input label style */
+.input-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+/* Rounded input field style */
+.rounded-input {
+    -fx-padding: 8 12;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #cccccc;
+}
+
+/* ChoiceBox and DatePicker style */
+.rounded-choicebox, .rounded-datepicker {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 6 10;
+    -fx-border-color: #cccccc;
+}
+
+/* Button styling */
+.primary-button, .secondary-button {
+    -fx-font-size: 14px;
+    -fx-padding: 8 20;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
+}
+
+.primary-button {
+    -fx-font-size: 14px;
+    -fx-padding: 8 20;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-background-color: #e0f7fa;
+    -fx-text-fill: black;
+    -fx-border-color: #007bff;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #b2ebf2;
+    -fx-border-color: #0056b3;
+}
+
+.secondary-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #007bff;
+    -fx-text-fill: #007bff;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #e6f2ff;
+}
+
+/* Confirmation message label style */
+.confirmation-label {
+    -fx-text-fill: green;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+
+

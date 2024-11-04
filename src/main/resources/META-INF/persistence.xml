@@ -12,7 +12,7 @@
 
             <!-- Hibernate configuration -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create"/> <!-- or "none" if managing schema manually -->
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>

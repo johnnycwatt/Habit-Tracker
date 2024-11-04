@@ -2,7 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.CalendarController">
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml">
     <HBox alignment="CENTER" spacing="10">
         <Label fx:id="monthLabel" text="November 2024" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
     </HBox>

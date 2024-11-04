@@ -9,8 +9,8 @@
 
         <!-- Buttons -->
         <HBox spacing="10" alignment="CENTER">
-            <Button text="Add New Habit" onAction="#showAddHabitView"/>
-            <Button text="View Habits" onAction="#showHabitListView"/>
+            <Button text="Add New Habit" onAction="#showAddHabitView" styleClass="primary-button"/>
+            <Button text="View Habits" onAction="#showHabitListView" styleClass="primary-button"/>
         </HBox>
 
         <!-- Habits Due Today Section -->
