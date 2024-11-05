@@ -1,21 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
 <VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.ProgressController">
-    <Label text="Habit Progress" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
-    <Label fx:id="habitNameLabel" style="-fx-font-size: 16px;"/>
+    <!-- Main Header -->
+    <Label text="Habit Progress" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
 
-    <HBox spacing="10" alignment="CENTER">
-        <Label text="Current Streak:"/>
-        <Label fx:id="currentStreakLabel" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+    <!-- Habit Name -->
+    <Label fx:id="habitNameLabel" style="-fx-font-size: 16px; -fx-text-fill: #333;" />
+
+    <!-- Streak Section -->
+    <HBox spacing="5" alignment="CENTER" style="-fx-padding: 5; -fx-border-color: #ddd; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;">
+        <Label text="Current Streak:" style="-fx-font-size: 13px; -fx-text-fill: #666;" />
+        <Label fx:id="currentStreakLabel" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2E8B57;" />
     </HBox>
 
-    <GridPane fx:id="calendarGrid" hgap="5" vgap="5" alignment="CENTER" style="-fx-padding: 10;">
+    <!-- Statistics Section -->
+    <VBox spacing="6" alignment="CENTER" style="-fx-padding: 8; -fx-border-color: #ddd; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;">
+        <Label text="Statistics" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+
+        <!-- Performance Row -->
+        <HBox spacing="10" alignment="CENTER">
+            <VBox alignment="CENTER">
+                <Label text="Weekly Performance:" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                <Label fx:id="weeklyPerformanceLabel" style="-fx-font-size: 13px; -fx-font-weight: bold;" />
+            </VBox>
+            <VBox alignment="CENTER">
+                <Label text="Monthly Performance:" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                <Label fx:id="monthlyPerformanceLabel" style="-fx-font-size: 13px; -fx-font-weight: bold;" />
+            </VBox>
+            <VBox alignment="CENTER">
+                <Label text="Overall Performance:" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                <Label fx:id="overallPerformanceLabel" style="-fx-font-size: 13px; -fx-font-weight: bold;" />
+            </VBox>
+        </HBox>
+
+        <!-- Completions and Streak Row -->
+        <HBox spacing="10" alignment="CENTER">
+            <VBox alignment="CENTER">
+                <Label text="Total Completions:" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                <Label fx:id="totalCompletionsLabel" style="-fx-font-size: 13px; -fx-font-weight: bold;" />
+            </VBox>
+            <VBox alignment="CENTER">
+                <Label text="Best Streak:" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                <Label fx:id="bestStreakLabel" style="-fx-font-size: 13px; -fx-font-weight: bold;" />
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <!-- Calendar Section -->
+    <GridPane fx:id="calendarGrid" hgap="4" vgap="4" alignment="CENTER" style="-fx-padding: 10; -fx-border-color: #ddd; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;">
         <!-- Calendar cells will be dynamically populated in the controller -->
     </GridPane>
 
-    <Button text="Back" onAction="#goBack" styleClass="secondary-button"/>
+    <!-- Back Button -->
+    <Button text="Back" onAction="#goBack" styleClass="secondary-button" style="-fx-padding: 4 12; -fx-background-color: #2E8B57; -fx-text-fill: white; -fx-font-size: 13px;" />
 </VBox>

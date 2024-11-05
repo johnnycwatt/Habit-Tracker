@@ -54,6 +54,7 @@ public class Habit {
     //mark the habit as complete for the day
     public void markAsCompleted() {
         LocalDate today = LocalDate.now();
+        completedDates.add(today);
         if (lastCompletedDate != null) {
             switch (frequency) {
                 case DAILY:

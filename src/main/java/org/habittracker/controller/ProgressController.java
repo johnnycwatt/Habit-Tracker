@@ -6,9 +6,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
+import org.habittracker.util.HabitStatisticsCalculator;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
 public class ProgressController {
@@ -21,6 +24,16 @@ public class ProgressController {
 
     private Habit habit;
     private Main mainApp;
+    @FXML
+    private Label totalCompletionsLabel;
+    @FXML
+    private Label weeklyPerformanceLabel;
+    @FXML
+    private Label monthlyPerformanceLabel;
+    @FXML
+    private Label overallPerformanceLabel;
+    @FXML
+    private Label bestStreakLabel;
 
     public void setHabit(Habit habit) {
         this.habit = habit;
@@ -28,6 +41,7 @@ public class ProgressController {
         currentStreakLabel.setText(String.valueOf(habit.getStreakCounter()));
 
         populateCalendar(LocalDate.now());
+        displayStatistics();
     }
 
     private void populateCalendar(LocalDate date) {
@@ -70,11 +84,52 @@ public class ProgressController {
         this.mainApp = mainApp;
     }
 
+    private void displayStatistics() {
+        Set<LocalDate> completedDates = habit.getCompletedDates();
+        int totalCompletions = completedDates.size();
+        totalCompletionsLabel.setText(String.valueOf(totalCompletions));
+
+        // Calculate performance statistics using HabitStatisticsCalculator
+        int weeklyPerformance = HabitStatisticsCalculator.calculateWeeklyPerformance(habit);
+        int monthlyPerformance = HabitStatisticsCalculator.calculateMonthlyPerformance(habit);
+        int overallPerformance = HabitStatisticsCalculator.calculateOverallPerformance(habit);
+
+        weeklyPerformanceLabel.setText(weeklyPerformance + "%");
+        monthlyPerformanceLabel.setText(monthlyPerformance + "%");
+        overallPerformanceLabel.setText(overallPerformance + "%");
+
+        int bestStreak = calculateBestStreak();
+        bestStreakLabel.setText(String.valueOf(bestStreak));
+    }
+
+
+
+
+
+    private int calculateBestStreak() {
+        int longestStreak = 0;
+        int currentStreak = 0;
+        LocalDate lastDate = null;
+
+        for (LocalDate date : habit.getCompletedDates().stream().sorted().toList()) {
+            if (lastDate != null && date.equals(lastDate.plusDays(1))) {
+                currentStreak++;
+            } else {
+                longestStreak = Math.max(longestStreak, currentStreak);
+                currentStreak = 1; // Reset streak
+            }
+            lastDate = date;
+        }
+        return Math.max(longestStreak, currentStreak);
+    }
+
+
 
     @FXML
     private void goBack() {
         System.out.println("goBack method in ProgressController called");
         mainApp.getMainController().showHabitListView();
     }
+
 
 }
