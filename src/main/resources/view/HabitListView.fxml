@@ -22,7 +22,7 @@
     </HBox>
 
     <!-- Notification Label for messages like "Please select a habit to edit" -->
-    <Label fx:id="notificationLabel" text="" styleClass="notification-label" visible="false"/>
+    <Label fx:id="notificationLabel" text="" visible="false" styleClass="notification-label"/>
 
     <!-- Back Button at the Bottom -->
     <Button text="Back" onAction="#goBack" styleClass="secondary-button"/>

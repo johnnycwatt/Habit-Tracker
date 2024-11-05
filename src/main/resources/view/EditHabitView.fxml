@@ -42,6 +42,9 @@
         <DatePicker fx:id="startDatePicker"/>
     </VBox>
 
+    <Label fx:id="notificationLabel" text="" visible="false" styleClass="notification-label"/>
+
+
     <HBox spacing="10" alignment="CENTER">
         <Button text="Save Changes" onAction="#onSaveChanges" styleClass="primary-button"/>
         <Button text="Cancel" onAction="#onCancel"/>

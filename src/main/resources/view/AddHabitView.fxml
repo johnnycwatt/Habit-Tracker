@@ -48,5 +48,6 @@
     </HBox>
 
     <!-- Confirmation message label -->
-    <Label fx:id="confirmationMessageLabel" text="Habit added successfully!" visible="false" styleClass="confirmation-label"/>
+    <Label fx:id="notificationLabel" text="" visible="false" styleClass="notification-label"/>
+
 </VBox>

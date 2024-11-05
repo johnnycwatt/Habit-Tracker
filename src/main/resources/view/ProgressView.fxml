@@ -17,5 +17,5 @@
         <!-- Calendar cells will be dynamically populated in the controller -->
     </GridPane>
 
-    <Button text="Close" onAction="#closeProgressView" />
+    <Button text="Back" onAction="#goBack" styleClass="secondary-button"/>
 </VBox>

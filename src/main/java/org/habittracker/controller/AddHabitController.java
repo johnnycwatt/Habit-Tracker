@@ -1,16 +1,19 @@
 package org.habittracker.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
+import org.habittracker.util.NotificationHelper;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class AddHabitController {
 
@@ -26,10 +29,13 @@ public class AddHabitController {
     private final HabitRepository habitRepository = new HabitRepository();
 
     @FXML
-    private Label confirmationMessageLabel;
+    private Label notificationLabel;
+
+    private NotificationHelper notificationHelper;
 
     @FXML
     private HBox customDaysContainer;
+
     @FXML
     private CheckBox mondayCheckBox, tuesdayCheckBox, wednesdayCheckBox, thursdayCheckBox, fridayCheckBox, saturdayCheckBox, sundayCheckBox;
 
@@ -42,6 +48,7 @@ public class AddHabitController {
     @FXML
     private void initialize() {
         frequencyChoiceBox.setValue("Daily");
+        notificationHelper = new NotificationHelper(notificationLabel);
     }
 
     private Main mainApp;
@@ -66,21 +73,21 @@ public class AddHabitController {
 
         // validate input
         if (habitName == null || habitName.trim().isEmpty()) {
-            System.out.println("Habit name is required!");
+            notificationHelper.showTemporaryMessage("Habit name is required!", "red");
             return;
         }
         if (frequency == null) {
-            System.out.println("Please select a frequency.");
+            notificationHelper.showTemporaryMessage("Please select a frequency.", "red");
             return;
         }
         if (startDate == null) {
-            System.out.println("Please select a start date.");
+            notificationHelper.showTemporaryMessage("Please select a start date.", "red");
             return;
         }
 
         // Check for duplicate habit name
         if (habitRepository.habitExistsByName(habitName)) {
-            showAlert("A habit with this name already exists. Please choose a different name.");
+            notificationHelper.showTemporaryMessage("A habit with this name already exists. Please choose a different name.", "red");
             return;
         }
 
@@ -102,42 +109,14 @@ public class AddHabitController {
 
 
         habitRepository.addHabit(newHabit);
-        showConfirmationMessage();
+        notificationHelper.showTemporaryMessage("Habit added successfully!", "green");
         clearForm();
         mainApp.getMainController().updateHabitsDueToday();
-    }
-
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Duplicate Habit");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    private void showConfirmationMessage() {
-        confirmationMessageLabel.setVisible(true);
-        new Thread(() -> {
-            try {
-                Thread.sleep(5000); // Hide the message after 5 seconds
-                confirmationMessageLabel.setVisible(false);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
     }
 
     private void clearForm() {
         habitNameField.clear();
         frequencyChoiceBox.setValue("Daily");
         startDatePicker.setValue(null);
-    }
-
-    public void setHabitData(Habit habit) {
-        if (habit != null) {
-            habitNameField.setText(habit.getName());
-            frequencyChoiceBox.setValue(habit.getFrequency().toString());
-            startDatePicker.setValue(habit.getCreationDate());
-        }
     }
 }

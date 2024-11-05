@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
+import org.habittracker.util.NotificationHelper;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,6 +29,7 @@ public class HabitListController {
     @FXML
     private DatePicker editStartDatePicker;
 
+
     @FXML
     private Label notificationLabel;
 
@@ -38,13 +40,14 @@ public class HabitListController {
 
     private final HabitRepository habitRepository = new HabitRepository();
     private Main mainApp;
-
+    private NotificationHelper notificationHelper;
 
 
 
     @FXML
     private void initialize() {
         loadHabitList();
+        notificationHelper = new NotificationHelper(notificationLabel);
     }
 
     private void loadHabitList() {
@@ -57,39 +60,19 @@ public class HabitListController {
     }
 
     @FXML
-    public void onEditHabit(ActionEvent event) {
+    public void onEditHabit() {
         String selectedItem = habitListView.getSelectionModel().getSelectedItem();
         if (selectedItem == null) {
-            showTemporaryMessage("Please select a habit to edit.");
+            notificationHelper.showTemporaryMessage("Please select a habit to edit.", "red");
             return;
         }
 
         String habitName = selectedItem.split(" - ")[0]; // Extract the habit name
         Habit selectedHabit = habitRepository.findHabitByName(habitName);
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditHabitView.fxml"));
-            Parent editHabitRoot = loader.load();
-
-            // Get the controller and pass the selected habit and repository
-            EditHabitController editHabitController = loader.getController();
-            editHabitController.setHabit(selectedHabit);
-            editHabitController.setHabitRepository(habitRepository);
-
-            Stage editStage = new Stage();
-            editStage.setScene(new Scene(editHabitRoot));
-            editStage.initModality(Modality.APPLICATION_MODAL);
-            editStage.setTitle("Edit Habit");
-            editStage.showAndWait();
-
-            // Refresh habit list after editing
-            loadHabitList();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading Edit Habit view: " + e.getMessage());
-        }
+        mainApp.getMainController().showEditHabitView(selectedHabit); // Use mainApp to navigate
     }
+
 
 
     @FXML
@@ -109,10 +92,9 @@ public class HabitListController {
             habitListView.getItems().remove(habitListView.getSelectionModel().getSelectedItem());
             habitListView.getSelectionModel().clearSelection(); // Clear the selection
             selectedHabit = null; // Clear the habit reference
-            System.out.println("Habit deleted successfully!");
-            showTemporaryMessage("Habit deleted successfully!");
+            notificationHelper.showTemporaryMessage("Habit deleted successfully!", "green");
         } else {
-            System.out.println("No habit selected for deletion.");
+            notificationHelper.showTemporaryMessage("No habit selected for deletion.", "red");
         }
     }
 
@@ -121,7 +103,7 @@ public class HabitListController {
     private void onMarkAsCompleted() {
         if (selectedHabit != null) {
             if (selectedHabit.isCompletedToday()) {
-                showTemporaryMessage("Habit already marked as completed for today.");
+                notificationHelper.showTemporaryMessage("Habit already marked as completed for today.", "red");
                 return;
             }
 
@@ -130,39 +112,24 @@ public class HabitListController {
             habitRepository.updateHabit(selectedHabit);
 
             loadHabitList();
-
-            showTemporaryMessage("Habit marked as completed for today! Streak: " + selectedHabit.getStreakCounter());
+            notificationHelper.showTemporaryMessage("Habit marked as completed for today! Streak: " + selectedHabit.getStreakCounter(), "green");
         } else {
-            showTemporaryMessage("Please select a habit to mark as completed.");
+            notificationHelper.showTemporaryMessage("Please select a habit to mark as completed.", "red");
         }
     }
 
     @FXML
-    private void onViewProgress() {
+    public void onViewProgress() {
         String selectedItem = habitListView.getSelectionModel().getSelectedItem();
         if (selectedItem == null) {
-            showTemporaryMessage("Please select a habit to view progress.");
+            notificationHelper.showTemporaryMessage("Please select a habit to view progress.", "red");
             return;
         }
 
         String habitName = selectedItem.split(" - ")[0]; // Extract the habit name
         Habit selectedHabit = habitRepository.findHabitByName(habitName);
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ProgressView.fxml"));
-            Parent root = loader.load();
-
-            ProgressController progressController = loader.getController();
-            progressController.setHabit(selectedHabit);
-
-            Stage stage = new Stage();
-            stage.setTitle("Habit Progress");
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mainApp.getMainController().showProgressView(selectedHabit);
     }
 
 
@@ -174,19 +141,5 @@ public class HabitListController {
     @FXML
     private void goBack() {
         mainApp.getMainController().showMainView();
-    }
-
-    private void showTemporaryMessage(String message) {
-        notificationLabel.setText(message);
-        notificationLabel.setVisible(true);
-
-        new Thread(() -> {
-            try {
-                Thread.sleep(2000); // 2-second delay
-                Platform.runLater(() -> notificationLabel.setVisible(false));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
     }
 }

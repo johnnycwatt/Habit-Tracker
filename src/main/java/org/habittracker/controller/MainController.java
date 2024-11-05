@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class MainController {
@@ -59,29 +60,61 @@ public class MainController {
         populateCalendar(LocalDate.now());
     }
 
+
+
     @FXML
     public void showAddHabitView() {
-        loadView("/view/AddHabitView.fxml");
+        loadView("/view/AddHabitView.fxml", controller -> {
+            if (controller instanceof AddHabitController) {
+                AddHabitController addHabitController = (AddHabitController) controller;
+                addHabitController.setMainApp(mainApp); // Inject mainApp here
+            }
+        });
+    }
+
+
+    public void showEditHabitView(Habit habit) {
+        loadView("/view/EditHabitView.fxml", controller -> {
+            if (controller instanceof EditHabitController) {
+                EditHabitController editHabitController = (EditHabitController) controller;
+                editHabitController.setHabit(habit);
+                editHabitController.setHabitRepository(habitRepository);
+                editHabitController.setMainApp(mainApp); // Allow back navigation
+            }
+        });
+    }
+
+    public void showProgressView(Habit habit) {
+        loadView("/view/ProgressView.fxml", controller -> {
+            if (controller instanceof ProgressController) {
+                ProgressController progressController = (ProgressController) controller;
+                progressController.setHabit(habit);
+                progressController.setMainApp(mainApp);
+            }
+        });
     }
 
 
     @FXML
     public void showHabitListView() {
-        loadView("/view/HabitListView.fxml");
+        loadView("/view/HabitListView.fxml", controller -> {
+            if (controller instanceof HabitListController) {
+                System.out.println("showHabitListView called");
+                HabitListController habitListController = (HabitListController) controller;
+                habitListController.setMainApp(mainApp); // Inject mainApp here
+            }
+        });
     }
 
-    private void loadView(String fxmlPath) {
+
+    private void loadView(String fxmlPath, Consumer<Object> controllerSetup) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Node view = loader.load();
 
-            if (loader.getController() instanceof AddHabitController) {
-                ((AddHabitController) loader.getController()).setMainApp(mainApp);
-            } else if (loader.getController() instanceof HabitListController) {
-                ((HabitListController) loader.getController()).setMainApp(mainApp);
-            }
+            controllerSetup.accept(loader.getController()); // Set up controller
 
-            dynamicViewContainer.getChildren().setAll(view); // Set the loaded view
+            dynamicViewContainer.getChildren().setAll(view);
             mainView.setVisible(false);
             dynamicViewContainer.setVisible(true);
         } catch (IOException e) {

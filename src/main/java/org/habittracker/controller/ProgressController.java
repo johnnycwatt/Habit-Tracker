@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.habittracker.Main;
 import org.habittracker.model.Habit;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ public class ProgressController {
     private GridPane calendarGrid;
 
     private Habit habit;
+    private Main mainApp;
 
     public void setHabit(Habit habit) {
         this.habit = habit;
@@ -63,9 +65,16 @@ public class ProgressController {
             calendarGrid.add(dayLabel, col, row);
         }
     }
-    @FXML
-    private void closeProgressView() {
-        Stage stage = (Stage) calendarGrid.getScene().getWindow();
-        stage.close();
+
+    public void setMainApp(Main mainApp) {
+        this.mainApp = mainApp;
     }
+
+
+    @FXML
+    private void goBack() {
+        System.out.println("goBack method in ProgressController called");
+        mainApp.getMainController().showHabitListView();
+    }
+
 }
