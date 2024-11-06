@@ -6,15 +6,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.habittracker.controller.MainController;
 
+
 import java.io.IOException;
 
 public class Main extends Application {
-    private Stage primaryStage;
     private MainController mainController;
 
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainView.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 600, 400);
@@ -36,9 +35,6 @@ public class Main extends Application {
         return mainController;
     }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
 
     public static void main(String[] args) {
         launch(args);

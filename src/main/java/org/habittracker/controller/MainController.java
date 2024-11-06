@@ -3,12 +3,16 @@ package org.habittracker.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
@@ -60,6 +64,21 @@ public class MainController {
         populateCalendar(LocalDate.now());
     }
 
+    @FXML
+    private void openSettings() {
+        showSettingsView(); // Load the settings page in the same window
+    }
+
+    @FXML
+    public void showSettingsView() {
+        loadView("/view/SettingsView.fxml", controller -> {
+            if (controller instanceof SettingsController) {
+                SettingsController settingsController = (SettingsController) controller;
+                settingsController.setMainApp(mainApp); // Inject mainApp if necessary
+                settingsController.setMainController(this); // To allow back navigation
+            }
+        });
+    }
 
 
     @FXML
@@ -166,6 +185,9 @@ public class MainController {
         }
     }
 
+
+
+
     private long daysBetween(LocalDate start, LocalDate end) {
         return java.time.temporal.ChronoUnit.DAYS.between(start, end);
     }
@@ -208,6 +230,15 @@ public class MainController {
             calendarGrid.add(dayText, col, row);
         }
     }
+
+    public void enableDarkMode() {
+        rootStackPane.getScene().getStylesheets().add(getClass().getResource("/css/dark-theme.css").toExternalForm());
+    }
+
+    public void disableDarkMode() {
+        rootStackPane.getScene().getStylesheets().remove(getClass().getResource("/css/dark-theme.css").toExternalForm());
+    }
+
 
 
 }

@@ -8,13 +8,13 @@
 <VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/javafx"
       fx:controller="org.habittracker.controller.EditHabitController">
 
-    <Label text="Edit Habit" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <Label text="Edit Habit" style="-fx-font-size: 18px; -fx-font-weight: bold;" styleClass="title-label"/>
 
     <VBox spacing="5" alignment="CENTER" style="-fx-padding: 10;">
-        <Label text="Habit Name:"/>
+        <Label text="Habit Name:" styleClass="heading"/>
         <TextField fx:id="editHabitNameField" promptText="Enter habit name"/>
 
-        <Label text="Frequency:"/>
+        <Label text="Frequency:" styleClass="heading"/>
         <ChoiceBox fx:id="frequencyChoiceBox" styleClass="rounded-choicebox" onAction="#onFrequencyChanged">
             <items>
                 <FXCollections fx:factory="observableArrayList">
@@ -38,7 +38,7 @@
         </HBox>
 
         <!-- Color selection -->
-        <Label text="Select Color:"/>
+        <Label text="Select Color:" styleClass="heading"/>
         <ChoiceBox fx:id="colorChoiceBox" style="-fx-min-width: 150; -fx-max-width: 150;">
             <items>
                 <FXCollections fx:factory="observableArrayList">
@@ -54,7 +54,7 @@
             </items>
         </ChoiceBox>
 
-        <Label text="Start Date:"/>
+        <Label text="Start Date:" styleClass="heading"/>
         <DatePicker fx:id="startDatePicker"/>
     </VBox>
 

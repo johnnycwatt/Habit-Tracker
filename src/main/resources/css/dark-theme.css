@@ -1,0 +1,125 @@
+/* General Dark Mode Styles */
+.root {
+    -fx-background-color: #333333;
+    -fx-text-fill: #dddddd;
+}
+
+.label {
+    -fx-text-fill: #000000; /* Default black text */
+}
+
+.heading {
+    -fx-text-fill: #ffffff; /* White text for dark mode */
+}
+
+.title-label{
+    -fx-text-fill: #ffffff;
+}
+
+.input-label{
+    -fx-text-fill: #ffffff;
+}
+
+/* Button Styling */
+.button, .primary-button, .secondary-button {
+    -fx-background-color: #555555;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #777777;
+    -fx-border-width: 1px;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.button:hover, .primary-button:hover, .secondary-button:hover {
+    -fx-background-color: #666666;
+}
+
+/* TextField Styling */
+.text-field, .rounded-input {
+    -fx-background-color: #444444;
+    -fx-text-fill: #dddddd;
+    -fx-border-color: #666666;
+    -fx-border-width: 1px;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+/* ChoiceBox Styling */
+.choice-box, .rounded-choicebox, .combo-box {
+    -fx-background-color: #444444;
+    -fx-text-fill: #dddddd;
+    -fx-border-color: #666666;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.choice-box .arrow-button, .combo-box .arrow-button {
+    -fx-background-color: #555555;
+}
+
+/* Popup Menu for ChoiceBox */
+.combo-box-popup .list-cell, .choice-box-popup .list-cell {
+    -fx-background-color: #444444;
+    -fx-text-fill: #dddddd;
+}
+
+.choice-box:focused, .combo-box:focused {
+    -fx-border-color: #888888;
+}
+
+/* DatePicker Styling */
+.date-picker .text-field {
+    -fx-background-color: #444444;
+    -fx-text-fill: #dddddd;
+    -fx-border-color: #666666;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.date-picker:hover .text-field {
+    -fx-border-color: #888888;
+}
+
+/* CheckBox Styling */
+.check-box {
+    -fx-text-fill: #dddddd;
+}
+
+/* Container Styling for VBox and HBox */
+.v-box, .h-box, .add-habit-container {
+    -fx-background-color: #333333;
+    -fx-border-color: #666666;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8;
+}
+
+/* Notification Label Styling */
+.notification-label {
+    -fx-text-fill: #ffdd57; /* Soft yellow for notifications */
+    -fx-font-weight: bold;
+}
+
+/* Styling for Back Button */
+#backButton {
+    -fx-background-color: #555555;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #777777;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+#backButton:hover {
+    -fx-background-color: #666666;
+}
+
+/* Set ChoiceBox and ComboBox main area background to dark */
+.choice-box, .combo-box {
+    -fx-background-color: #444444;
+    -fx-text-fill: #dddddd;
+    -fx-border-color: #666666;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+
