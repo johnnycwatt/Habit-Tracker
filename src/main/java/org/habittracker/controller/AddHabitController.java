@@ -1,6 +1,6 @@
 package org.habittracker.controller;
 
-import javafx.application.Platform;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -36,6 +36,10 @@ public class AddHabitController {
     @FXML
     private HBox customDaysContainer;
 
+
+    @FXML
+    private ChoiceBox<String> colorChoiceBox;
+
     @FXML
     private CheckBox mondayCheckBox, tuesdayCheckBox, wednesdayCheckBox, thursdayCheckBox, fridayCheckBox, saturdayCheckBox, sundayCheckBox;
 
@@ -49,6 +53,21 @@ public class AddHabitController {
     private void initialize() {
         frequencyChoiceBox.setValue("Daily");
         notificationHelper = new NotificationHelper(notificationLabel);
+        colorChoiceBox.setValue("Black");
+    }
+
+    private String getColorHexCode(String colorName) {
+        switch (colorName) {
+            case "Black": return "#000000";
+            case "Red": return "#FF0000";
+            case "Green": return "#008000";
+            case "Blue": return "#0000FF";
+            case "Magenta": return "#FF00FF";
+            case "Yellow": return "#FFFF00";
+            case "Orange": return "#FFA500";
+            case "Cyan": return "#00FFFF";
+            default: return "#000000";
+        }
     }
 
     private Main mainApp;
@@ -93,6 +112,10 @@ public class AddHabitController {
 
         Habit newHabit = new Habit(habitName, Habit.Frequency.valueOf(frequency.toUpperCase()));
         newHabit.setCreationDate(startDate);
+
+        String selectedColorName = colorChoiceBox.getValue();
+        String selectedColorHex = getColorHexCode(selectedColorName);
+        newHabit.setColor(selectedColorHex);
 
         if ("Custom".equals(frequency)) {
             List<DayOfWeek> selectedDays = new ArrayList<>();

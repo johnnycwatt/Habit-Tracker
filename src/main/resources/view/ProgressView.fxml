@@ -8,30 +8,30 @@
     <Label text="Habit Progress" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
 
     <!-- Habit Name -->
-    <Label fx:id="habitNameLabel" style="-fx-font-size: 16px; -fx-text-fill: #333;" />
+    <Label fx:id="habitNameLabel" style="-fx-font-size: 16px;" />
 
     <!-- Streak Section -->
     <HBox spacing="5" alignment="CENTER" style="-fx-padding: 5; -fx-border-color: #ddd; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;">
-        <Label text="Current Streak:" style="-fx-font-size: 13px; -fx-text-fill: #666;" />
-        <Label fx:id="currentStreakLabel" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2E8B57;" />
+        <Label text="Current Streak:" style="-fx-font-size: 13px;" />
+        <Label fx:id="currentStreakLabel" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
     </HBox>
 
     <!-- Statistics Section -->
     <VBox spacing="6" alignment="CENTER" style="-fx-padding: 8; -fx-border-color: #ddd; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;">
-        <Label text="Statistics" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+        <Label text="Statistics" style="-fx-font-size: 15px; -fx-font-weight: bold;" />
 
         <!-- Performance Row -->
         <HBox spacing="10" alignment="CENTER">
             <VBox alignment="CENTER">
-                <Label text="Weekly Performance:" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                <Label text="Weekly Performance:" style="-fx-font-size: 12px;" />
                 <Label fx:id="weeklyPerformanceLabel" style="-fx-font-size: 13px; -fx-font-weight: bold;" />
             </VBox>
             <VBox alignment="CENTER">
-                <Label text="Monthly Performance:" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                <Label text="Monthly Performance:" style="-fx-font-size: 12px;" />
                 <Label fx:id="monthlyPerformanceLabel" style="-fx-font-size: 13px; -fx-font-weight: bold;" />
             </VBox>
             <VBox alignment="CENTER">
-                <Label text="Overall Performance:" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                <Label text="Overall Performance:" style="-fx-font-size: 12px;" />
                 <Label fx:id="overallPerformanceLabel" style="-fx-font-size: 13px; -fx-font-weight: bold;" />
             </VBox>
         </HBox>
@@ -39,11 +39,11 @@
         <!-- Completions and Streak Row -->
         <HBox spacing="10" alignment="CENTER">
             <VBox alignment="CENTER">
-                <Label text="Total Completions:" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                <Label text="Total Completions:" style="-fx-font-size: 12px;" />
                 <Label fx:id="totalCompletionsLabel" style="-fx-font-size: 13px; -fx-font-weight: bold;" />
             </VBox>
             <VBox alignment="CENTER">
-                <Label text="Best Streak:" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                <Label text="Best Streak:" style="-fx-font-size: 12px;" />
                 <Label fx:id="bestStreakLabel" style="-fx-font-size: 13px; -fx-font-weight: bold;" />
             </VBox>
         </HBox>

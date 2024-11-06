@@ -1,7 +1,5 @@
 package org.habittracker.model;
 
-import jdk.jfr.Frequency;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -19,6 +17,9 @@ public class Habit {
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+
+    @Column(name = "color", nullable = true)
+    private String color;
 
     private boolean isCompleted;
     private LocalDate creationDate;
@@ -48,6 +49,7 @@ public class Habit {
         this.isCompleted = false;
         this.creationDate = LocalDate.now();
         this.frequency = frequency;
+        this.color = "#000000";
         this.streakCounter = 0;
     }
 
@@ -97,6 +99,13 @@ public class Habit {
         return completedDates;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
 
     public Long getId() {

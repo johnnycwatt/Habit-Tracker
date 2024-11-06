@@ -36,6 +36,10 @@ public class Main extends Application {
         return mainController;
     }
 
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

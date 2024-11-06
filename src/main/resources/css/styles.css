@@ -27,7 +27,6 @@
 .label-heading {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333;
 }
 
 /* Style for buttons */
@@ -57,13 +56,11 @@
 .title-label {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333333;
 }
 
 /* Input label style */
 .input-label {
     -fx-font-size: 14px;
-    -fx-text-fill: #555555;
 }
 
 /* Rounded input field style */
@@ -96,8 +93,6 @@
     -fx-padding: 8 20;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
-    -fx-background-color: #e0f7fa;
-    -fx-text-fill: black;
     -fx-border-color: #007bff;
     -fx-cursor: hand;
 }

@@ -5,17 +5,49 @@
 <?import javafx.collections.FXCollections?>
 
 <?import java.lang.String?>
-<VBox spacing="15" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.AddHabitController" styleClass="add-habit-container">
-    <Label text="Add New Habit" styleClass="title-label" />
+<VBox spacing="15" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.AddHabitController" styleClass="add-habit-container" style="-fx-padding: 10;">
 
-    <VBox spacing="5" alignment="CENTER_LEFT">
+    <!-- Main Title -->
+    <Label text="Add New Habit" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+    <!-- Habit Name Section -->
+    <VBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 8; -fx-border-color: #ddd; -fx-border-width: 0.5; -fx-border-radius: 5; -fx-background-radius: 5;">
         <Label text="Habit Name:" styleClass="input-label"/>
         <TextField fx:id="habitNameField" promptText="Enter habit name" styleClass="rounded-input" />
     </VBox>
 
-    <VBox spacing="5" alignment="CENTER_LEFT">
+    <!-- Color and Start Date Section Side-by-Side -->
+    <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-padding: 8; -fx-border-color: #ddd; -fx-border-width: 0.5; -fx-border-radius: 5; -fx-background-radius: 5;">
+        <!-- Select Color -->
+        <VBox alignment="CENTER_LEFT">
+            <Label text="Select Color:" styleClass="input-label"/>
+            <ChoiceBox fx:id="colorChoiceBox" style="-fx-min-width: 150; -fx-max-width: 150;">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Black"/>
+                        <String fx:value="Red"/>
+                        <String fx:value="Green"/>
+                        <String fx:value="Blue"/>
+                        <String fx:value="Magenta"/>
+                        <String fx:value="Yellow"/>
+                        <String fx:value="Orange"/>
+                        <String fx:value="Cyan"/>
+                    </FXCollections>
+                </items>
+            </ChoiceBox>
+        </VBox>
+
+        <!-- Start Date -->
+        <VBox alignment="CENTER_LEFT">
+            <Label text="Start Date:" styleClass="input-label"/>
+            <DatePicker fx:id="startDatePicker" style="-fx-min-width: 150; -fx-max-width: 150;" />
+        </VBox>
+    </HBox>
+
+    <!-- Frequency Section -->
+    <VBox spacing="5" alignment="CENTER_LEFT" style="-fx-padding: 5 5 0 5; -fx-border-color: #ddd; -fx-border-width: 0.5; -fx-border-radius: 5; -fx-background-radius: 5;">
         <Label text="Frequency:" styleClass="input-label"/>
-        <ChoiceBox fx:id="frequencyChoiceBox" styleClass="rounded-choicebox" onAction="#onFrequencyChanged">
+        <ChoiceBox fx:id="frequencyChoiceBox" styleClass="rounded-choicebox" onAction="#onFrequencyChanged" style="-fx-min-width: 150;">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Daily"/>
@@ -27,7 +59,8 @@
         </ChoiceBox>
     </VBox>
 
-    <HBox spacing="10" alignment="CENTER" fx:id="customDaysContainer" visible="false">
+    <!-- Custom Days Selection -->
+    <HBox spacing="5" alignment="CENTER" fx:id="customDaysContainer" visible="false">
         <CheckBox text="Mon" fx:id="mondayCheckBox"/>
         <CheckBox text="Tue" fx:id="tuesdayCheckBox"/>
         <CheckBox text="Wed" fx:id="wednesdayCheckBox"/>
@@ -37,17 +70,12 @@
         <CheckBox text="Sun" fx:id="sundayCheckBox"/>
     </HBox>
 
-    <VBox spacing="5" alignment="CENTER_LEFT">
-        <Label text="Start Date:" styleClass="input-label"/>
-        <DatePicker fx:id="startDatePicker" styleClass="rounded-datepicker"/>
-    </VBox>
-
-    <HBox spacing="10" alignment="CENTER">
-        <Button text="Add Habit" onAction="#addHabit" styleClass="primary-button"/>
-        <Button text="Back" onAction="#goBack" styleClass="secondary-button"/>
+    <!-- Action Buttons -->
+    <HBox spacing="10" alignment="CENTER" style="-fx-padding: 5;">
+        <Button text="Add Habit" onAction="#addHabit" styleClass="primary-button" style="-fx-min-width: 90;"/>
+        <Button text="Back" onAction="#goBack" styleClass="secondary-button" style="-fx-min-width: 90;"/>
     </HBox>
-
-    <!-- Confirmation message label -->
+    <!-- Confirmation Message Label -->
     <Label fx:id="notificationLabel" text="" visible="false" styleClass="notification-label"/>
 
 </VBox>

@@ -3,6 +3,7 @@ package org.habittracker.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
@@ -37,12 +38,30 @@ public class ProgressController {
 
     public void setHabit(Habit habit) {
         this.habit = habit;
+
+        String color = habit.getColor();
+        applyColorTheme(color);
         habitNameLabel.setText(habit.getName());
         currentStreakLabel.setText(String.valueOf(habit.getStreakCounter()));
 
         populateCalendar(LocalDate.now());
         displayStatistics();
+
     }
+
+    private void applyColorTheme(String color) {
+        // Apply color to the title and all stat labels
+        habitNameLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-weight: bold;");
+        currentStreakLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-weight: bold;");
+        totalCompletionsLabel.setStyle("-fx-text-fill: " + color + ";");
+        weeklyPerformanceLabel.setStyle("-fx-text-fill: " + color + ";");
+        monthlyPerformanceLabel.setStyle("-fx-text-fill: " + color + ";");
+        overallPerformanceLabel.setStyle("-fx-text-fill: " + color + ";");
+        bestStreakLabel.setStyle("-fx-text-fill: " + color + ";");
+    }
+
+
+
 
     private void populateCalendar(LocalDate date) {
         YearMonth yearMonth = YearMonth.of(date.getYear(), date.getMonthValue());
@@ -58,10 +77,12 @@ public class ProgressController {
         for (int day = 1; day <= daysInMonth; day++) {
             LocalDate currentDate = firstDayOfMonth.plusDays(day - 1);
             Label dayLabel = new Label(String.valueOf(day));
+            String color = habit.getColor();
+            applyColorTheme(color);
 
             // Apply lightGreen for completed dates
             if (completedDates.contains(currentDate)) {
-                dayLabel.setStyle("-fx-background-color: lightgreen; -fx-text-fill: white; -fx-padding: 5;");
+                dayLabel.setStyle("-fx-background-color: " + color + "; -fx-text-fill: white; -fx-padding: 5;");
             }
 
             // Apply lightBlue for today
@@ -71,7 +92,7 @@ public class ProgressController {
 
             // If the date is both completed and today, we can merge styles
             if (completedDates.contains(currentDate) && currentDate.equals(today)) {
-                dayLabel.setStyle("-fx-background-color: darkgreen; -fx-text-fill: white; -fx-padding: 5; -fx-border-color: blue; -fx-border-width: 1px;");
+                dayLabel.setStyle("-fx-background-color: " + color + "; -fx-text-fill: white; -fx-padding: 5; -fx-border-color: blue; -fx-border-width: 1px;");
             }
 
             int row = (day + firstDayOfMonth.getDayOfWeek().getValue() - 1) / 7;
@@ -101,9 +122,6 @@ public class ProgressController {
         int bestStreak = calculateBestStreak();
         bestStreakLabel.setText(String.valueOf(bestStreak));
     }
-
-
-
 
 
     private int calculateBestStreak() {
