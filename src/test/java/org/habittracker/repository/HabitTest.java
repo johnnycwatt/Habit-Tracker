@@ -1,5 +1,7 @@
 package org.habittracker.repository;
 
+import org.habittracker.controller.AddHabitController;
+import org.habittracker.controller.EditHabitController;
 import org.junit.jupiter.api.Test;
 import org.habittracker.model.Habit;
 
@@ -8,6 +10,8 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HabitTest {
+    
+
 
     @Test
     void testHabitName() {
@@ -63,6 +67,32 @@ public class HabitTest {
         habit.markAsCompleted(); // complete today
         assertEquals(2, habit.getStreakCounter()); // should increase to 2
     }
+    @Test
+    void testHabitDefaultColor() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
+        assertEquals("#000000", habit.getColor(), "Default color should be black (#000000)");
+    }
 
+
+    @Test
+    void testSetHabitColor_Blue() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
+        habit.setColor("#0000FF"); //blue
+        assertEquals("#0000FF", habit.getColor(), "The color should be blue (#0000FF)");
+    }
+
+    @Test
+    void testEditHabitColor() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
+        habit.setColor("#0000FF"); // set to blue
+
+        // Change color to green
+        habit.setColor("#008000");
+        assertEquals("#008000", habit.getColor(), "The color should be updated to green (#008000)");
+
+        //Change color to red
+        habit.setColor("#FF0000");
+        assertEquals("#FF0000", habit.getColor(), "The color should be updated to red (#FF0000)");
+    }
 
 }

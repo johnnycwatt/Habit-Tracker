@@ -1,16 +1,13 @@
 package org.habittracker.controller;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.NotificationHelper;
-
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +20,9 @@ public class EditHabitController {
 
     @FXML
     private ChoiceBox<String> frequencyChoiceBox;
+
+    @FXML
+    private ChoiceBox<String> colorChoiceBox;
 
     @FXML
     private DatePicker startDatePicker;
@@ -46,6 +46,8 @@ public class EditHabitController {
         editHabitNameField.setText(habit.getName());
         frequencyChoiceBox.setValue(habit.getFrequency().toString());
         startDatePicker.setValue(habit.getCreationDate());
+        String habitColorName = getColorNameFromHex(habit.getColor());
+        colorChoiceBox.setValue(habitColorName);
 
         if ("Custom".equals(habit.getFrequency().toString())) {
             customDaysContainer.setVisible(true);
@@ -69,6 +71,34 @@ public class EditHabitController {
     @FXML
     private void initialize() {
         notificationHelper = new NotificationHelper(notificationLabel);
+    }
+
+    private String getColorHexCode(String colorName) {
+        switch (colorName) {
+            case "Black": return "#000000";
+            case "Red": return "#FF0000";
+            case "Green": return "#008000";
+            case "Blue": return "#0000FF";
+            case "Magenta": return "#FF00FF";
+            case "Yellow": return "#FFFF00";
+            case "Orange": return "#FFA500";
+            case "Cyan": return "#00FFFF";
+            default: return "#000000";
+        }
+    }
+
+    private String getColorNameFromHex(String colorHex) {
+        switch (colorHex) {
+            case "#000000": return "Black";
+            case "#FF0000": return "Red";
+            case "#008000": return "Green";
+            case "#0000FF": return "Blue";
+            case "#FF00FF": return "Magenta";
+            case "#FFFF00": return "Yellow";
+            case "#FFA500": return "Orange";
+            case "#00FFFF": return "Cyan";
+            default: return "Black";
+        }
     }
 
 
@@ -95,6 +125,9 @@ public class EditHabitController {
             habit.setName(newName);
             habit.setFrequency(Habit.Frequency.valueOf(frequencyChoiceBox.getValue().toUpperCase()));
             habit.setCreationDate(startDatePicker.getValue());
+
+            String selectedColorHex = getColorHexCode(colorChoiceBox.getValue());
+            habit.setColor(selectedColorHex);
 
 
 

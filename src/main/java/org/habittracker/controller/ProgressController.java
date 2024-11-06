@@ -3,16 +3,11 @@ package org.habittracker.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.util.HabitStatisticsCalculator;
-
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
 public class ProgressController {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
@@ -38,16 +37,31 @@
             <CheckBox fx:id="sundayCheckBox" text="Sun"/>
         </HBox>
 
+        <!-- Color selection -->
+        <Label text="Select Color:"/>
+        <ChoiceBox fx:id="colorChoiceBox" style="-fx-min-width: 150; -fx-max-width: 150;">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Black"/>
+                    <String fx:value="Red"/>
+                    <String fx:value="Green"/>
+                    <String fx:value="Blue"/>
+                    <String fx:value="Magenta"/>
+                    <String fx:value="Yellow"/>
+                    <String fx:value="Orange"/>
+                    <String fx:value="Cyan"/>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+
         <Label text="Start Date:"/>
         <DatePicker fx:id="startDatePicker"/>
     </VBox>
 
     <Label fx:id="notificationLabel" text="" visible="false" styleClass="notification-label"/>
 
-
     <HBox spacing="10" alignment="CENTER">
         <Button text="Save Changes" onAction="#onSaveChanges" styleClass="primary-button"/>
         <Button text="Cancel" onAction="#onCancel"/>
     </HBox>
-
 </VBox>
