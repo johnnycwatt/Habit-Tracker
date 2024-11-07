@@ -46,6 +46,9 @@ public class Habit {
     @Column(name = "completed_date")
     private Set<LocalDate> completedDates = new HashSet<>();
 
+    @Column(name = "reminder_eligible", nullable = false)
+    private boolean reminderEligible = true;
+
 
     public Habit() {
     }
@@ -197,6 +200,15 @@ public class Habit {
     public void setCustomDays(List<DayOfWeek> customDays) {
         this.customDays = customDays;
     }
+
+    public boolean isReminderEligible() {
+        return reminderEligible;
+    }
+
+    public void setReminderEligible(boolean reminderEligible) {
+        this.reminderEligible = reminderEligible;
+    }
+
 
 
     public enum Frequency {

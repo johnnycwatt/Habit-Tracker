@@ -5,6 +5,9 @@ import javafx.scene.control.*;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.service.HabitService;
+import org.habittracker.util.NotificationHelper;
+import org.habittracker.util.Notifier;
+
 import java.util.List;
 
 public class HabitListController {
@@ -26,11 +29,13 @@ public class HabitListController {
 
     private Habit selectedHabit;
     private Main mainApp;
-    private HabitService habitService; // Use HabitService instead of HabitRepository directly
+    private HabitService habitService;
+    private Notifier notifier;
 
     @FXML
     private void initialize() {
-        habitService = new HabitService(notificationLabel); // Initialize HabitService with notificationLabel
+        notifier = new NotificationHelper(notificationLabel);
+        habitService = new HabitService(notifier);
         loadHabitList();
     }
 
@@ -47,7 +52,7 @@ public class HabitListController {
     public void onEditHabit() {
         String selectedItem = habitListView.getSelectionModel().getSelectedItem();
         if (selectedItem == null) {
-            habitService.getNotificationHelper().showTemporaryMessage("Please select a habit to edit.", "red");
+            notifier.showMessage("Please select a habit to edit.", "red");
             return;
         }
 
@@ -72,7 +77,7 @@ public class HabitListController {
             loadHabitList();
             selectedHabit = null;
         } else {
-            habitService.getNotificationHelper().showTemporaryMessage("No habit selected for deletion.", "red");
+            notifier.showMessage("No habit selected for deletion.", "red");
         }
     }
 
@@ -82,7 +87,7 @@ public class HabitListController {
             habitService.markHabitAsCompleted(selectedHabit);
             loadHabitList(); // Reload list to reflect streak update
         } else {
-            habitService.getNotificationHelper().showTemporaryMessage("Please select a habit to mark as completed.", "red");
+            notifier.showMessage("Please select a habit to mark as completed.", "red");
         }
     }
 
@@ -90,12 +95,12 @@ public class HabitListController {
     public void onViewProgress() {
         String selectedItem = habitListView.getSelectionModel().getSelectedItem();
         if (selectedItem == null) {
-            habitService.getNotificationHelper().showTemporaryMessage("Please select a habit to view progress.", "red");
+            notifier.showMessage("Please select a habit to view progress.", "red");
             return;
         }
 
         String habitName = selectedItem.split(" - ")[0];
-        Habit selectedHabit = habitService.findHabitByName(habitName); // Updated to use HabitService
+        Habit selectedHabit = habitService.findHabitByName(habitName);
         mainApp.getMainController().showProgressView(selectedHabit);
     }
 

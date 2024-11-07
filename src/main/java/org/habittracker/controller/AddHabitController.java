@@ -1,19 +1,18 @@
 package org.habittracker.controller;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
+import org.habittracker.util.Notifier;
 import org.habittracker.util.NotificationHelper;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class AddHabitController {
 
@@ -31,11 +30,10 @@ public class AddHabitController {
     @FXML
     private Label notificationLabel;
 
-    private NotificationHelper notificationHelper;
+    private Notifier notifier; // Use the Notifier interface for flexibility
 
     @FXML
     private HBox customDaysContainer;
-
 
     @FXML
     private ChoiceBox<String> colorChoiceBox;
@@ -52,7 +50,7 @@ public class AddHabitController {
     @FXML
     private void initialize() {
         frequencyChoiceBox.setValue("Daily");
-        notificationHelper = new NotificationHelper(notificationLabel);
+        notifier = new NotificationHelper(notificationLabel); // Initialize notifier with NotificationHelper
         colorChoiceBox.setValue("Black");
     }
 
@@ -72,7 +70,6 @@ public class AddHabitController {
 
     private Main mainApp;
 
-
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
     }
@@ -82,8 +79,6 @@ public class AddHabitController {
         mainApp.getMainController().showMainView();
     }
 
-
-
     @FXML
     private void addHabit() {
         String habitName = habitNameField.getText();
@@ -92,21 +87,21 @@ public class AddHabitController {
 
         // validate input
         if (habitName == null || habitName.trim().isEmpty()) {
-            notificationHelper.showTemporaryMessage("Habit name is required!", "red");
+            notifier.showMessage("Habit name is required!", "red");
             return;
         }
         if (frequency == null) {
-            notificationHelper.showTemporaryMessage("Please select a frequency.", "red");
+            notifier.showMessage("Please select a frequency.", "red");
             return;
         }
         if (startDate == null) {
-            notificationHelper.showTemporaryMessage("Please select a start date.", "red");
+            notifier.showMessage("Please select a start date.", "red");
             return;
         }
 
         // Check for duplicate habit name
         if (habitRepository.habitExistsByName(habitName)) {
-            notificationHelper.showTemporaryMessage("A habit with this name already exists. Please choose a different name.", "red");
+            notifier.showMessage("A habit with this name already exists. Please choose a different name.", "red");
             return;
         }
 
@@ -129,10 +124,8 @@ public class AddHabitController {
             newHabit.setCustomDays(selectedDays);
         }
 
-
-
         habitRepository.addHabit(newHabit);
-        notificationHelper.showTemporaryMessage("Habit added successfully!", "green");
+        notifier.showMessage("Habit added successfully!", "green");
         clearForm();
         mainApp.getMainController().updateHabitsDueToday();
     }

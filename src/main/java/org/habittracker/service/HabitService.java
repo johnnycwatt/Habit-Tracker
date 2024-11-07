@@ -1,19 +1,19 @@
 package org.habittracker.service;
 
-import javafx.scene.control.Label;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
-import org.habittracker.util.NotificationHelper;
+import org.habittracker.util.Notifier;
 import org.habittracker.util.Milestones;
 import java.util.List;
 
 public class HabitService {
     private final HabitRepository habitRepository;
-    private final NotificationHelper notificationHelper;
+    private final Notifier notifier;  // Using Notifier instead of NotificationHelper directly
 
-    public HabitService(Label notificationLabel) {
+    // Constructor that accepts a Notifier instead of Label or NotificationHelper
+    public HabitService(Notifier notifier) {
         this.habitRepository = HabitRepository.getInstance(); // Assuming singleton
-        this.notificationHelper = new NotificationHelper(notificationLabel);
+        this.notifier = notifier;
     }
 
     // Retrieve all habits from the repository
@@ -28,7 +28,7 @@ public class HabitService {
 
     public void markHabitAsCompleted(Habit habit) {
         if (habit.isCompletedToday()) {
-            notificationHelper.showTemporaryMessage("Habit already marked as completed for today.", "red");
+            notifier.showMessage("Habit already marked as completed for today.", "red");
             return;
         }
 
@@ -39,7 +39,7 @@ public class HabitService {
 
         // If no milestone was reached, show the regular completion message
         if (!milestoneReached) {
-            notificationHelper.showTemporaryMessage(
+            notifier.showMessage(
                     "Habit marked as completed for today! Streak: " + habit.getStreakCounter(), "green"
             );
         }
@@ -49,7 +49,7 @@ public class HabitService {
 
     public void deleteHabit(Habit habit) {
         habitRepository.deleteHabit(habit);
-        notificationHelper.showTemporaryMessage("Habit deleted successfully!", "green");
+        notifier.showMessage("Habit deleted successfully!", "green");
     }
 
     // Checks milestones and shows a milestone notification if reached
@@ -60,7 +60,7 @@ public class HabitService {
         for (int milestone : Milestones.MILESTONES) {
             if (streak == milestone && !habit.isMilestoneAchieved(milestone)) {
                 String message = generateMilestoneMessage(milestone);
-                notificationHelper.showMilestoneNotification(message, "green");
+                notifier.showMessage(message, "green");
                 habit.addMilestone(milestone); // Mark milestone as achieved
                 milestoneReached = true;
                 break;
@@ -81,9 +81,8 @@ public class HabitService {
         };
     }
 
-    public NotificationHelper getNotificationHelper() {
-        return notificationHelper;
+    // Getter for the notifier (if needed elsewhere)
+    public Notifier getNotifier() {
+        return notifier;
     }
 }
-
-

@@ -7,7 +7,8 @@ import org.habittracker.model.Habit;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class HabitTest {
 
@@ -93,6 +94,22 @@ public class HabitTest {
         //Change color to red
         habit.setColor("#FF0000");
         assertEquals("#FF0000", habit.getColor(), "The color should be updated to red (#FF0000)");
+    }
+
+    @Test
+    void testReminderEligibilityForWeeklyHabit() {
+        Habit habit = new Habit("Weekly Read", Habit.Frequency.WEEKLY);
+        habit.setCreationDate(LocalDate.now().minusWeeks(1).plusDays(6)); // Set it to be eligible tomorrow
+
+        assertTrue(habit.isReminderEligible(), "Weekly habit should be eligible for a reminder tomorrow.");
+    }
+
+    @Test
+    void testReminderEligibilityForMonthlyHabit() {
+        Habit habit = new Habit("Monthly Checkup", Habit.Frequency.MONTHLY);
+        habit.setCreationDate(LocalDate.now().minusMonths(1).plusDays(29)); // Set it to be eligible tomorrow
+
+        assertTrue(habit.isReminderEligible(), "Monthly habit should be eligible for a reminder tomorrow.");
     }
 
 }

@@ -1,34 +1,40 @@
 package org.habittracker.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
+import org.habittracker.util.NotificationHelper;
+import org.habittracker.util.Notifier;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class MainController {
 
     private Main mainApp;
-    private final HabitRepository habitRepository = HabitRepository.getInstance();
+    public HabitRepository habitRepository = HabitRepository.getInstance();
+    private boolean remindersEnabled = true; // Default reminders to enabled
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
     @FXML
     private ListView<String> habitsDueTodayList;
 
@@ -44,18 +50,66 @@ public class MainController {
     @FXML
     private GridPane calendarGrid;
 
+    @FXML
+    private Label notificationLabel;
 
+    public Notifier notifier;
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
+        this.notifier = new NotificationHelper(notificationLabel);
     }
 
     @FXML
     private void initialize() {
         showMainView();
+        startReminderScheduler(); // Schedule reminders when the app starts
     }
 
-    @FXML
+    public void setRemindersEnabled(boolean remindersEnabled) {
+        this.remindersEnabled = remindersEnabled;
+        String message = remindersEnabled ? "Reminders Enabled" : "Reminders Disabled";
+        String color = remindersEnabled ? "green" : "red";
+        notifier.showMessage(message, color);
+    }
+
+    private void startReminderScheduler() {
+        scheduler.scheduleAtFixedRate(this::checkUpcomingReminders, 0, 24, TimeUnit.HOURS);
+    }
+
+    public void shutdownScheduler() {
+        scheduler.shutdown();
+    }
+
+    private void checkUpcomingReminders() {
+        if (!remindersEnabled) {
+            return; // Exit if reminders are disabled
+        }
+
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        List<Habit> habits = habitRepository.getAllHabits();
+
+        for (Habit habit : habits) {
+            if (isReminderDue(habit, tomorrow)) {
+                Platform.runLater(() -> {
+                    String message = "Reminder: '" + habit.getName() + "' is due tomorrow!";
+                    notifier.showMessage(message, "blue");
+                });
+            }
+        }
+    }
+
+    boolean isReminderDue(Habit habit, LocalDate date) {
+        if (habit.getFrequency() == Habit.Frequency.WEEKLY) {
+            return habit.getCreationDate().plusWeeks(1).equals(date) ||
+                    (habit.getLastCompletedDate() != null && habit.getLastCompletedDate().plusWeeks(1).equals(date));
+        } else if (habit.getFrequency() == Habit.Frequency.MONTHLY) {
+            return habit.getCreationDate().plusMonths(1).equals(date) ||
+                    (habit.getLastCompletedDate() != null && habit.getLastCompletedDate().plusMonths(1).equals(date));
+        }
+        return false;
+    }
+
     public void showMainView() {
         mainView.setVisible(true);
         dynamicViewContainer.setVisible(false);
@@ -66,31 +120,28 @@ public class MainController {
 
     @FXML
     private void openSettings() {
-        showSettingsView(); // Load the settings page in the same window
+        showSettingsView();
     }
 
-    @FXML
     public void showSettingsView() {
         loadView("/view/SettingsView.fxml", controller -> {
             if (controller instanceof SettingsController) {
                 SettingsController settingsController = (SettingsController) controller;
-                settingsController.setMainApp(mainApp); // Inject mainApp if necessary
-                settingsController.setMainController(this); // To allow back navigation
+                settingsController.setMainApp(mainApp);
+                settingsController.setMainController(this);
             }
         });
     }
-
 
     @FXML
     public void showAddHabitView() {
         loadView("/view/AddHabitView.fxml", controller -> {
             if (controller instanceof AddHabitController) {
                 AddHabitController addHabitController = (AddHabitController) controller;
-                addHabitController.setMainApp(mainApp); // Inject mainApp here
+                addHabitController.setMainApp(mainApp);
             }
         });
     }
-
 
     public void showEditHabitView(Habit habit) {
         loadView("/view/EditHabitView.fxml", controller -> {
@@ -98,7 +149,7 @@ public class MainController {
                 EditHabitController editHabitController = (EditHabitController) controller;
                 editHabitController.setHabit(habit);
                 editHabitController.setHabitRepository(habitRepository);
-                editHabitController.setMainApp(mainApp); // Allow back navigation
+                editHabitController.setMainApp(mainApp);
             }
         });
     }
@@ -113,25 +164,21 @@ public class MainController {
         });
     }
 
-
-    @FXML
     public void showHabitListView() {
         loadView("/view/HabitListView.fxml", controller -> {
             if (controller instanceof HabitListController) {
-                System.out.println("showHabitListView called");
                 HabitListController habitListController = (HabitListController) controller;
-                habitListController.setMainApp(mainApp); // Inject mainApp here
+                habitListController.setMainApp(mainApp);
             }
         });
     }
-
 
     private void loadView(String fxmlPath, Consumer<Object> controllerSetup) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Node view = loader.load();
 
-            controllerSetup.accept(loader.getController()); // Set up controller
+            controllerSetup.accept(loader.getController());
 
             dynamicViewContainer.getChildren().setAll(view);
             mainView.setVisible(false);
@@ -142,23 +189,18 @@ public class MainController {
         }
     }
 
-
     public void updateHabitsDueToday() {
-        habitsDueTodayList.getItems().clear(); // Clear existing entries
-        HabitRepository habitRepository = HabitRepository.getInstance();
-
+        habitsDueTodayList.getItems().clear();
         List<Habit> habits = habitRepository.getAllHabits();
         LocalDate today = LocalDate.now();
 
         for (Habit habit : habits) {
-            // Check if habit is due today based on start date and frequency
             if (isHabitDueToday(habit, today)) {
-                habitsDueTodayList.getItems().add(habit.getName()); // Display only due habits
+                habitsDueTodayList.getItems().add(habit.getName());
             }
         }
     }
 
-    // Check if the habit is due today based on its frequency and last completed date
     public boolean isHabitDueToday(Habit habit, LocalDate today) {
         if (habit.getCreationDate().isAfter(today)) {
             return false;
@@ -168,28 +210,21 @@ public class MainController {
             case DAILY:
                 return true;
             case WEEKLY:
-                return !startDate.isAfter(today) && (daysBetween(startDate, today) % 7 == 0); // Due if a week has passed
+                return !startDate.isAfter(today) && (daysBetween(startDate, today) % 7 == 0);
             case MONTHLY:
                 int startDayOfMonth = startDate.getDayOfMonth();
                 int daysInCurrentMonth = today.lengthOfMonth();
                 int dueDayOfMonth = Math.min(startDayOfMonth, daysInCurrentMonth);
                 return today.getDayOfMonth() == dueDayOfMonth && monthsBetween(startDate, today) % 1 == 0;
             case CUSTOM:
-                System.out.println(habit.getCustomDays());
-                System.out.println(today.getDayOfWeek());
                 return habit.getCustomDays() != null && habit.getCustomDays().contains(today.getDayOfWeek());
-
-
             default:
                 return false;
         }
     }
 
-
-
-
     private long daysBetween(LocalDate start, LocalDate end) {
-        return java.time.temporal.ChronoUnit.DAYS.between(start, end);
+        return ChronoUnit.DAYS.between(start, end);
     }
 
     private long monthsBetween(LocalDate startDate, LocalDate endDate) {
@@ -203,7 +238,6 @@ public class MainController {
         LocalDate firstOfMonth = yearMonth.atDay(1);
         int daysInMonth = yearMonth.lengthOfMonth();
 
-
         int startDay = firstOfMonth.getDayOfWeek().getValue();
 
         for (int day = 1; day <= daysInMonth; day++) {
@@ -214,7 +248,6 @@ public class MainController {
                     .filter(habit -> isHabitDueToday(habit, date))
                     .collect(Collectors.toList());
 
-            // Tooltip for habits due on that day
             if (!dueHabits.isEmpty()) {
                 Tooltip tooltip = new Tooltip(
                         dueHabits.stream()
@@ -238,7 +271,17 @@ public class MainController {
     public void disableDarkMode() {
         rootStackPane.getScene().getStylesheets().remove(getClass().getResource("/css/dark-theme.css").toExternalForm());
     }
+    public Notifier getNotifier() {
+        return notifier;
+    }
 
+    public HabitRepository getHabitRepository() {
+        return habitRepository;
+    }
 
+    // Expose checkUpcomingReminders() for testing
+    public void triggerCheckUpcomingReminders() {
+        checkUpcomingReminders();
+    }
 
 }

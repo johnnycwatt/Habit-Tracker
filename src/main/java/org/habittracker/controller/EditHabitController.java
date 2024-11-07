@@ -8,6 +8,8 @@ import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.NotificationHelper;
+import org.habittracker.util.Notifier;
+
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +31,11 @@ public class EditHabitController {
 
     @FXML
     private HBox customDaysContainer;
+
     @FXML
     private Label notificationLabel;
 
-    private NotificationHelper notificationHelper;
+    private Notifier notifier;
 
     @FXML
     private CheckBox mondayCheckBox, tuesdayCheckBox, wednesdayCheckBox, thursdayCheckBox, fridayCheckBox, saturdayCheckBox, sundayCheckBox;
@@ -70,7 +73,7 @@ public class EditHabitController {
 
     @FXML
     private void initialize() {
-        notificationHelper = new NotificationHelper(notificationLabel);
+        notifier = new NotificationHelper(notificationLabel); // Initialize notifier
     }
 
     private String getColorHexCode(String colorName) {
@@ -101,7 +104,6 @@ public class EditHabitController {
         }
     }
 
-
     public void setHabitRepository(HabitRepository habitRepository) {
         this.habitRepository = habitRepository;
     }
@@ -113,12 +115,12 @@ public class EditHabitController {
 
             Habit existingHabit = habitRepository.findHabitByName(newName);
             if (existingHabit != null && !existingHabit.getId().equals(habit.getId())) {
-                notificationHelper.showTemporaryMessage("A habit with this name already exists. Please choose a different name.", "red");
+                notifier.showMessage("A habit with this name already exists. Please choose a different name.", "red");
                 return;
             }
 
             if (newName == null || newName.trim().isEmpty()) {
-                notificationHelper.showTemporaryMessage("Habit name is required!", "red");
+                notifier.showMessage("Habit name is required!", "red");
                 return;
             }
 
@@ -128,8 +130,6 @@ public class EditHabitController {
 
             String selectedColorHex = getColorHexCode(colorChoiceBox.getValue());
             habit.setColor(selectedColorHex);
-
-
 
             if ("Custom".equals(frequencyChoiceBox.getValue())) {
                 List<DayOfWeek> selectedDays = new ArrayList<>();
@@ -147,8 +147,7 @@ public class EditHabitController {
 
             habitRepository.updateHabit(habit);
 
-
-            notificationHelper.showTemporaryMessage("Habit updated successfully!", "green");
+            notifier.showMessage("Habit updated successfully!", "green");
             goBack();
         }
     }
@@ -167,7 +166,7 @@ public class EditHabitController {
             goBack();
         }
     }
-    
+
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
     }
