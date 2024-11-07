@@ -26,6 +26,12 @@ public class Habit {
     private LocalDate lastCompletedDate;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "habit_milestones", joinColumns = @JoinColumn(name = "habit_id"))
+    @Column(name = "milestone")
+    private Set<Integer> completedMilestones = new HashSet<>();
+
+
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "habit_custom_days", joinColumns = @JoinColumn(name = "habit_id"))
     @Enumerated(EnumType.STRING)
     private List<DayOfWeek> customDays;
@@ -44,7 +50,7 @@ public class Habit {
     public Habit() {
     }
 
-    public Habit(String name, Frequency frequency){
+    public Habit(String name, Frequency frequency) {
         this.name = name;
         this.isCompleted = false;
         this.creationDate = LocalDate.now();
@@ -86,7 +92,7 @@ public class Habit {
         }
 
         lastCompletedDate = today; // Update last completion date
-        isCompleted = true; 
+        isCompleted = true;
     }
 
 
@@ -148,6 +154,10 @@ public class Habit {
         this.frequency = frequency;
     }
 
+    public void setStreakCounter(int streak) {
+        this.streakCounter = streak;
+    }
+
     public int getStreakCounter() {
         return streakCounter;
     }
@@ -165,7 +175,18 @@ public class Habit {
         this.lastCompletedDate = date;
     }
 
-    public LocalDate getLastCompletedDate(){
+
+    public boolean isMilestoneAchieved(int milestone) {
+        return completedMilestones.contains(milestone);
+    }
+
+
+    public void addMilestone(int milestone) {
+        completedMilestones.add(milestone);
+    }
+
+
+    public LocalDate getLastCompletedDate() {
         return lastCompletedDate;
     }
 
@@ -184,5 +205,4 @@ public class Habit {
         MONTHLY,
         CUSTOM
     }
-
 }
