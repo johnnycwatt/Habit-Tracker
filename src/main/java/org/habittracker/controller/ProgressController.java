@@ -1,20 +1,24 @@
 package org.habittracker.controller;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
+import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.HabitStatisticsCalculator;
+
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.Set;
-
 
 public class ProgressController {
     @FXML
@@ -41,6 +45,11 @@ public class ProgressController {
 
     private Habit habit;
     private Main mainApp;
+    private HabitRepository habitRepository;
+
+    public ProgressController() {
+        this.habitRepository = new HabitRepository(); // Or inject it via a setter or constructor
+    }
 
     public void setHabit(Habit habit) {
         this.habit = habit;
@@ -86,10 +95,45 @@ public class ProgressController {
                 dayLabel.setStyle("-fx-background-color: lightblue; -fx-text-fill: black; -fx-padding: 5; -fx-border-color: blue; -fx-border-width: 1px;");
             }
 
+            if (!completedDates.contains(currentDate) && !currentDate.isAfter(today)) {
+                ContextMenu contextMenu = new ContextMenu();
+                MenuItem markCompleteItem = new MenuItem("Mark Completed");
+                markCompleteItem.setOnAction(e -> markHabitAsCompletedOnDate(currentDate));
+                contextMenu.getItems().add(markCompleteItem);
+                dayLabel.setOnContextMenuRequested(event -> {
+                    if (!currentDate.isBefore(habit.getCreationDate()) &&
+                            !currentDate.isAfter(today) &&
+                            !completedDates.contains(currentDate)) {
+                        contextMenu.show(dayLabel, event.getScreenX(), event.getScreenY());
+                    }
+                });
+            }
+
             int row = (day + firstDayOfMonth.getDayOfWeek().getValue() - 1) / 7;
             int col = (day + firstDayOfMonth.getDayOfWeek().getValue() - 1) % 7;
             calendarGrid.add(dayLabel, col, row);
         }
+    }
+
+    private void markHabitAsCompletedOnDate(LocalDate date) {
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirm Completion");
+        confirmAlert.setHeaderText("Mark habit as completed on " + date);
+        confirmAlert.setContentText("Are you sure you want to mark this habit as completed on " + date + "?");
+
+        confirmAlert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                habit.markAsCompletedOnDate(date);
+
+                // Save the updated habit to persist changes
+                habitRepository.updateHabit(habit);
+
+                // Refresh view to show updated stats and calendar
+                populateCalendar(LocalDate.now());
+                displayStatistics();
+                updateHistoryChart();
+            }
+        });
     }
 
     private void displayStatistics() {
@@ -124,25 +168,19 @@ public class ProgressController {
     }
 
     private void updateHistoryChart() {
-        historyChart.getData().clear(); // Clear previous data
+        historyChart.getData().clear();
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Completions");
-
         updateMonthView(series);
 
         historyChart.getData().add(series);
 
-        // Apply color directly to each data point in the series
         String habitColor = habit.getColor();
         for (XYChart.Data<String, Number> data : series.getData()) {
             data.getNode().setStyle("-fx-bar-fill: " + habitColor + ";");
         }
     }
-
-
-
-
 
     private void updateMonthView(XYChart.Series<String, Number> series) {
         int currentYear = LocalDate.now().getYear();

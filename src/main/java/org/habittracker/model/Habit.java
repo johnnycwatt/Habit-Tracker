@@ -65,7 +65,6 @@ public class Habit {
         this.streakCounter = 0;
     }
 
-    //mark the habit as complete for the day
     public void markAsCompleted() {
         LocalDate today = LocalDate.now();
         completedDates.add(today);
@@ -94,12 +93,73 @@ public class Habit {
                     break;
             }
         } else {
-            streakCounter = 1; // Start the streak
+            streakCounter = 1;
         }
 
-        lastCompletedDate = today; // Update last completion date
+        lastCompletedDate = today;
         isCompleted = true;
     }
+
+    public void markAsCompletedOnDate(LocalDate date) {
+        if (date.isBefore(creationDate)) {
+            System.out.println("Cannot mark completion before the habit's start date.");
+            return;
+        }
+
+        if (date.isAfter(LocalDate.now())) {
+            System.out.println("Cannot mark a future date as completed.");
+            return;
+        }
+
+        completedDates.add(date);
+
+        // Update streak only if the date is within range
+        if (lastCompletedDate != null) {
+            if (date.isAfter(lastCompletedDate)) {
+                lastCompletedDate = date;
+                calculateStreak();
+            } else if (date.isBefore(lastCompletedDate)) {
+                calculateStreak();
+            }
+        } else {
+            lastCompletedDate = date;
+            streakCounter = 1;
+        }
+
+        isCompleted = true;
+    }
+
+
+    private void calculateStreak() {
+        int currentStreak = 0;
+        int longestStreak = 0;
+        LocalDate previousDate = null;
+
+        for (LocalDate completionDate : completedDates.stream().sorted().toList()) {
+            if (previousDate != null) {
+                boolean isConsecutive = switch (frequency) {
+                    case DAILY -> previousDate.plusDays(1).equals(completionDate);
+                    case WEEKLY -> previousDate.plusWeeks(1).equals(completionDate);
+                    case MONTHLY -> previousDate.plusMonths(1).equals(completionDate);
+                    default -> false;
+                };
+
+                if (isConsecutive) {
+                    currentStreak++;
+                } else {
+                    longestStreak = Math.max(longestStreak, currentStreak);
+                    currentStreak = 1;
+                }
+            } else {
+                currentStreak = 1;
+            }
+            previousDate = completionDate;
+        }
+
+        longestStreak = Math.max(longestStreak, currentStreak);
+        streakCounter = longestStreak;
+    }
+
 
     public int getCompletionsOnDate(LocalDate date) {
         return completedDates.contains(date) ? 1 : 0;

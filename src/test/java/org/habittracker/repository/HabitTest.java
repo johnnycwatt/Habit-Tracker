@@ -157,4 +157,113 @@ public class HabitTest {
         assertEquals(0, habit.getCompletionsInMonth(testYear, otherMonth), "October 2024 should have 0 completions");
     }
 
+    @Test
+    void testMarkAsCompletedOnSpecificDate() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
+
+        LocalDate startDate = LocalDate.now().minusDays(3); // Set start date to three days ago
+        habit.setCreationDate(startDate);
+
+        LocalDate specificDate = LocalDate.now().minusDays(3);
+
+        habit.markAsCompletedOnDate(specificDate);
+        assertTrue(habit.getCompletedDates().contains(specificDate),
+                "Completed dates should include the specified date.");
+    }
+    @Test
+    void testBackdatedCompletionWithStreak() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
+
+        // Mark as completed for today and three days ago
+        LocalDate today = LocalDate.now();
+        LocalDate threeDaysAgo = today.minusDays(3);
+
+        habit.markAsCompletedOnDate(threeDaysAgo);
+        habit.markAsCompleted(); // Mark for today
+
+        assertEquals(1, habit.getStreakCounter(),
+                "Backdated completion shouldn't affect the current streak counter.");
+    }
+
+
+    @Test
+    void testConsecutiveCompletionWithStreak() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
+
+        LocalDate startDate = LocalDate.now().minusDays(2);
+        habit.setCreationDate(startDate);
+
+        LocalDate twoDaysAgo = LocalDate.now().minusDays(2);
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+        LocalDate today = LocalDate.now();
+
+        habit.markAsCompletedOnDate(twoDaysAgo);
+        habit.markAsCompletedOnDate(yesterday);
+        habit.markAsCompletedOnDate(today);
+
+        assertEquals(3, habit.getStreakCounter(),
+                "Streak counter should reflect three consecutive days of completion.");
+    }
+
+    @Test
+    void testNonConsecutiveCompletionResetsStreak() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
+
+        LocalDate threeDaysAgo = LocalDate.now().minusDays(3);
+        LocalDate today = LocalDate.now();
+
+        habit.markAsCompletedOnDate(threeDaysAgo);
+        habit.markAsCompletedOnDate(today);
+
+        assertEquals(1, habit.getStreakCounter(),
+                "Streak should reset after a non-consecutive completion.");
+    }
+
+
+    @Test
+    void testWeeklyHabitBackdatedCompletion() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.WEEKLY);
+
+        LocalDate startDate = LocalDate.now().minusWeeks(2);
+        habit.setCreationDate(startDate);
+
+        LocalDate oneWeekAgo = LocalDate.now().minusWeeks(1);
+        LocalDate twoWeeksAgo = LocalDate.now().minusWeeks(2);
+
+        habit.markAsCompletedOnDate(twoWeeksAgo);
+        habit.markAsCompletedOnDate(oneWeekAgo);
+
+        assertEquals(2, habit.getStreakCounter(),
+                "Weekly habit should maintain a streak for consecutive weekly completions.");
+    }
+
+    @Test
+    void testMonthlyHabitBackdatedCompletion() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.MONTHLY);
+
+        LocalDate startDate = LocalDate.now().minusMonths(2); // Set start date to two months ago
+        habit.setCreationDate(startDate);
+
+        LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
+        LocalDate twoMonthsAgo = LocalDate.now().minusMonths(2);
+
+        habit.markAsCompletedOnDate(twoMonthsAgo);
+        habit.markAsCompletedOnDate(oneMonthAgo);
+
+        assertEquals(2, habit.getStreakCounter(),
+                "Monthly habit should maintain a streak for consecutive monthly completions.");
+    }
+
+    @Test
+    void testMarkAsCompletedOnFutureDate() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
+        LocalDate futureDate = LocalDate.now().plusDays(1);
+        
+        habit.markAsCompletedOnDate(futureDate);
+
+        assertFalse(habit.getCompletedDates().contains(futureDate),
+                "Completed dates should not include a future date.");
+    }
+
+
 }
