@@ -2,7 +2,10 @@ package org.habittracker.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.temporal.WeekFields;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.time.DayOfWeek;
 import java.util.List;
@@ -96,6 +99,27 @@ public class Habit {
 
         lastCompletedDate = today; // Update last completion date
         isCompleted = true;
+    }
+
+    public int getCompletionsOnDate(LocalDate date) {
+        return completedDates.contains(date) ? 1 : 0;
+    }
+
+    public int getCompletionsInWeek(int week, YearMonth yearMonth) {
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int completions = (int) completedDates.stream()
+                .filter(date -> YearMonth.from(date).equals(yearMonth) &&
+                        date.get(weekFields.weekOfMonth()) == week)
+                .count();
+
+        System.out.println("Checking completions for Week " + week + " in " + yearMonth + ": " + completions);
+        return completions;
+    }
+
+    public int getCompletionsInMonth(int year, int month) {
+        return (int) completedDates.stream()
+                .filter(date -> date.getYear() == year && date.getMonthValue() == month)
+                .count();
     }
 
 

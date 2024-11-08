@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.habittracker.model.Habit;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -110,6 +113,48 @@ public class HabitTest {
         habit.setCreationDate(LocalDate.now().minusMonths(1).plusDays(29)); // Set it to be eligible tomorrow
 
         assertTrue(habit.isReminderEligible(), "Monthly habit should be eligible for a reminder tomorrow.");
+    }
+
+    @Test
+    void testGetCompletionsInWeek() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.WEEKLY);
+        YearMonth testMonth = YearMonth.of(2024, 11); // November 2024
+
+        // Simulate completion on specific dates in November 2024
+        habit.getCompletedDates().add(LocalDate.of(2024, 11, 1)); // Expected in Week 1
+        habit.getCompletedDates().add(LocalDate.of(2024, 11, 2)); // Expected in Week 1
+        habit.getCompletedDates().add(LocalDate.of(2024, 11, 5)); // Expected in Week 2
+        habit.getCompletedDates().add(LocalDate.of(2024, 11, 7)); // Expected in Week 2
+        habit.getCompletedDates().add(LocalDate.of(2024, 11, 12)); // Expected in Week 3
+        habit.getCompletedDates().add(LocalDate.of(2024, 11, 15)); // Expected in Week 3
+        habit.getCompletedDates().add(LocalDate.of(2024, 11, 20)); // Expected in Week 4
+        habit.getCompletedDates().add(LocalDate.of(2024, 11, 28)); // Expected in Week 5
+
+        // Verify completions in each week
+        assertEquals(2, habit.getCompletionsInWeek(1, testMonth), "Week 1 should have 2 completions");
+        assertEquals(2, habit.getCompletionsInWeek(2, testMonth), "Week 2 should have 2 completions");
+        assertEquals(2, habit.getCompletionsInWeek(3, testMonth), "Week 3 should have 2 completions");
+        assertEquals(1, habit.getCompletionsInWeek(4, testMonth), "Week 4 should have 1 completion");
+        assertEquals(1, habit.getCompletionsInWeek(5, testMonth), "Week 5 should have 1 completion");
+    }
+
+    @Test
+    void testGetCompletionsInMonth() {
+        Habit habit = new Habit("Exercise", Habit.Frequency.MONTHLY);
+        int testYear = 2024;
+        int testMonth = 11; // November
+
+        // Simulate completion on specific dates in November 2024
+        habit.getCompletedDates().add(LocalDate.of(2024, 11, 1));
+        habit.getCompletedDates().add(LocalDate.of(2024, 11, 7));
+        habit.getCompletedDates().add(LocalDate.of(2024, 11, 15));
+        habit.getCompletedDates().add(LocalDate.of(2024, 11, 29));
+
+        assertEquals(4, habit.getCompletionsInMonth(testYear, testMonth), "November 2024 should have 4 completions");
+
+        // Test for a different month with no completions
+        int otherMonth = 10; // October
+        assertEquals(0, habit.getCompletionsInMonth(testYear, otherMonth), "October 2024 should have 0 completions");
     }
 
 }
