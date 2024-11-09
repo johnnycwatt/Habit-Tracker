@@ -2,9 +2,16 @@ package org.habittracker.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import org.habittracker.Main;
+import org.habittracker.model.Habit;
+import org.habittracker.util.JsonBackupHelper;
 import org.habittracker.util.NotificationHelper;
 import org.habittracker.util.Notifier;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+import java.util.List;
 
 public class SettingsController {
 
@@ -52,5 +59,23 @@ public class SettingsController {
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
+    }
+
+    @FXML
+    private void backupDataToJson() {
+        List<Habit> habits = mainController.getAllHabits();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Backup");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        if (file != null) {
+            String filePath = file.getAbsolutePath();
+            JsonBackupHelper.backupHabitsToJson(habits, filePath);
+            notifier.showMessage("Backup created successfully " , "green");
+        } else {
+            notifier.showMessage("Backup cancelled", "red");
+        }
     }
 }

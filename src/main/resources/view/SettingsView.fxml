@@ -33,6 +33,15 @@
         </HBox>
     </VBox>
 
+    <!-- Backup Button -->
+    <VBox alignment="CENTER" spacing="10">
+        <Label text="Backup Data" style="-fx-font-size: 16px; -fx-font-weight: bold;" styleClass="heading"/>
+        <Label text="Don't lose your progress. Back up your habit tracking data to a JSON file."
+               wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: gray;" />
+        <Button text="Export to JSON" onAction="#backupDataToJson" styleClass="primary-button"/>
+    </VBox>
+
+
     <!-- Notification Label -->
     <Label fx:id="notificationLabel" visible="false" styleClass="notification-label"/>
 
