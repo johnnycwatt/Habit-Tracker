@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,19 +63,17 @@ class HabitStatisticsCalculatorTest {
         LocalDate endDate = LocalDate.now();
 
         int expectedCompletions = HabitStatisticsCalculator.calculateExpectedCompletions(customHabit, startDate, endDate);
-        assertEquals(9, expectedCompletions); // 3 weeks (including this week) with 3 custom days per week = 9 expected completions
+        assertEquals(9, expectedCompletions); // 3 weeks with 3 custom days per week = 9 expected completions
     }
-
 
     @Test
     void testCalculateWeeklyPerformance_CustomHabit() {
-        // Set up completions for Monday and Wednesday this week
         LocalDate today = LocalDate.now();
         LocalDate monday = today.with(DayOfWeek.MONDAY);
         LocalDate wednesday = today.with(DayOfWeek.WEDNESDAY);
 
-        customHabit.getCompletedDates().add(monday);
-        customHabit.getCompletedDates().add(wednesday);
+        customHabit.addCompletionForTesting(monday);
+        customHabit.addCompletionForTesting(wednesday);
 
         int weeklyPerformance = HabitStatisticsCalculator.calculateWeeklyPerformance(customHabit);
         assertEquals(66, weeklyPerformance); // 2 out of 3 custom days completed, around 66%
@@ -90,11 +86,9 @@ class HabitStatisticsCalculatorTest {
         dailyHabit.setCreationDate(startDate);
 
         // Set up completions for 10 out of 20 days
-        Set<LocalDate> completions = new HashSet<>();
         for (int i = 0; i < 10; i++) {
-            completions.add(today.minusDays(i * 2)); // Completes every other day
+            dailyHabit.markAsCompletedOnDate(today.minusDays(i * 2)); // Completes every other day
         }
-        dailyHabit.getCompletedDates().addAll(completions);
 
         int overallPerformance = HabitStatisticsCalculator.calculateOverallPerformance(dailyHabit);
         assertEquals(50, overallPerformance); // 10 out of 20 days completed, around 50%
@@ -107,11 +101,9 @@ class HabitStatisticsCalculatorTest {
         weeklyHabit.setCreationDate(startDate);
 
         // Set up completions for 5 out of 10 weeks
-        Set<LocalDate> completions = new HashSet<>();
         for (int i = 0; i < 5; i++) {
-            completions.add(today.minusWeeks(i * 2)); // Completes every other week
+            weeklyHabit.markAsCompletedOnDate(today.minusWeeks(i * 2)); // Completes every other week
         }
-        weeklyHabit.getCompletedDates().addAll(completions);
 
         int overallPerformance = HabitStatisticsCalculator.calculateOverallPerformance(weeklyHabit);
         assertEquals(50, overallPerformance); // 5 out of 10 weeks completed, around 50%
@@ -124,11 +116,9 @@ class HabitStatisticsCalculatorTest {
         monthlyHabit.setCreationDate(startDate);
 
         // Set up completion for 3 out of 6 months
-        Set<LocalDate> completions = new HashSet<>();
         for (int i = 0; i < 3; i++) {
-            completions.add(today.minusMonths(i * 2)); // Completes every other month
+            monthlyHabit.markAsCompletedOnDate(today.minusMonths(i * 2)); // Completes every other month
         }
-        monthlyHabit.getCompletedDates().addAll(completions);
 
         int overallPerformance = HabitStatisticsCalculator.calculateOverallPerformance(monthlyHabit);
         assertEquals(50, overallPerformance); // 3 out of 6 months completed, around 50%

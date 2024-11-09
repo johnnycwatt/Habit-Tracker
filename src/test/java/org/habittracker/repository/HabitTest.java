@@ -48,7 +48,7 @@ public class HabitTest {
     @Test
     void testDailyHabitStreak() {
         Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
-        habit.setLastCompletedDate(LocalDate.now().minusDays(1)); // Complete yesterday
+        habit.addCompletionForTesting(LocalDate.now().minusDays(1)); // Complete yesterday
 
         habit.markAsCompleted(); // complete today
         assertEquals(2, habit.getStreakCounter()); // should increase to 2
@@ -57,7 +57,7 @@ public class HabitTest {
     @Test
     void testWeeklyHabitStreak() {
         Habit habit = new Habit("Exercise", Habit.Frequency.WEEKLY);
-        habit.setLastCompletedDate(LocalDate.now().minusWeeks(1)); // Complete last week
+        habit.addCompletionForTesting(LocalDate.now().minusWeeks(1)); // Complete last week
 
         habit.markAsCompleted(); // complete today
         assertEquals(2, habit.getStreakCounter()); // should increase to 2
@@ -66,7 +66,7 @@ public class HabitTest {
     @Test
     void testMonthlyHabitStreak() {
         Habit habit = new Habit("Exercise", Habit.Frequency.MONTHLY);
-        habit.setLastCompletedDate(LocalDate.now().minusMonths(1)); // Complete last month
+        habit.addCompletionForTesting(LocalDate.now().minusMonths(1)); // Complete last month
 
         habit.markAsCompleted(); // complete today
         assertEquals(2, habit.getStreakCounter()); // should increase to 2
@@ -121,14 +121,14 @@ public class HabitTest {
         YearMonth testMonth = YearMonth.of(2024, 11); // November 2024
 
         // Simulate completion on specific dates in November 2024
-        habit.getCompletedDates().add(LocalDate.of(2024, 11, 1)); // Expected in Week 1
-        habit.getCompletedDates().add(LocalDate.of(2024, 11, 2)); // Expected in Week 1
-        habit.getCompletedDates().add(LocalDate.of(2024, 11, 5)); // Expected in Week 2
-        habit.getCompletedDates().add(LocalDate.of(2024, 11, 7)); // Expected in Week 2
-        habit.getCompletedDates().add(LocalDate.of(2024, 11, 12)); // Expected in Week 3
-        habit.getCompletedDates().add(LocalDate.of(2024, 11, 15)); // Expected in Week 3
-        habit.getCompletedDates().add(LocalDate.of(2024, 11, 20)); // Expected in Week 4
-        habit.getCompletedDates().add(LocalDate.of(2024, 11, 28)); // Expected in Week 5
+        habit.addCompletionForTesting(LocalDate.of(2024, 11, 1)); // Expected in Week 1
+        habit.addCompletionForTesting(LocalDate.of(2024, 11, 2)); // Expected in Week 1
+        habit.addCompletionForTesting(LocalDate.of(2024, 11, 5)); // Expected in Week 2
+        habit.addCompletionForTesting(LocalDate.of(2024, 11, 7)); // Expected in Week 2
+        habit.addCompletionForTesting(LocalDate.of(2024, 11, 12)); // Expected in Week 3
+        habit.addCompletionForTesting(LocalDate.of(2024, 11, 15)); // Expected in Week 3
+        habit.addCompletionForTesting(LocalDate.of(2024, 11, 20)); // Expected in Week 4
+        habit.addCompletionForTesting(LocalDate.of(2024, 11, 28)); // Expected in Week 5
 
         // Verify completions in each week
         assertEquals(2, habit.getCompletionsInWeek(1, testMonth), "Week 1 should have 2 completions");
@@ -145,10 +145,10 @@ public class HabitTest {
         int testMonth = 11; // November
 
         // Simulate completion on specific dates in November 2024
-        habit.getCompletedDates().add(LocalDate.of(2024, 11, 1));
-        habit.getCompletedDates().add(LocalDate.of(2024, 11, 7));
-        habit.getCompletedDates().add(LocalDate.of(2024, 11, 15));
-        habit.getCompletedDates().add(LocalDate.of(2024, 11, 29));
+        habit.addCompletionForTesting(LocalDate.of(2024, 11, 1));
+        habit.addCompletionForTesting(LocalDate.of(2024, 11, 7));
+        habit.addCompletionForTesting(LocalDate.of(2024, 11, 15));
+        habit.addCompletionForTesting(LocalDate.of(2024, 11, 29));
 
         assertEquals(4, habit.getCompletionsInMonth(testYear, testMonth), "November 2024 should have 4 completions");
 

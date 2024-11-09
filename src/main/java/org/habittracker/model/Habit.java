@@ -9,10 +9,12 @@ import java.util.Locale;
 import java.util.Set;
 import java.time.DayOfWeek;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Habit", uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
 public class Habit {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "INTEGER")
@@ -33,7 +35,6 @@ public class Habit {
     @Column(name = "milestone")
     private Set<Integer> completedMilestones = new HashSet<>();
 
-
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "habit_custom_days", joinColumns = @JoinColumn(name = "habit_id"))
     @Enumerated(EnumType.STRING)
@@ -44,17 +45,14 @@ public class Habit {
 
     private int streakCounter;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "habit_completed_dates", joinColumns = @JoinColumn(name = "habit_id"))
-    @Column(name = "completed_date")
-    private Set<LocalDate> completedDates = new HashSet<>();
-
     @Column(name = "reminder_eligible", nullable = false)
     private boolean reminderEligible = true;
 
+    @OneToMany(mappedBy = "habit", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<HabitCompletion> completions = new HashSet<>();
 
-    public Habit() {
-    }
+
+    public Habit() {}
 
     public Habit(String name, Frequency frequency) {
         this.name = name;
@@ -66,38 +64,7 @@ public class Habit {
     }
 
     public void markAsCompleted() {
-        LocalDate today = LocalDate.now();
-        completedDates.add(today);
-        if (lastCompletedDate != null) {
-            switch (frequency) {
-                case DAILY:
-                    if (lastCompletedDate.plusDays(1).equals(today)) {
-                        streakCounter++;
-                    } else if (!lastCompletedDate.equals(today)) {
-                        streakCounter = 1; // Reset streak if not consecutive
-                    }
-                    break;
-                case WEEKLY:
-                    if (lastCompletedDate.plusWeeks(1).equals(today)) {
-                        streakCounter++;
-                    } else if (!lastCompletedDate.equals(today)) {
-                        streakCounter = 1;
-                    }
-                    break;
-                case MONTHLY:
-                    if (lastCompletedDate.plusMonths(1).equals(today)) {
-                        streakCounter++;
-                    } else if (!lastCompletedDate.equals(today)) {
-                        streakCounter = 1;
-                    }
-                    break;
-            }
-        } else {
-            streakCounter = 1;
-        }
-
-        lastCompletedDate = today;
-        isCompleted = true;
+        markAsCompletedOnDate(LocalDate.now());
     }
 
     public void markAsCompletedOnDate(LocalDate date) {
@@ -105,25 +72,20 @@ public class Habit {
             System.out.println("Cannot mark completion before the habit's start date.");
             return;
         }
-
         if (date.isAfter(LocalDate.now())) {
             System.out.println("Cannot mark a future date as completed.");
             return;
         }
 
-        completedDates.add(date);
+        HabitCompletion completion = new HabitCompletion(this, date);
+        completions.add(completion);
 
-        // Update streak only if the date is within range
-        if (lastCompletedDate != null) {
-            if (date.isAfter(lastCompletedDate)) {
-                lastCompletedDate = date;
-                calculateStreak();
-            } else if (date.isBefore(lastCompletedDate)) {
-                calculateStreak();
-            }
-        } else {
+        // Update lastCompletedDate and calculate streak only if there's a previous completion
+        if (lastCompletedDate == null || date.isAfter(lastCompletedDate)) {
             lastCompletedDate = date;
-            streakCounter = 1;
+            calculateStreak();
+        } else {
+            calculateStreak();
         }
 
         isCompleted = true;
@@ -135,7 +97,11 @@ public class Habit {
         int longestStreak = 0;
         LocalDate previousDate = null;
 
-        for (LocalDate completionDate : completedDates.stream().sorted().toList()) {
+        for (LocalDate completionDate : completions.stream()
+                .map(HabitCompletion::getCompletionDate)
+                .sorted()
+                .collect(Collectors.toList())) {
+
             if (previousDate != null) {
                 boolean isConsecutive = switch (frequency) {
                     case DAILY -> previousDate.plusDays(1).equals(completionDate);
@@ -160,37 +126,47 @@ public class Habit {
         streakCounter = longestStreak;
     }
 
-
     public int getCompletionsOnDate(LocalDate date) {
-        return completedDates.contains(date) ? 1 : 0;
+        return (int) completions.stream()
+                .filter(completion -> completion.getCompletionDate().equals(date))
+                .count();
     }
 
     public int getCompletionsInWeek(int week, YearMonth yearMonth) {
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
-        int completions = (int) completedDates.stream()
-                .filter(date -> YearMonth.from(date).equals(yearMonth) &&
-                        date.get(weekFields.weekOfMonth()) == week)
+        return (int) completions.stream()
+                .filter(completion -> {
+                    LocalDate date = completion.getCompletionDate();
+                    return YearMonth.from(date).equals(yearMonth) &&
+                            date.get(weekFields.weekOfMonth()) == week;
+                })
                 .count();
-
-        System.out.println("Checking completions for Week " + week + " in " + yearMonth + ": " + completions);
-        return completions;
     }
 
     public int getCompletionsInMonth(int year, int month) {
-        return (int) completedDates.stream()
-                .filter(date -> date.getYear() == year && date.getMonthValue() == month)
+        return (int) completions.stream()
+                .filter(completion -> {
+                    LocalDate date = completion.getCompletionDate();
+                    return date.getYear() == year && date.getMonthValue() == month;
+                })
                 .count();
     }
-
 
     public boolean isCompletedToday() {
         return lastCompletedDate != null && lastCompletedDate.equals(LocalDate.now());
     }
 
-    // Getter for completedDates (if not already present)
     public Set<LocalDate> getCompletedDates() {
-        return completedDates;
+        return completions.stream()
+                .map(HabitCompletion::getCompletionDate)
+                .collect(Collectors.toSet());
     }
+
+    public void addCompletionForTesting(LocalDate date) {
+        HabitCompletion completion = new HabitCompletion(this, date);
+        completions.add(completion);
+    }
+
 
     public String getColor() {
         return color;
@@ -199,7 +175,6 @@ public class Habit {
     public void setColor(String color) {
         this.color = color;
     }
-
 
     public Long getId() {
         return id;
@@ -241,12 +216,12 @@ public class Habit {
         this.frequency = frequency;
     }
 
-    public void setStreakCounter(int streak) {
-        this.streakCounter = streak;
-    }
-
     public int getStreakCounter() {
         return streakCounter;
+    }
+
+    public void setStreakCounter(int streakCounter) {
+        this.streakCounter = streakCounter;
     }
 
     public void incrementStreak() {
@@ -262,16 +237,13 @@ public class Habit {
         this.lastCompletedDate = date;
     }
 
-
     public boolean isMilestoneAchieved(int milestone) {
         return completedMilestones.contains(milestone);
     }
 
-
     public void addMilestone(int milestone) {
         completedMilestones.add(milestone);
     }
-
 
     public LocalDate getLastCompletedDate() {
         return lastCompletedDate;
@@ -292,7 +264,6 @@ public class Habit {
     public void setReminderEligible(boolean reminderEligible) {
         this.reminderEligible = reminderEligible;
     }
-
 
 
     public enum Frequency {
