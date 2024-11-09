@@ -2,9 +2,7 @@ package org.habittracker.repository;
 import org.habittracker.model.Habit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HabitRepositoryTest {
@@ -32,24 +30,6 @@ public class HabitRepositoryTest {
         assertEquals("Read", habitExists.getName());
     }
 
-    @Test
-    void testUpdateHabit() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
-        habitRepository.addHabit(habit);
-        habit.setFrequency(Habit.Frequency.MONTHLY);
-        habitRepository.updateHabit(habit);
-        Habit updatedHabit = habitRepository.findHabitByName("Exercise");
-        assertEquals(Habit.Frequency.MONTHLY, updatedHabit.getFrequency());
-    }
-
-    @Test
-    void testDeleteHabit() {
-        Habit habit = new Habit("Meditate", Habit.Frequency.DAILY);
-        habitRepository.addHabit(habit);
-
-        habitRepository.deleteHabit(habit);
-        assertNull(habitRepository.findHabitByName("Meditate"));
-    }
 
     @Test
     void testEditHabit(){

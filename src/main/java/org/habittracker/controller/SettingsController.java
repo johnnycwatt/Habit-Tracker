@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
+import org.habittracker.util.BackupScheduler;
 import org.habittracker.util.JsonBackupHelper;
 import org.habittracker.util.NotificationHelper;
 import org.habittracker.util.Notifier;
@@ -78,4 +79,37 @@ public class SettingsController {
             notifier.showMessage("Backup cancelled", "red");
         }
     }
+
+    @FXML
+    private void enableAutoBackup() {
+        List<Habit> habits = mainController.getAllHabits();
+        BackupScheduler.enableAutoBackup(habits);
+        notifier.showMessage("Automatic Backup Enabled", "green");
+    }
+
+    @FXML
+    private void disableAutoBackup() {
+        BackupScheduler.disableAutoBackup();
+        notifier.showMessage("Automatic Backup Disabled", "red");
+    }
+
+
+    @FXML
+    private void restoreDataFromJson() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Backup File to Restore");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+
+        File file = fileChooser.showOpenDialog(new Stage());
+
+        if (file != null) {
+            String filePath = file.getAbsolutePath();
+            JsonBackupHelper.restoreDataFromJson(filePath);
+            notifier.showMessage("Data restored successfully from " + filePath, "green");
+        } else {
+            notifier.showMessage("Data restore cancelled", "red");
+        }
+    }
+
+
 }
