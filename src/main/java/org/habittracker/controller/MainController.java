@@ -5,12 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
@@ -20,8 +23,10 @@ import org.habittracker.util.Notifier;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -36,7 +41,8 @@ public class MainController {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     @FXML
-    private ListView<String> habitsDueTodayList;
+    private ListView<Habit> habitsDueTodayList;
+
 
     @FXML
     private StackPane rootStackPane;
@@ -52,6 +58,9 @@ public class MainController {
 
     @FXML
     private Label notificationLabel;
+
+    @FXML
+    private Label calendarMonthLabel;
 
     public Notifier notifier;
 
@@ -196,9 +205,53 @@ public class MainController {
 
         for (Habit habit : habits) {
             if (isHabitDueToday(habit, today)) {
-                habitsDueTodayList.getItems().add(habit.getName());
+                habitsDueTodayList.getItems().add(habit);
             }
         }
+
+        habitsDueTodayList.setCellFactory(listView -> new ListCell<Habit>() {
+            @Override
+            protected void updateItem(Habit habit, boolean empty) {
+                super.updateItem(habit, empty);
+                if (habit != null && !empty) {
+                    setText(habit.getName());
+
+                    boolean isCompletedToday = habit.getLastCompletedDate() != null && habit.getLastCompletedDate().equals(LocalDate.now());
+
+                    // Set the background color based on completion
+                    if (isCompletedToday) {
+                        setStyle("-fx-background-color: #d4edda; -fx-font-weight: bold; -fx-text-fill: #155724;");
+                        setGraphic(new Label("✔"));
+                    } else {
+                        setStyle("-fx-background-color: #ffffff; -fx-font-weight: normal; -fx-text-fill: #333333;");
+                    }
+
+                    listView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                        if (newSelection == habit) {
+                            // When selected, override the selection background color and keep text color intact
+                            setStyle((isCompletedToday ? "-fx-background-color: #d4edda;" : "-fx-background-color: #cce5ff;") +
+                                    " -fx-font-weight: bold; -fx-text-fill: " + (isCompletedToday ? "#155724;" : "#333333;"));
+                        }
+                    });
+
+                    focusedProperty().addListener((obs, wasFocused, isFocused) -> {
+                        if (!isFocused) {
+                            // Reset style when focus is lost
+                            setStyle((isCompletedToday ? "-fx-background-color: #d4edda;" : "-fx-background-color: #ffffff;") +
+                                    " -fx-font-weight: " + (isCompletedToday ? "bold;" : "normal;") +
+                                    " -fx-text-fill: " + (isCompletedToday ? "#155724;" : "#333333;"));
+                        }
+                    });
+                } else {
+                    setText(null);
+                    setGraphic(null);
+                    setStyle("");
+                }
+            }
+        });
+
+
+
     }
 
     public boolean isHabitDueToday(Habit habit, LocalDate today) {
@@ -232,18 +285,36 @@ public class MainController {
     }
 
     private void populateCalendar(LocalDate referenceDate) {
+        // Set the month label
+        calendarMonthLabel.setText(referenceDate.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + referenceDate.getYear());
+
         calendarGrid.getChildren().clear();
 
         YearMonth yearMonth = YearMonth.from(referenceDate);
         LocalDate firstOfMonth = yearMonth.atDay(1);
         int daysInMonth = yearMonth.lengthOfMonth();
 
-        int startDay = firstOfMonth.getDayOfWeek().getValue();
+        int startDay = firstOfMonth.getDayOfWeek().getValue(); // Monday = 1, Sunday = 7
+
+        String[] dayNames = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        for (int i = 0; i < dayNames.length; i++) {
+            Label dayNameLabel = new Label(dayNames[i]);
+            dayNameLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
+            calendarGrid.add(dayNameLabel, i, 0);
+        }
 
         for (int day = 1; day <= daysInMonth; day++) {
             LocalDate date = yearMonth.atDay(day);
-            Text dayText = new Text(String.valueOf(day));
+            Label dayLabel = new Label(String.valueOf(day));
 
+            // Style the current day
+            if (date.equals(LocalDate.now())) {
+                dayLabel.setStyle("-fx-background-color: lightblue; -fx-text-fill: black; -fx-border-color: blue; -fx-border-width: 1px; -fx-alignment: center; -fx-pref-width: 35; -fx-pref-height: 35;");
+            } else {
+                dayLabel.setStyle("-fx-alignment: center; -fx-pref-width: 35; -fx-pref-height: 35;");
+            }
+
+            // Add tooltip with habit due details
             List<Habit> dueHabits = habitRepository.getAllHabits().stream()
                     .filter(habit -> isHabitDueToday(habit, date))
                     .collect(Collectors.toList());
@@ -254,13 +325,13 @@ public class MainController {
                                 .map(Habit::getName)
                                 .collect(Collectors.joining("\n"))
                 );
-                Tooltip.install(dayText, tooltip);
+                Tooltip.install(dayLabel, tooltip);
             }
 
             int row = (day + startDay - 2) / 7 + 1;
             int col = (day + startDay - 2) % 7;
 
-            calendarGrid.add(dayText, col, row);
+            calendarGrid.add(dayLabel, col, row);
         }
     }
 

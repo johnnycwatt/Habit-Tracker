@@ -44,6 +44,14 @@
     -fx-border-radius: 5;
 }
 
+.calendar-today {
+    -fx-background-color: #666666;
+    -fx-text-fill: #dddddd;
+    -fx-border-color: #888888;
+    -fx-border-radius: 5px;
+}
+
+
 /* ChoiceBox Styling */
 .choice-box, .rounded-choicebox, .combo-box {
     -fx-background-color: #444444;

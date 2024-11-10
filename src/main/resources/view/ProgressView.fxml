@@ -11,7 +11,7 @@
     <Label text="Habit Progress" style="-fx-font-size: 20px; -fx-font-weight: bold;" styleClass="title-label" />
 
     <!-- Habit Name -->
-    <Label fx:id="habitNameLabel" style="-fx-font-size: 16px;" styleClass="heading"/>
+    <Label fx:id="habitNameLabel" style="-fx-font-size: 20px;" styleClass="title-label"/>
 
     <!-- Streak Section (Current and Best Streak) -->
     <HBox spacing="10" alignment="CENTER" style="-fx-padding: 5; -fx-border-color: #ddd; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;">

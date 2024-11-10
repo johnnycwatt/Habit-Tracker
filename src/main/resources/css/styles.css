@@ -1,19 +1,23 @@
-#calendarGrid {
-    -fx-alignment: center;
-    -fx-padding: 10px;
-}
-
 #calendarGrid Text {
     -fx-font-size: 14px;
     -fx-padding: 5px;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
 }
 
-#calendarGrid Text:hover {
-    -fx-background-color: lightblue;
-    -fx-border-color: blue;
-    -fx-border-radius: 3px;
-    -fx-background-radius: 3px;
+.calendar-today {
+    -fx-background-color: #e0f7fa;
+    -fx-text-fill: #007bff;
+    -fx-border-color: #0288d1;
+    -fx-border-radius: 5px;
 }
+
+.calendar-hover:hover {
+    -fx-background-color: #b2ebf2;
+    -fx-border-color: #007bff;
+    -fx-border-radius: 5px;
+}
+
 
 
 .due-date {
@@ -25,9 +29,12 @@
 
 
 .label-heading {
-    -fx-font-size: 20px;
+    -fx-font-size: 22px;
     -fx-font-weight: bold;
+    -fx-text-fill: #0288d1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 1, 0.2, 1, 1);
 }
+
 
 /* Style for buttons */
 .button {
@@ -59,17 +66,25 @@
 }
 
 /* Input label style */
-.input-label {
-    -fx-font-size: 14px;
+.rounded-input {
+    -fx-padding: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #cccccc;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 2, 0.3, 0, 1);
 }
 
-/* Rounded input field style */
-.rounded-input {
-    -fx-padding: 8 12;
-    -fx-background-radius: 10;
+.add-habit-container {
+    -fx-padding: 20;
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
     -fx-border-radius: 10;
-    -fx-border-color: #cccccc;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.5, 1, 1);
+    -fx-alignment: center;
 }
+
 
 /* ChoiceBox and DatePicker style */
 .rounded-choicebox, .rounded-datepicker {
@@ -118,6 +133,99 @@
     -fx-font-weight: bold;
     -fx-font-size: 14px;
 }
+
+.tooltip {
+    -fx-background-color: #0288d1;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-padding: 8px;
+    -fx-border-radius: 5px;
+}
+
+/* General ListView Styling */
+#habitsDueTodayList .list-cell {
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1px 0; /* Bottom border for separation */
+}
+
+#habitsDueTodayList .list-cell:hover {
+    -fx-background-color: #f1f1f1;
+}
+
+#habitsDueTodayList .list-cell.completed-habit {
+    -fx-background-color: #d4edda; /* Light green for completed habits */
+    -fx-text-fill: #155724;
+    -fx-font-weight: bold;
+}
+
+#habitsDueTodayList .list-cell.incomplete-habit {
+    -fx-background-color: #ffffff; /* White for incomplete habits */
+    -fx-text-fill: #333333;
+}
+
+/* ListView container styling */
+.habit-list-view {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.habit-list-container .list-cell {
+    -fx-background-color: #f8f8f8;
+    -fx-padding: 10px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0, 0, 2);
+    -fx-text-fill: #333;
+}
+
+/* Style for selected cell */
+.habit-list-container .list-cell:selected {
+    -fx-background-color: #d4edda; /* Light green for selected */
+    -fx-text-fill: #333;
+}
+
+/* Bolded Habit Name */
+.habit-name {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* Streak and Date styling */
+.habit-details {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666;
+}
+
+/* Buttons */
+.primary-button, .secondary-button {
+    -fx-background-color: #e0f7fa;
+    -fx-border-color: #0288d1;
+    -fx-padding: 8px 12px;
+    -fx-border-radius: 6px;
+}
+
+.primary-button:hover {
+    -fx-background-color: #b2ebf2;
+}
+
+.secondary-button {
+    -fx-background-color: #f1f1f1;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+/* Notification label */
+.notification-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: red;
+}
+
 
 
 

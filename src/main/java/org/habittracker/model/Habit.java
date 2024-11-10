@@ -1,14 +1,14 @@
 package org.habittracker.model;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.temporal.WeekFields;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.time.DayOfWeek;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
@@ -48,9 +48,10 @@ public class Habit {
     @Column(name = "reminder_eligible", nullable = false)
     private boolean reminderEligible = true;
 
-    @OneToMany(mappedBy = "habit", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<HabitCompletion> completions = new HashSet<>();
-
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "habit_completions", joinColumns = @JoinColumn(name = "habit_id"))
+    @Column(name = "completion_date")
+    private Set<LocalDate> completions = new HashSet<>();
 
     public Habit() {}
 
@@ -77,31 +78,20 @@ public class Habit {
             return;
         }
 
-        HabitCompletion completion = new HabitCompletion(this, date);
-        completions.add(completion);
-
-        // Update lastCompletedDate and calculate streak only if there's a previous completion
-        if (lastCompletedDate == null || date.isAfter(lastCompletedDate)) {
+        // Add the date only if it is not already present
+        if (completions.add(date)) {
             lastCompletedDate = date;
             calculateStreak();
-        } else {
-            calculateStreak();
+            isCompleted = true;
         }
-
-        isCompleted = true;
     }
-
 
     private void calculateStreak() {
         int currentStreak = 0;
         int longestStreak = 0;
         LocalDate previousDate = null;
 
-        for (LocalDate completionDate : completions.stream()
-                .map(HabitCompletion::getCompletionDate)
-                .sorted()
-                .collect(Collectors.toList())) {
-
+        for (LocalDate completionDate : completions.stream().sorted().collect(Collectors.toList())) {
             if (previousDate != null) {
                 boolean isConsecutive = switch (frequency) {
                     case DAILY -> previousDate.plusDays(1).equals(completionDate);
@@ -122,33 +112,24 @@ public class Habit {
             previousDate = completionDate;
         }
 
-        longestStreak = Math.max(longestStreak, currentStreak);
-        streakCounter = longestStreak;
+        streakCounter = Math.max(longestStreak, currentStreak);
     }
 
     public int getCompletionsOnDate(LocalDate date) {
-        return (int) completions.stream()
-                .filter(completion -> completion.getCompletionDate().equals(date))
-                .count();
+        return completions.contains(date) ? 1 : 0;
     }
 
     public int getCompletionsInWeek(int week, YearMonth yearMonth) {
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
         return (int) completions.stream()
-                .filter(completion -> {
-                    LocalDate date = completion.getCompletionDate();
-                    return YearMonth.from(date).equals(yearMonth) &&
-                            date.get(weekFields.weekOfMonth()) == week;
-                })
+                .filter(date -> YearMonth.from(date).equals(yearMonth) &&
+                        date.get(weekFields.weekOfMonth()) == week)
                 .count();
     }
 
     public int getCompletionsInMonth(int year, int month) {
         return (int) completions.stream()
-                .filter(completion -> {
-                    LocalDate date = completion.getCompletionDate();
-                    return date.getYear() == year && date.getMonthValue() == month;
-                })
+                .filter(date -> date.getYear() == year && date.getMonthValue() == month)
                 .count();
     }
 
@@ -157,17 +138,14 @@ public class Habit {
     }
 
     public Set<LocalDate> getCompletedDates() {
-        return completions.stream()
-                .map(HabitCompletion::getCompletionDate)
-                .collect(Collectors.toSet());
+        return new HashSet<>(completions);
     }
 
     public void addCompletionForTesting(LocalDate date) {
-        HabitCompletion completion = new HabitCompletion(this, date);
-        completions.add(completion);
+        completions.add(date);
     }
 
-
+    // Getters and setters for other properties
     public String getColor() {
         return color;
     }
@@ -264,7 +242,6 @@ public class Habit {
     public void setReminderEligible(boolean reminderEligible) {
         this.reminderEligible = reminderEligible;
     }
-
 
     public enum Frequency {
         DAILY,

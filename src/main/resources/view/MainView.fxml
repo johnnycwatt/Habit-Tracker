@@ -4,14 +4,15 @@
 
 <StackPane fx:id="rootStackPane" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.MainController">
     <!-- Main View -->
-    <VBox fx:id="mainView" alignment="CENTER" spacing="10.0" visible="true">
+    <VBox fx:id="mainView" alignment="TOP_CENTER" spacing="20.0" visible="true" style="-fx-padding: 20;">
+
         <!-- Header Row with Title and Settings Button -->
         <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
             <!-- Spacer to push title to the center -->
             <Pane HBox.hgrow="ALWAYS"/>
 
-            <!-- Title Label -->
-            <Label text="Habit Tracker" style="-fx-font-size: 24px; -fx-font-weight: bold;" styleClass="heading"/>
+            <!-- Title Label with enhanced style -->
+            <Label text="Habit Tracker" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #0077cc;"/>
 
             <!-- Spacer to push settings button to the right -->
             <Pane HBox.hgrow="ALWAYS"/>
@@ -21,20 +22,22 @@
                     style="-fx-background-color: transparent; -fx-font-size: 20px;"/>
         </HBox>
 
-        <HBox spacing="10" alignment="CENTER">
+        <!-- Buttons Section -->
+        <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10;">
             <Button text="Add New Habit" onAction="#showAddHabitView" styleClass="primary-button"/>
             <Button text="View Habits" onAction="#showHabitListView" styleClass="primary-button"/>
         </HBox>
 
-        <!-- Habits Due Today Section -->
-        <VBox spacing="5" alignment="CENTER">
-            <Label text="Habits To Do Today" style="-fx-font-size: 18px; -fx-font-weight: bold;" styleClass="heading"/>
-            <ListView fx:id="habitsDueTodayList" prefHeight="100" prefWidth="300" />
+        <!-- Habits Due Today Section with better alignment -->
+        <VBox spacing="5" alignment="CENTER" style="-fx-padding: 10;">
+            <Label text="Habits To Do Today" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <ListView fx:id="habitsDueTodayList" prefHeight="150" prefWidth="350" />
         </VBox>
 
-        <!-- Calendar Section -->
-        <VBox spacing="5" alignment="CENTER">
-            <Label text="Calendar" style="-fx-font-size: 18px; -fx-font-weight: bold;" styleClass="heading"/>
+        <!-- Calendar Section with month label -->
+        <VBox spacing="5" alignment="CENTER" style="-fx-padding: 10;">
+            <!-- Month Label for Calendar -->
+            <Label fx:id="calendarMonthLabel" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333333;" alignment="CENTER"/>
             <GridPane fx:id="calendarGrid" hgap="10" vgap="10" alignment="CENTER" style="-fx-padding: 20;" />
         </VBox>
     </VBox>

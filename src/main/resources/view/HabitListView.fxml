@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.collections.FXCollections?>
 
-<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.HabitListController" styleClass="habit-list-container">
+
+<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.HabitListController" styleClass="habit-list-container" style="-fx-padding: 20;">
     <!-- Header -->
-    <Label text="Habit Tracker" styleClass="title-label"/>
+    <Label text="Habit Tracker" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
     <!-- Habit List Section -->
-    <VBox spacing="10" alignment="CENTER_LEFT">
-        <Label text="Your Habits" styleClass="input-label"/>
-        <ListView fx:id="habitListView" prefHeight="250" prefWidth="400" styleClass="rounded-list-view" onMouseClicked="#onHabitSelected"/>
+    <VBox spacing="10" alignment="CENTER_LEFT" style="-fx-pref-width: 450;">
+        <Label text="Your Habits" styleClass="input-label" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        <ListView fx:id="habitListView" prefHeight="300" styleClass="habit-list-view" onMouseClicked="#onHabitSelected"/>
     </VBox>
 
     <!-- Control Buttons -->
@@ -25,5 +25,5 @@
     <Label fx:id="notificationLabel" text="" visible="false" styleClass="notification-label"/>
 
     <!-- Back Button at the Bottom -->
-    <Button text="Back" onAction="#goBack" styleClass="secondary-button"/>
+    <Button text="Back" onAction="#goBack" styleClass="secondary-button" style="-fx-padding: 5px 10px;"/>
 </VBox>
