@@ -8,6 +8,7 @@ import org.habittracker.service.HabitService;
 import org.habittracker.util.NotificationHelper;
 import org.habittracker.util.Notifier;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class HabitListController {
@@ -84,12 +85,18 @@ public class HabitListController {
     @FXML
     private void onMarkAsCompleted() {
         if (selectedHabit != null) {
+            // Check if the habit is custom and today is outside of specified days
+            if (selectedHabit.getFrequency() == Habit.Frequency.CUSTOM &&
+                    !selectedHabit.getCustomDays().contains(LocalDate.now().getDayOfWeek())) {
+                notifier.showMessage("Today is not part of your specified habit days. Marking completion may affect statistics. Good work on getting the habit done! That is the much more important!", "orange");
+            }
             habitService.markHabitAsCompleted(selectedHabit);
-            loadHabitList(); // Reload list to reflect streak update
+            loadHabitList();
         } else {
             notifier.showMessage("Please select a habit to mark as completed.", "red");
         }
     }
+
 
     @FXML
     public void onViewProgress() {
