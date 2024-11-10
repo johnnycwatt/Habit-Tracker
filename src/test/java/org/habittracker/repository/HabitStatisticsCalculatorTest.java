@@ -8,7 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -162,7 +165,7 @@ class HabitStatisticsCalculatorTest {
     void testCalculateWeeklyConsistency_WeeklyHabit_WithCurrentWeekIncomplete() {
         Habit weeklyHabit = new Habit("Weekly Habit for Weekly Consistency", Frequency.WEEKLY);
 
-        LocalDate today = LocalDate.of(2024, 11, 10); // Assume today is November 10
+        LocalDate today = LocalDate.now();
         weeklyHabit.setCreationDate(today.minusWeeks(4));
 
         // Simulate completions for previous weeks but none for the current week
@@ -238,6 +241,91 @@ class HabitStatisticsCalculatorTest {
         assertEquals(2, monthlyConsistency); // Expect 2 consistent months (September and October)
     }
 
+    @Test
+    void testCalculateWeeklyConsistency_CustomHabit_Consistent() {
+        Habit customHabit = new Habit("Custom Weekly Habit", Frequency.CUSTOM);
+        Set<DayOfWeek> customDays = EnumSet.of(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY);
+        customHabit.setCustomDays(new ArrayList<>(customDays));
 
+        LocalDate today = LocalDate.now();
+        customHabit.setCreationDate(today.minusWeeks(3));
+
+        //Complete custom day in the past week
+        LocalDate startOfWeek = today.with(DayOfWeek.MONDAY);
+        for (DayOfWeek day : customDays) {
+            customHabit.addCompletionForTesting(startOfWeek.with(day)); // e.g: Monday, Wednesday, Friday
+        }
+
+        int weeklyConsistency = HabitStatisticsCalculator.calculateWeeklyConsistency(customHabit);
+        assertEquals(1, weeklyConsistency); // Should be consistent
+    }
+
+    @Test
+    void testCalculateWeeklyConsistency_CustomHabit_Inconsistent() {
+        Habit customHabit = new Habit("Custom Weekly Habit", Frequency.CUSTOM);
+        Set<DayOfWeek> customDays = EnumSet.of(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY);
+        customHabit.setCustomDays(new ArrayList<>(customDays));
+
+        LocalDate today = LocalDate.now();
+        customHabit.setCreationDate(today.minusWeeks(3));
+
+        //Skip one of the specified custom days (e.g., no completion on Friday)
+        LocalDate startOfWeek = today.with(DayOfWeek.MONDAY);
+        customHabit.addCompletionForTesting(startOfWeek.with(DayOfWeek.MONDAY));
+        customHabit.addCompletionForTesting(startOfWeek.with(DayOfWeek.WEDNESDAY));
+
+        int weeklyConsistency = HabitStatisticsCalculator.calculateWeeklyConsistency(customHabit);
+        assertEquals(0, weeklyConsistency); // Should be inconsistent due to the missing Friday
+    }
+
+    @Test
+    void testCalculateMonthlyConsistency_CustomHabit_Consistent() {
+        Habit customHabit = new Habit("Custom Monthly Habit", Frequency.CUSTOM);
+        Set<DayOfWeek> customDays = EnumSet.of(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY);
+        customHabit.setCustomDays(new ArrayList<>(customDays));
+
+        LocalDate today = LocalDate.now();
+        customHabit.setCreationDate(today.minusMonths(1));
+
+        // Simulate completions on each custom day over the past month
+        LocalDate startOfMonth = today.withDayOfMonth(1);
+        LocalDate endOfMonth = today.withDayOfMonth(today.lengthOfMonth());
+        LocalDate date = startOfMonth;
+
+        while (!date.isAfter(endOfMonth)) {
+            if (customDays.contains(date.getDayOfWeek())) {
+                customHabit.addCompletionForTesting(date); // Complete on each custom day
+            }
+            date = date.plusDays(1);
+        }
+
+        int monthlyConsistency = HabitStatisticsCalculator.calculateMonthlyConsistency(customHabit);
+        assertEquals(1, monthlyConsistency); // Should be consistent
+    }
+
+    @Test
+    void testCalculateMonthlyConsistency_CustomHabit_Inconsistent() {
+        Habit customHabit = new Habit("Custom Monthly Habit", Frequency.CUSTOM);
+        Set<DayOfWeek> customDays = EnumSet.of(DayOfWeek.TUESDAY, DayOfWeek.THURSDAY);
+        customHabit.setCustomDays(new ArrayList<>(customDays));
+
+        LocalDate today = LocalDate.now();
+        customHabit.setCreationDate(today.minusMonths(1));
+
+        // Miss some custom days within the month
+        LocalDate startOfMonth = today.withDayOfMonth(1);
+        LocalDate endOfMonth = today.withDayOfMonth(today.lengthOfMonth());
+        LocalDate date = startOfMonth;
+
+        while (!date.isAfter(endOfMonth)) {
+            if (customDays.contains(date.getDayOfWeek()) && date.getDayOfMonth() % 2 == 0) {
+                customHabit.addCompletionForTesting(date); // Complete on half the custom days
+            }
+            date = date.plusDays(1);
+        }
+
+        int monthlyConsistency = HabitStatisticsCalculator.calculateMonthlyConsistency(customHabit);
+        assertEquals(0, monthlyConsistency); // Should be inconsistent
+    }
 
 }

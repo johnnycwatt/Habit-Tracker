@@ -85,6 +85,7 @@ public class HabitStatisticsCalculator {
 
         while (!startOfWeek.isBefore(habit.getCreationDate())) {
             LocalDate endOfWeek = startOfWeek.with(DayOfWeek.SUNDAY);
+            LocalDate currentStartOfWeek = startOfWeek;
 
             boolean isConsistent = false;
 
@@ -97,7 +98,14 @@ public class HabitStatisticsCalculator {
                 LocalDate finalStartOfWeek = startOfWeek;
                 isConsistent = habit.getCompletedDates().stream()
                         .anyMatch(date -> !date.isBefore(finalStartOfWeek) && !date.isAfter(endOfWeek));
-            } else if (habit.getFrequency() == Habit.Frequency.MONTHLY) {
+            } else if (habit.getFrequency() == Habit.Frequency.CUSTOM) {
+                final Set<DayOfWeek> customDays = Set.copyOf(habit.getCustomDays());
+                isConsistent = customDays.stream()
+                        .allMatch(day -> habit.getCompletedDates().stream()
+                                .anyMatch(date -> date.getDayOfWeek() == day &&
+                                        !date.isBefore(currentStartOfWeek) &&
+                                        !date.isAfter(endOfWeek)));
+            }else if (habit.getFrequency() == Habit.Frequency.MONTHLY) {
                 // Monthly habits: weekly consistency is N/A
                 return 0;
             }
@@ -151,7 +159,16 @@ public class HabitStatisticsCalculator {
                         .filter(date -> date.getDayOfWeek() == DayOfWeek.MONDAY)
                         .allMatch(startOfWeek -> habit.getCompletedDates().stream()
                                 .anyMatch(date -> !date.isBefore(startOfWeek) && !date.isAfter(startOfWeek.with(DayOfWeek.SUNDAY))));
-            } else if (habit.getFrequency() == Habit.Frequency.MONTHLY) {
+            } else if (habit.getFrequency() == Habit.Frequency.CUSTOM) {
+                final Set<DayOfWeek> customDays = Set.copyOf(habit.getCustomDays());
+                isConsistent = startOfMonth.datesUntil(endOfMonth.plusDays(1))
+                        .filter(date -> date.getDayOfWeek() == DayOfWeek.MONDAY)
+                        .allMatch(startOfWeek -> customDays.stream()
+                                .allMatch(day -> habit.getCompletedDates().stream()
+                                        .anyMatch(date -> date.getDayOfWeek() == day &&
+                                                !date.isBefore(startOfWeek) &&
+                                                !date.isAfter(startOfWeek.with(DayOfWeek.SUNDAY)))));
+            }else if (habit.getFrequency() == Habit.Frequency.MONTHLY) {
                 // Monthly habits: must have at least one completion in the month
                 isConsistent = habit.getCompletedDates().stream()
                         .anyMatch(date -> !date.isBefore(startOfMonth) && !date.isAfter(endOfMonth));
