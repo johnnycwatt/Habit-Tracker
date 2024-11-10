@@ -59,12 +59,13 @@ class HabitStatisticsCalculatorTest {
 
     @Test
     void testCalculateExpectedCompletions_CustomFrequency() {
-        LocalDate startDate = LocalDate.now().minusWeeks(2);
-        LocalDate endDate = LocalDate.now();
+        LocalDate startDate = LocalDate.of(2024, 10, 20);
+        LocalDate endDate = LocalDate.of(2024, 11, 3);
 
         int expectedCompletions = HabitStatisticsCalculator.calculateExpectedCompletions(customHabit, startDate, endDate);
-        assertEquals(9, expectedCompletions); // 3 weeks with 3 custom days per week = 9 expected completions
+        assertEquals(6, expectedCompletions);
     }
+
 
     @Test
     void testCalculateWeeklyPerformance_CustomHabit() {
@@ -123,4 +124,120 @@ class HabitStatisticsCalculatorTest {
         int overallPerformance = HabitStatisticsCalculator.calculateOverallPerformance(monthlyHabit);
         assertEquals(50, overallPerformance); // 3 out of 6 months completed, around 50%
     }
+
+
+    @Test
+    void testCalculateWeeklyConsistency_WeeklyHabit() {
+        Habit weeklyHabit = new Habit("Weekly Habit for Weekly Consistency", Frequency.WEEKLY);
+
+
+        LocalDate today = LocalDate.of(2024, 11, 10);
+        weeklyHabit.setCreationDate(today.minusWeeks(4));
+
+        weeklyHabit.addCompletionForTesting(today);
+        weeklyHabit.addCompletionForTesting(today.minusWeeks(1)); // Last week
+        weeklyHabit.addCompletionForTesting(today.minusWeeks(2)); // Two weeks ago
+        weeklyHabit.addCompletionForTesting(today.minusWeeks(3)); // Three weeks ago
+
+        int weeklyConsistency = HabitStatisticsCalculator.calculateWeeklyConsistency(weeklyHabit);
+        assertEquals(4, weeklyConsistency); // Expect 4 consistent weeks
+    }
+
+
+    @Test
+    void testCalculateWeeklyConsistency_MonthlyHabit() {
+        Habit monthlyHabit = new Habit("Monthly Habit for Weekly Consistency", Frequency.MONTHLY);
+        LocalDate today = LocalDate.of(2024, 11, 10); // Assume today is a Sunday
+
+        // Monthly habit should not have weekly consistency, so simulate with a monthly completion
+        monthlyHabit.addCompletionForTesting(today.minusMonths(1).withDayOfMonth(1)); // One month ago
+        monthlyHabit.addCompletionForTesting(today.minusMonths(2).withDayOfMonth(1)); // Two months ago
+
+        int weeklyConsistency = HabitStatisticsCalculator.calculateWeeklyConsistency(monthlyHabit);
+        assertEquals(0, weeklyConsistency); // Weekly consistency not applicable for monthly habits
+    }
+
+
+    @Test
+    void testCalculateWeeklyConsistency_WeeklyHabit_WithCurrentWeekIncomplete() {
+        Habit weeklyHabit = new Habit("Weekly Habit for Weekly Consistency", Frequency.WEEKLY);
+
+        LocalDate today = LocalDate.of(2024, 11, 10); // Assume today is November 10
+        weeklyHabit.setCreationDate(today.minusWeeks(4));
+
+        // Simulate completions for previous weeks but none for the current week
+        weeklyHabit.addCompletionForTesting(today.minusWeeks(1));
+        weeklyHabit.addCompletionForTesting(today.minusWeeks(2));
+        weeklyHabit.addCompletionForTesting(today.minusWeeks(3));
+
+        int weeklyConsistency = HabitStatisticsCalculator.calculateWeeklyConsistency(weeklyHabit);
+        assertEquals(3, weeklyConsistency); // Should count three consistent weeks and ignore current week as current week ongoing
+    }
+
+    @Test
+    void testCalculateWeeklyConsistency_WeeklyHabit_WithTwoIncompleteWeeks() {
+        Habit weeklyHabit = new Habit("Weekly Habit for Weekly Consistency", Frequency.WEEKLY);
+
+        LocalDate today = LocalDate.of(2024, 11, 10);
+        weeklyHabit.setCreationDate(today.minusWeeks(4));
+
+        // Simulate completions only in the third and fourth previous weeks
+        weeklyHabit.addCompletionForTesting(today.minusWeeks(3));
+        weeklyHabit.addCompletionForTesting(today.minusWeeks(4));
+
+        int weeklyConsistency = HabitStatisticsCalculator.calculateWeeklyConsistency(weeklyHabit);
+        assertEquals(0, weeklyConsistency); // Should reset to 0 after two incomplete weeks (this week and last week)
+    }
+
+    @Test
+    void testCalculateMonthlyConsistency_DailyHabit() {
+        Habit dailyHabit = new Habit("Daily Habit for Monthly Consistency", Frequency.DAILY);
+
+        LocalDate today = LocalDate.of(2024, 11, 10);
+        dailyHabit.setCreationDate(today.minusMonths(3));
+
+        // Simulate completions for every day of last two months
+        for (LocalDate date = today.minusMonths(1).withDayOfMonth(1);
+             !date.isAfter(today); date = date.plusDays(1)) {
+            dailyHabit.addCompletionForTesting(date);
+        }
+
+        int monthlyConsistency = HabitStatisticsCalculator.calculateMonthlyConsistency(dailyHabit);
+        assertEquals(1, monthlyConsistency); // Expect 1 Consistent Month (October)
+    }
+
+    @Test
+    void testCalculateMonthlyConsistency_WeeklyHabit() {
+        Habit weeklyHabit = new Habit("Weekly Habit for Monthly Consistency", Frequency.WEEKLY);
+
+        LocalDate today = LocalDate.of(2024, 11, 10);
+        weeklyHabit.setCreationDate(today.minusMonths(3));
+
+        // Simulate at least one completion per week for last two months
+        for (int week = 0; week < 4; week++) {
+            weeklyHabit.addCompletionForTesting(today.minusMonths(1).with(DayOfWeek.MONDAY).plusWeeks(week));
+            weeklyHabit.addCompletionForTesting(today.with(DayOfWeek.MONDAY).plusWeeks(week));
+        }
+
+        int monthlyConsistency = HabitStatisticsCalculator.calculateMonthlyConsistency(weeklyHabit);
+        assertEquals(2, monthlyConsistency); // Expect 2 consistent months (October and November)
+    }
+
+    @Test
+    void testCalculateMonthlyConsistency_MonthlyHabit() {
+        Habit monthlyHabit = new Habit("Monthly Habit for Monthly Consistency", Frequency.MONTHLY);
+
+        LocalDate today = LocalDate.of(2024, 11, 10);
+        monthlyHabit.setCreationDate(today.minusMonths(3));
+
+        // Simulate one completion per month
+        monthlyHabit.addCompletionForTesting(today.minusMonths(1).withDayOfMonth(1));
+        monthlyHabit.addCompletionForTesting(today.minusMonths(2).withDayOfMonth(1));
+
+        int monthlyConsistency = HabitStatisticsCalculator.calculateMonthlyConsistency(monthlyHabit);
+        assertEquals(2, monthlyConsistency); // Expect 2 consistent months (September and October)
+    }
+
+
+
 }

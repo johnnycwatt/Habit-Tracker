@@ -46,7 +46,17 @@ public class ProgressController {
     private BarChart<String, Number> historyChart;
 
     @FXML
+    private Label weeklyConsistencyLabel;
+
+    @FXML
+    private Label monthlyConsistencyLabel;
+
+
+    @FXML
     private Label notificationLabel;
+
+    @FXML
+    private Label calendarMonthLabel;
 
     private Notifier notifier;
 
@@ -79,32 +89,67 @@ public class ProgressController {
     private void applyColorTheme(String color) {
         habitNameLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-weight: bold;");
         currentStreakLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-weight: bold;");
+        bestStreakLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-weight: bold;");
         totalCompletionsLabel.setStyle("-fx-text-fill: " + color + ";");
         weeklyPerformanceLabel.setStyle("-fx-text-fill: " + color + ";");
         monthlyPerformanceLabel.setStyle("-fx-text-fill: " + color + ";");
         overallPerformanceLabel.setStyle("-fx-text-fill: " + color + ";");
-        bestStreakLabel.setStyle("-fx-text-fill: " + color + ";");
+        weeklyConsistencyLabel.setStyle("-fx-text-fill: " + color + ";");
+        monthlyConsistencyLabel.setStyle("-fx-text-fill: " + color + ";");
+
+        calendarMonthLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-size: 18px; -fx-font-weight: bold;");
         historyLabel.setStyle("-fx-text-fill: " + color + ";");
-        historyChart.setStyle("-fx-bar-fill: " + color + ";");
+        Label habitProgressTitleLabel = new Label("Habit Progress");
+        habitProgressTitleLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-size: 20px; -fx-font-weight: bold;");
+        Label statisticsTitleLabel = new Label("Statistics");
+        statisticsTitleLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-size: 18px; -fx-font-weight: bold;");
+
+        String[] dayNames = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        for (int i = 0; i < dayNames.length; i++) {
+            Label dayNameLabel = new Label(dayNames[i]);
+            dayNameLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-size: 12px; -fx-font-weight: bold;");
+            calendarGrid.add(dayNameLabel, i, 0);
+        }
     }
 
+
     private void populateCalendar(LocalDate date) {
+        // Set the current month label
+        calendarMonthLabel.setText(date.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()));
+
         YearMonth yearMonth = YearMonth.of(date.getYear(), date.getMonthValue());
         int daysInMonth = yearMonth.lengthOfMonth();
         LocalDate firstDayOfMonth = LocalDate.of(date.getYear(), date.getMonthValue(), 1);
+
+        // Calculate the start day, adjusting for a Monday start (1 = Monday, 7 = Sunday)
+        int startDay = firstDayOfMonth.getDayOfWeek().getValue();
+        startDay = startDay == 7 ? 0 : startDay;
+
         calendarGrid.getChildren().clear();
+
+        String[] dayNames = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        for (int i = 0; i < dayNames.length; i++) {
+            Label dayNameLabel = new Label(dayNames[i]);
+            dayNameLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
+            calendarGrid.add(dayNameLabel, i, 0);
+        }
 
         Set<LocalDate> completedDates = habit.getCompletedDates();
         LocalDate today = LocalDate.now();
 
+
+        String defaultStyle = "-fx-alignment: center; -fx-pref-width: 35; -fx-pref-height: 35;"; // Adjust width and height as needed
+
+        // Populate calendar grid with days
         for (int day = 1; day <= daysInMonth; day++) {
             LocalDate currentDate = firstDayOfMonth.plusDays(day - 1);
             Label dayLabel = new Label(String.valueOf(day));
+            dayLabel.setStyle(defaultStyle);
 
             if (completedDates.contains(currentDate)) {
-                dayLabel.setStyle("-fx-background-color: " + habit.getColor() + "; -fx-text-fill: white; -fx-padding: 5;");
+                dayLabel.setStyle(defaultStyle + "-fx-background-color: " + habit.getColor() + "; -fx-text-fill: white;");
             } else if (currentDate.equals(today)) {
-                dayLabel.setStyle("-fx-background-color: lightblue; -fx-text-fill: black; -fx-padding: 5; -fx-border-color: blue; -fx-border-width: 1px;");
+                dayLabel.setStyle(defaultStyle + "-fx-background-color: lightblue; -fx-text-fill: black; -fx-border-color: blue; -fx-border-width: 1px;");
             }
 
             if (!completedDates.contains(currentDate) && !currentDate.isAfter(today)) {
@@ -121,11 +166,14 @@ public class ProgressController {
                 });
             }
 
-            int row = (day + firstDayOfMonth.getDayOfWeek().getValue() - 1) / 7;
-            int col = (day + firstDayOfMonth.getDayOfWeek().getValue() - 1) % 7;
+            // Calculate row and column based on start day offset
+            int row = (day + startDay - 2) / 7 + 1;
+            int col = (day + startDay - 2) % 7;
             calendarGrid.add(dayLabel, col, row);
         }
     }
+
+
 
     private void markHabitAsCompletedOnDate(LocalDate date) {
 
@@ -144,11 +192,9 @@ public class ProgressController {
             if (response == ButtonType.OK) {
                 habit.markAsCompletedOnDate(date);
 
-                // Save the updated habit to persist changes
                 habitRepository.updateHabit(habit);
                 currentStreakLabel.setText(String.valueOf(habit.getStreakCounter()));
 
-                // Refresh view to show updated stats and calendar
                 populateCalendar(LocalDate.now());
                 displayStatistics();
                 updateHistoryChart();
@@ -167,6 +213,14 @@ public class ProgressController {
         weeklyPerformanceLabel.setText(weeklyPerformance + "%");
         monthlyPerformanceLabel.setText(monthlyPerformance + "%");
         overallPerformanceLabel.setText(overallPerformance + "%");
+
+        int weeklyConsistency = HabitStatisticsCalculator.calculateWeeklyConsistency(habit);
+        int monthlyConsistency = HabitStatisticsCalculator.calculateMonthlyConsistency(habit);
+
+        weeklyConsistencyLabel.setText(weeklyConsistency + " weeks");
+        monthlyConsistencyLabel.setText(monthlyConsistency + " months");
+
+
         bestStreakLabel.setText(String.valueOf(calculateBestStreak()));
     }
 
