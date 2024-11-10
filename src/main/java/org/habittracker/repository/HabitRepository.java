@@ -25,12 +25,13 @@ public class HabitRepository {
     }
 
 
-    public void addHabit(Habit habit) {
+    public Habit addHabit(Habit habit) {
         EntityManager em = entityManagerFactory.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(habit);
+            Habit managedHabit = em.merge(habit);
             em.getTransaction().commit();
+            return managedHabit;
         } catch (PersistenceException e) {
             em.getTransaction().rollback();
 
@@ -47,6 +48,7 @@ public class HabitRepository {
             em.close();
         }
     }
+
 
 
 
@@ -88,11 +90,11 @@ public class HabitRepository {
             em.getTransaction().begin();
             em.merge(habit);
             em.getTransaction().commit();
-
         } finally {
             em.close();
         }
     }
+
 
     public void deleteHabit(Habit habit) {
         EntityManager em = entityManagerFactory.createEntityManager();

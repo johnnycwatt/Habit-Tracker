@@ -2,7 +2,6 @@ package org.habittracker.util;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
-import org.habittracker.util.Notifier;
 
 public class NotificationHelper implements Notifier {
     private final Label notificationLabel;

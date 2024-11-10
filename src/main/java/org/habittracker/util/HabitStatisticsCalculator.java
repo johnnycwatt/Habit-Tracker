@@ -19,7 +19,8 @@ public class HabitStatisticsCalculator {
                 .filter(date -> !date.isBefore(startOfWeek) && !date.isAfter(endOfWeek))
                 .count();
 
-        return expectedCompletions > 0 ? (int) ((actualCompletions / (double) expectedCompletions) * 100) : 0;
+        int performance = expectedCompletions > 0 ? (int) ((actualCompletions / (double) expectedCompletions) * 100) : 0;
+        return Math.min(performance, 100);
     }
 
     public static int calculateMonthlyPerformance(Habit habit) {
@@ -33,7 +34,8 @@ public class HabitStatisticsCalculator {
                 .filter(date -> !date.isBefore(startOfMonth) && !date.isAfter(endOfMonth))
                 .count();
 
-        return expectedCompletions > 0 ? (int) ((actualCompletions / (double) expectedCompletions) * 100) : 0;
+        int performance = expectedCompletions > 0 ? (int) ((actualCompletions / (double) expectedCompletions) * 100) : 0;
+        return Math.min(performance, 100);
     }
 
     public static int calculateOverallPerformance(Habit habit) {
@@ -42,8 +44,10 @@ public class HabitStatisticsCalculator {
         int expectedCompletions = calculateExpectedCompletions(habit, startDate, endDate);
         int actualCompletions = habit.getCompletedDates().size();
 
-        return expectedCompletions > 0 ? (int) ((actualCompletions / (double) expectedCompletions) * 100) : 0;
+        int performance = expectedCompletions > 0 ? (int) ((actualCompletions / (double) expectedCompletions) * 100) : 0;
+        return Math.min(performance, 100);
     }
+
 
     public static int calculateExpectedCompletions(Habit habit, LocalDate startDate, LocalDate endDate) {
         int expectedCount = 0;

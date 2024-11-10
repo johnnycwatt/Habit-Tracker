@@ -58,7 +58,6 @@
     </GridPane>
 
     <!-- History Section -->
-    <!-- History Section -->
     <VBox spacing="15" alignment="CENTER">
         <Label fx:id="historyLabel" text="History" style="-fx-font-size: 20px;" />
 
@@ -75,4 +74,7 @@
 
     <!-- Back Button -->
     <Button text="Back" onAction="#goBack" styleClass="secondary-button" style="-fx-padding: 10 20; -fx-background-color: #2E8B57; -fx-text-fill: white; -fx-font-size: 14px;" />
+
+    <!-- Confirmation Message Label -->
+    <Label fx:id="notificationLabel" text="" visible="false" styleClass="notification-label"/>
 </VBox>

@@ -284,4 +284,9 @@ public class MainController {
         checkUpcomingReminders();
     }
 
+    public List<Habit> getAllHabits() {
+        return HabitRepository.getInstance().getAllHabits();
+    }
+
+
 }

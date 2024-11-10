@@ -13,6 +13,8 @@ import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.HabitStatisticsCalculator;
+import org.habittracker.util.NotificationHelper;
+import org.habittracker.util.Notifier;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -43,12 +45,22 @@ public class ProgressController {
     @FXML
     private BarChart<String, Number> historyChart;
 
+    @FXML
+    private Label notificationLabel;
+
+    private Notifier notifier;
+
     private Habit habit;
     private Main mainApp;
     private HabitRepository habitRepository;
 
     public ProgressController() {
-        this.habitRepository = new HabitRepository(); // Or inject it via a setter or constructor
+        this.habitRepository = new HabitRepository();
+    }
+
+    @FXML
+    private void initialize() {
+        notifier = new NotificationHelper(notificationLabel);
     }
 
     public void setHabit(Habit habit) {
@@ -116,6 +128,13 @@ public class ProgressController {
     }
 
     private void markHabitAsCompletedOnDate(LocalDate date) {
+
+
+        if (habit.getFrequency() == Habit.Frequency.CUSTOM && !habit.getCustomDays().contains(date.getDayOfWeek())) {
+            notifier.showMessage("This habit can only be completed on specified days. Please select a valid day.", "red");
+            return;
+        }
+
         Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmAlert.setTitle("Confirm Completion");
         confirmAlert.setHeaderText("Mark habit as completed on " + date);
@@ -127,6 +146,7 @@ public class ProgressController {
 
                 // Save the updated habit to persist changes
                 habitRepository.updateHabit(habit);
+                currentStreakLabel.setText(String.valueOf(habit.getStreakCounter()));
 
                 // Refresh view to show updated stats and calendar
                 populateCalendar(LocalDate.now());

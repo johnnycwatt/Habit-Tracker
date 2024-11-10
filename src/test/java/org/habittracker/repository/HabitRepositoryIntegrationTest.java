@@ -44,9 +44,9 @@ public class HabitRepositoryIntegrationTest {
     }
 
     @Test
-    void testUpdateHabitStreak(){
+    void testUpdateHabitStreak() {
         Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
-        habitRepository.addHabit(habit);
+        habit = habitRepository.addHabit(habit);
 
         habit.incrementStreak();
         habitRepository.updateHabit(habit);
@@ -54,6 +54,7 @@ public class HabitRepositoryIntegrationTest {
         Habit updatedHabit = habitRepository.findHabitById(habit.getId());
         assertEquals(1, updatedHabit.getStreakCounter());
     }
+
 
     @Test
     void testFindHabitByName() {

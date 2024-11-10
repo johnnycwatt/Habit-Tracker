@@ -1,14 +1,9 @@
 package org.habittracker.repository;
 
-import org.habittracker.controller.AddHabitController;
-import org.habittracker.controller.EditHabitController;
 import org.junit.jupiter.api.Test;
 import org.habittracker.model.Habit;
-
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.temporal.WeekFields;
-import java.util.Locale;
 
 
 import static org.junit.jupiter.api.Assertions.*;
