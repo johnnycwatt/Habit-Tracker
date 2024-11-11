@@ -3,17 +3,34 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
+
+    <!-- Production persistence unit -->
     <persistence-unit name="habittracker">
         <class>org.habittracker.model.Habit</class>
         <properties>
-            <!-- SQLite database configuration -->
+            <!-- SQLite database configuration for production -->
             <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:habittracker.db"/>
-
-            <!-- Hibernate configuration -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
+
+    <!-- Testing persistence unit -->
+    <persistence-unit name="habittracker-test">
+        <class>org.habittracker.model.Habit</class>
+        <properties>
+            <!-- SQLite database configuration for testing -->
+            <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:habittracker-test.db"/>
+
+            <!-- Hibernate configuration -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+
+
 </persistence>

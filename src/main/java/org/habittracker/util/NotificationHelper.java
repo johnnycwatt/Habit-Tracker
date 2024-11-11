@@ -12,23 +12,19 @@ public class NotificationHelper implements Notifier {
 
     @Override
     public void showMessage(String message, String color) {
-        if (notificationLabel != null) {
-            Platform.runLater(() -> {
-                notificationLabel.setText(message);
-                notificationLabel.setStyle("-fx-text-fill: " + color + ";");
-                notificationLabel.setVisible(true);
-            });
+        Platform.runLater(() -> {
+            notificationLabel.setText(message);
+            notificationLabel.setStyle("-fx-text-fill: " + color + ";");
+            notificationLabel.setVisible(true);
+        });
 
-            Platform.runLater(() -> {
-                try {
-                    Thread.sleep(4000);  //4 second delay
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                notificationLabel.setVisible(false);
-            });
-        } else {
-            System.out.println("Notification Label is not initialized.");
-        }
+        new Thread(() -> {
+            try {
+                Thread.sleep(4000); // 4-second delay
+                Platform.runLater(() -> notificationLabel.setVisible(false));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }

@@ -8,13 +8,17 @@ import javax.persistence.PersistenceException;
 import java.util.List;
 
 public class HabitRepository {
-    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("habittracker");
+    private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("habittracker");
 
     // Singleton instance
     private static HabitRepository instance;
 
     // Private constructor to prevent instantiation
     public HabitRepository() {}
+
+    public HabitRepository(EntityManagerFactory testEntityManagerFactory) {
+        entityManagerFactory = testEntityManagerFactory;
+    }
 
     // Method to get the singleton instance
     public static HabitRepository getInstance() {

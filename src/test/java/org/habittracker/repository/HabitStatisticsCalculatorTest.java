@@ -3,8 +3,14 @@ package org.habittracker.repository;
 import org.habittracker.model.Habit;
 import org.habittracker.model.Habit.Frequency;
 import org.habittracker.util.HabitStatisticsCalculator;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -15,6 +21,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class HabitStatisticsCalculatorTest {
 
     private Habit dailyHabit;
@@ -22,8 +29,15 @@ class HabitStatisticsCalculatorTest {
     private Habit monthlyHabit;
     private Habit customHabit;
 
+    private static EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
+
     @BeforeEach
     void setUp() {
+        // Initialize EntityManagerFactory and EntityManager for the test persistence unit
+        entityManagerFactory = Persistence.createEntityManagerFactory("habittracker-test");
+        entityManager = entityManagerFactory.createEntityManager();
+
         dailyHabit = new Habit("Daily Habit", Frequency.DAILY);
         weeklyHabit = new Habit("Weekly Habit", Frequency.WEEKLY);
         monthlyHabit = new Habit("Monthly Habit", Frequency.MONTHLY);
@@ -31,6 +45,28 @@ class HabitStatisticsCalculatorTest {
         // Custom habit with Monday, Wednesday, and Friday
         customHabit = new Habit("Custom Habit", Frequency.CUSTOM);
         customHabit.setCustomDays(List.of(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY));
+
+        // Persist initial data if needed
+        entityManager.getTransaction().begin();
+        entityManager.persist(dailyHabit);
+        entityManager.persist(weeklyHabit);
+        entityManager.persist(monthlyHabit);
+        entityManager.persist(customHabit);
+        entityManager.getTransaction().commit();
+    }
+
+    @AfterEach
+    void tearDown() {
+        if (entityManager.isOpen()) {
+            entityManager.getTransaction().begin();
+            entityManager.createQuery("DELETE FROM Habit").executeUpdate();
+            entityManager.getTransaction().commit();
+            entityManager.close();
+        }
+
+        if (entityManagerFactory.isOpen()) {
+            entityManagerFactory.close();
+        }
     }
 
     @Test

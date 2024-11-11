@@ -1,27 +1,74 @@
 package org.habittracker.repository;
 
-import org.junit.jupiter.api.Test;
+import org.habittracker.util.EntityManagerFactoryUtil;
+import org.junit.jupiter.api.*;
 import org.habittracker.model.Habit;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HabitTest {
 
+    private Habit habit;
+    private Habit weeklyHabit;
+    private Habit monthlyHabit;
+    private static EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
 
+    @BeforeAll
+    static void init() {
+        entityManagerFactory = Persistence.createEntityManagerFactory("habittracker-test");
+    }
+
+    @BeforeEach
+    void setUp() {
+        entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        // Initialize test habits
+        habit = new Habit("TestHabitOne", Habit.Frequency.DAILY);
+        weeklyHabit = new Habit("TestHabitTwo", Habit.Frequency.WEEKLY);
+        monthlyHabit = new Habit("TestHabitThree", Habit.Frequency.MONTHLY);
+
+        // Persist habits
+        entityManager.persist(habit);
+        entityManager.persist(weeklyHabit);
+        entityManager.persist(monthlyHabit);
+
+        entityManager.getTransaction().commit();
+    }
+
+    @AfterEach
+    void tearDown() {
+        entityManager.getTransaction().begin();
+        entityManager.createQuery("DELETE FROM Habit").executeUpdate();
+        entityManager.getTransaction().commit();
+
+        if (entityManager.isOpen()) {
+            entityManager.close();
+        }
+    }
+
+    @AfterAll
+    static void close() {
+        if (entityManagerFactory.isOpen()) {
+            entityManagerFactory.close();
+        }
+    }
 
     @Test
     void testHabitName() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
         habit.setName("Read");
         assertEquals("Read", habit.getName());
     }
 
     @Test
     void testIncrementStreak() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
         assertEquals(0, habit.getStreakCounter());
         habit.incrementStreak();
         assertEquals(1, habit.getStreakCounter());
@@ -29,20 +76,17 @@ public class HabitTest {
 
     @Test
     void testGetFrequency() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
         assertEquals(Habit.Frequency.DAILY, habit.getFrequency());
     }
 
     @Test
     void testSetFrequency() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
         habit.setFrequency(Habit.Frequency.WEEKLY);
         assertEquals(Habit.Frequency.WEEKLY, habit.getFrequency());
     }
 
     @Test
     void testDailyHabitStreak() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
         habit.addCompletionForTesting(LocalDate.now().minusDays(1)); // Complete yesterday
 
         habit.markAsCompleted(); // complete today
@@ -51,38 +95,33 @@ public class HabitTest {
 
     @Test
     void testWeeklyHabitStreak() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.WEEKLY);
-        habit.addCompletionForTesting(LocalDate.now().minusWeeks(1)); // Complete last week
+        weeklyHabit.addCompletionForTesting(LocalDate.now().minusWeeks(1)); // Complete last week
 
-        habit.markAsCompleted(); // complete today
-        assertEquals(2, habit.getStreakCounter()); // should increase to 2
+        weeklyHabit.markAsCompleted(); // complete today
+        assertEquals(2, weeklyHabit.getStreakCounter()); // should increase to 2
     }
 
     @Test
     void testMonthlyHabitStreak() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.MONTHLY);
-        habit.addCompletionForTesting(LocalDate.now().minusMonths(1)); // Complete last month
+        monthlyHabit.addCompletionForTesting(LocalDate.now().minusMonths(1)); // Complete last month
 
-        habit.markAsCompleted(); // complete today
-        assertEquals(2, habit.getStreakCounter()); // should increase to 2
+        monthlyHabit.markAsCompleted(); // complete today
+        assertEquals(2, monthlyHabit.getStreakCounter()); // should increase to 2
     }
     @Test
     void testHabitDefaultColor() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
         assertEquals("#000000", habit.getColor(), "Default color should be black (#000000)");
     }
 
 
     @Test
     void testSetHabitColor_Blue() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
         habit.setColor("#0000FF"); //blue
         assertEquals("#0000FF", habit.getColor(), "The color should be blue (#0000FF)");
     }
 
     @Test
     void testEditHabitColor() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
         habit.setColor("#0000FF"); // set to blue
 
         // Change color to green
@@ -96,65 +135,60 @@ public class HabitTest {
 
     @Test
     void testReminderEligibilityForWeeklyHabit() {
-        Habit habit = new Habit("Weekly Read", Habit.Frequency.WEEKLY);
-        habit.setCreationDate(LocalDate.now().minusWeeks(1).plusDays(6)); // Set it to be eligible tomorrow
+        weeklyHabit.setCreationDate(LocalDate.now().minusWeeks(1).plusDays(6)); // Set it to be eligible tomorrow
 
-        assertTrue(habit.isReminderEligible(), "Weekly habit should be eligible for a reminder tomorrow.");
+        assertTrue(weeklyHabit.isReminderEligible(), "Weekly habit should be eligible for a reminder tomorrow.");
     }
 
     @Test
     void testReminderEligibilityForMonthlyHabit() {
-        Habit habit = new Habit("Monthly Checkup", Habit.Frequency.MONTHLY);
-        habit.setCreationDate(LocalDate.now().minusMonths(1).plusDays(29)); // Set it to be eligible tomorrow
+        monthlyHabit.setCreationDate(LocalDate.now().minusMonths(1).plusDays(29)); // Set it to be eligible tomorrow
 
-        assertTrue(habit.isReminderEligible(), "Monthly habit should be eligible for a reminder tomorrow.");
+        assertTrue(monthlyHabit.isReminderEligible(), "Monthly habit should be eligible for a reminder tomorrow.");
     }
 
     @Test
     void testGetCompletionsInWeek() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.WEEKLY);
         YearMonth testMonth = YearMonth.of(2024, 11); // November 2024
 
         // Simulate completion on specific dates in November 2024
-        habit.addCompletionForTesting(LocalDate.of(2024, 11, 1)); // Expected in Week 1
-        habit.addCompletionForTesting(LocalDate.of(2024, 11, 2)); // Expected in Week 1
-        habit.addCompletionForTesting(LocalDate.of(2024, 11, 5)); // Expected in Week 2
-        habit.addCompletionForTesting(LocalDate.of(2024, 11, 7)); // Expected in Week 2
-        habit.addCompletionForTesting(LocalDate.of(2024, 11, 12)); // Expected in Week 3
-        habit.addCompletionForTesting(LocalDate.of(2024, 11, 15)); // Expected in Week 3
-        habit.addCompletionForTesting(LocalDate.of(2024, 11, 20)); // Expected in Week 4
-        habit.addCompletionForTesting(LocalDate.of(2024, 11, 28)); // Expected in Week 5
+        weeklyHabit.addCompletionForTesting(LocalDate.of(2024, 11, 1)); // Expected in Week 1
+        weeklyHabit.addCompletionForTesting(LocalDate.of(2024, 11, 2)); // Expected in Week 1
+        weeklyHabit.addCompletionForTesting(LocalDate.of(2024, 11, 5)); // Expected in Week 2
+        weeklyHabit.addCompletionForTesting(LocalDate.of(2024, 11, 7)); // Expected in Week 2
+        weeklyHabit.addCompletionForTesting(LocalDate.of(2024, 11, 12)); // Expected in Week 3
+        weeklyHabit.addCompletionForTesting(LocalDate.of(2024, 11, 15)); // Expected in Week 3
+        weeklyHabit.addCompletionForTesting(LocalDate.of(2024, 11, 20)); // Expected in Week 4
+        weeklyHabit.addCompletionForTesting(LocalDate.of(2024, 11, 28)); // Expected in Week 5
 
         // Verify completions in each week
-        assertEquals(2, habit.getCompletionsInWeek(1, testMonth), "Week 1 should have 2 completions");
-        assertEquals(2, habit.getCompletionsInWeek(2, testMonth), "Week 2 should have 2 completions");
-        assertEquals(2, habit.getCompletionsInWeek(3, testMonth), "Week 3 should have 2 completions");
-        assertEquals(1, habit.getCompletionsInWeek(4, testMonth), "Week 4 should have 1 completion");
-        assertEquals(1, habit.getCompletionsInWeek(5, testMonth), "Week 5 should have 1 completion");
+        assertEquals(2, weeklyHabit.getCompletionsInWeek(1, testMonth), "Week 1 should have 2 completions");
+        assertEquals(2, weeklyHabit.getCompletionsInWeek(2, testMonth), "Week 2 should have 2 completions");
+        assertEquals(2, weeklyHabit.getCompletionsInWeek(3, testMonth), "Week 3 should have 2 completions");
+        assertEquals(1, weeklyHabit.getCompletionsInWeek(4, testMonth), "Week 4 should have 1 completion");
+        assertEquals(1, weeklyHabit.getCompletionsInWeek(5, testMonth), "Week 5 should have 1 completion");
     }
 
     @Test
     void testGetCompletionsInMonth() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.MONTHLY);
         int testYear = 2024;
         int testMonth = 11; // November
 
         // Simulate completion on specific dates in November 2024
-        habit.addCompletionForTesting(LocalDate.of(2024, 11, 1));
-        habit.addCompletionForTesting(LocalDate.of(2024, 11, 7));
-        habit.addCompletionForTesting(LocalDate.of(2024, 11, 15));
-        habit.addCompletionForTesting(LocalDate.of(2024, 11, 29));
+        monthlyHabit.addCompletionForTesting(LocalDate.of(2024, 11, 1));
+        monthlyHabit.addCompletionForTesting(LocalDate.of(2024, 11, 7));
+        monthlyHabit.addCompletionForTesting(LocalDate.of(2024, 11, 15));
+        monthlyHabit.addCompletionForTesting(LocalDate.of(2024, 11, 29));
 
-        assertEquals(4, habit.getCompletionsInMonth(testYear, testMonth), "November 2024 should have 4 completions");
+        assertEquals(4, monthlyHabit.getCompletionsInMonth(testYear, testMonth), "November 2024 should have 4 completions");
 
         // Test for a different month with no completions
         int otherMonth = 10; // October
-        assertEquals(0, habit.getCompletionsInMonth(testYear, otherMonth), "October 2024 should have 0 completions");
+        assertEquals(0, monthlyHabit.getCompletionsInMonth(testYear, otherMonth), "October 2024 should have 0 completions");
     }
 
     @Test
     void testMarkAsCompletedOnSpecificDate() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
 
         LocalDate startDate = LocalDate.now().minusDays(3); // Set start date to three days ago
         habit.setCreationDate(startDate);
@@ -167,7 +201,6 @@ public class HabitTest {
     }
     @Test
     void testBackdatedCompletionWithStreak() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
 
         // Mark as completed for today and three days ago
         LocalDate today = LocalDate.now();
@@ -183,8 +216,6 @@ public class HabitTest {
 
     @Test
     void testConsecutiveCompletionWithStreak() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
-
         LocalDate startDate = LocalDate.now().minusDays(2);
         habit.setCreationDate(startDate);
 
@@ -202,8 +233,6 @@ public class HabitTest {
 
     @Test
     void testNonConsecutiveCompletionResetsStreak() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
-
         LocalDate threeDaysAgo = LocalDate.now().minusDays(3);
         LocalDate today = LocalDate.now();
 
@@ -217,41 +246,37 @@ public class HabitTest {
 
     @Test
     void testWeeklyHabitBackdatedCompletion() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.WEEKLY);
 
         LocalDate startDate = LocalDate.now().minusWeeks(2);
-        habit.setCreationDate(startDate);
+        weeklyHabit.setCreationDate(startDate);
 
         LocalDate oneWeekAgo = LocalDate.now().minusWeeks(1);
         LocalDate twoWeeksAgo = LocalDate.now().minusWeeks(2);
 
-        habit.markAsCompletedOnDate(twoWeeksAgo);
-        habit.markAsCompletedOnDate(oneWeekAgo);
+        weeklyHabit.markAsCompletedOnDate(twoWeeksAgo);
+        weeklyHabit.markAsCompletedOnDate(oneWeekAgo);
 
-        assertEquals(2, habit.getStreakCounter(),
+        assertEquals(2, weeklyHabit.getStreakCounter(),
                 "Weekly habit should maintain a streak for consecutive weekly completions.");
     }
 
     @Test
     void testMonthlyHabitBackdatedCompletion() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.MONTHLY);
-
         LocalDate startDate = LocalDate.now().minusMonths(2); // Set start date to two months ago
-        habit.setCreationDate(startDate);
+        monthlyHabit.setCreationDate(startDate);
 
         LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
         LocalDate twoMonthsAgo = LocalDate.now().minusMonths(2);
 
-        habit.markAsCompletedOnDate(twoMonthsAgo);
-        habit.markAsCompletedOnDate(oneMonthAgo);
+        monthlyHabit.markAsCompletedOnDate(twoMonthsAgo);
+        monthlyHabit.markAsCompletedOnDate(oneMonthAgo);
 
-        assertEquals(2, habit.getStreakCounter(),
+        assertEquals(2, monthlyHabit.getStreakCounter(),
                 "Monthly habit should maintain a streak for consecutive monthly completions.");
     }
 
     @Test
     void testMarkAsCompletedOnFutureDate() {
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
         LocalDate futureDate = LocalDate.now().plusDays(1);
         
         habit.markAsCompletedOnDate(futureDate);
@@ -259,6 +284,5 @@ public class HabitTest {
         assertFalse(habit.getCompletedDates().contains(futureDate),
                 "Completed dates should not include a future date.");
     }
-
 
 }

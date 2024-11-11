@@ -10,27 +10,39 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class HabitRepositoryIntegrationTest {
-    private EntityManagerFactory entityManagerFactory;
+    private static EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
     private HabitRepository habitRepository;
 
     @BeforeAll
-    void setup() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("habittracker");
-        habitRepository = new HabitRepository();
+    static void init() {
+        entityManagerFactory = Persistence.createEntityManagerFactory("habittracker-test");
     }
 
     @BeforeEach
-    void startTransaction() {
-        EntityManager em = entityManagerFactory.createEntityManager();
-        em.getTransaction().begin();
-        em.createQuery("DELETE FROM Habit").executeUpdate();
-        em.getTransaction().commit();
-        em.close();
+    void setUp() {
+        entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        habitRepository = new HabitRepository(entityManagerFactory);
+    }
+
+    @AfterEach
+    void tearDown() {
+        entityManager.getTransaction().commit();
+        entityManager.getTransaction().begin();
+        entityManager.createQuery("DELETE FROM Habit").executeUpdate();
+        entityManager.getTransaction().commit();
+
+        if (entityManager.isOpen()) {
+            entityManager.close();
+        }
     }
 
     @AfterAll
-    void tearDown() {
-        entityManagerFactory.close();
+    static void close() {
+        if (entityManagerFactory.isOpen()) {
+            entityManagerFactory.close();
+        }
     }
 
     @Test
