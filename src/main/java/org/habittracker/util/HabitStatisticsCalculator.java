@@ -6,6 +6,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Set;
 
 public class HabitStatisticsCalculator {
@@ -197,6 +198,22 @@ public class HabitStatisticsCalculator {
     }
 
 
+    public static int calculateLongestStreak(Habit habit) {
+        List<LocalDate> completedDates = habit.getCompletedDates().stream().sorted().toList();
+        int longestStreak = 0;
+        int currentStreak = 0;
+        LocalDate lastDate = null;
 
+        for (LocalDate date : completedDates) {
+            if (lastDate != null && date.equals(lastDate.plusDays(1))) {
+                currentStreak++;
+            } else {
+                longestStreak = Math.max(longestStreak, currentStreak);
+                currentStreak = 1;
+            }
+            lastDate = date;
+        }
+        return Math.max(longestStreak, currentStreak);
+    }
 
 }

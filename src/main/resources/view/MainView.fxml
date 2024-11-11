@@ -42,6 +42,9 @@
         </VBox>
     </VBox>
 
+    <Label fx:id="notificationLabel" text="" visible="false" />
+
+
     <!-- Placeholder for dynamically loaded views -->
     <VBox fx:id="dynamicViewContainer" visible="false" alignment="CENTER" spacing="10"/>
 </StackPane>

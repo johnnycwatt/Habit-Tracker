@@ -32,6 +32,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import org.habittracker.service.ReportGenerator;
 
 public class MainController {
 
@@ -39,6 +40,7 @@ public class MainController {
     public HabitRepository habitRepository = HabitRepository.getInstance();
     private boolean remindersEnabled = true; // Default reminders to enabled
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private ReportGenerator reportGenerator;
 
     @FXML
     private ListView<Habit> habitsDueTodayList;
@@ -71,8 +73,19 @@ public class MainController {
 
     @FXML
     private void initialize() {
-        showMainView();
-        startReminderScheduler(); // Schedule reminders when the app starts
+            notifier = new NotificationHelper(notificationLabel);
+            habitRepository = HabitRepository.getInstance();
+            reportGenerator = new ReportGenerator(habitRepository, notifier);
+
+            showMainView();
+            startReminderScheduler();
+            reportGenerator.startMonthlyReportScheduler();
+            reportGenerator.checkForMissedReports();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            scheduler.shutdown();
+            reportGenerator.stopScheduler();
+        }));
     }
 
     public void setRemindersEnabled(boolean remindersEnabled) {
