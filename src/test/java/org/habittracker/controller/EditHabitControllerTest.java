@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.provider.EnumSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -22,8 +21,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -105,13 +102,13 @@ public class EditHabitControllerTest {
     }
 
     @ParameterizedTest
-    @Tag("JavaFX")
     @CsvSource({
             "Daily, #000000, Black",
             "Weekly, #FF0000, Red",
             "Monthly, #008000, Green",
             "Custom, #0000FF, Blue"
     })
+    @Tag("JavaFX")
     void testEditHabitWithValidData(String frequency, String colorHex, String colorName) throws Exception {
         Habit habit = new Habit("Initial Habit", Habit.Frequency.valueOf(frequency.toUpperCase()));
         habit.setCreationDate(LocalDate.now());
@@ -251,13 +248,13 @@ public class EditHabitControllerTest {
     }
 
     @ParameterizedTest
-    @Tag("JavaFX")
     @CsvSource({
             "DAILY, DAILY",
             "WEEKLY, WEEKLY",
             "MONTHLY, MONTHLY",
             "CUSTOM, CUSTOM"
     })
+    @Tag("JavaFX")
     void testSetHabitWithFrequencies(Habit.Frequency frequency, String frequencyDisplay) throws Exception {
         // Different frequencies
         Habit habit = new Habit("Test Habit", frequency);
@@ -286,6 +283,7 @@ public class EditHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testGetColorNameFromHex() throws Exception {
         Method getColorNameFromHex = editHabitController.getClass().getDeclaredMethod("getColorNameFromHex", String.class);
         getColorNameFromHex.setAccessible(true);
@@ -297,6 +295,7 @@ public class EditHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testGetColorHexCode() throws Exception {
         Method getColorHexCode = editHabitController.getClass().getDeclaredMethod("getColorHexCode", String.class);
         getColorHexCode.setAccessible(true);

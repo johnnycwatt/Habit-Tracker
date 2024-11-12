@@ -6,11 +6,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.habittracker.controller.MainController;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.Notifier;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,11 +18,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -78,6 +75,7 @@ public class MainControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testDailyHabitDueToday() {
         when(habitRepository.getAllHabits()).thenReturn(Collections.singletonList(dailyHabit));
 
@@ -86,6 +84,7 @@ public class MainControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testWeeklyHabitDueTodayOnStartDate() {
         when(habitRepository.getAllHabits()).thenReturn(Collections.singletonList(weeklyHabit));
 
@@ -94,6 +93,7 @@ public class MainControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testWeeklyHabitDueAfterOneWeek() {
         when(habitRepository.getAllHabits()).thenReturn(Collections.singletonList(weeklyHabit));
 
@@ -102,6 +102,7 @@ public class MainControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testMonthlyHabitDueNextMonth() {
         when(habitRepository.getAllHabits()).thenReturn(Collections.singletonList(monthlyHabit));
 
@@ -110,6 +111,7 @@ public class MainControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testSetRemindersEnabled() {
         mainController.setRemindersEnabled(true);
         verify(notifier).showMessage("Reminders Enabled", "green");
@@ -121,6 +123,7 @@ public class MainControllerTest {
 
 
     @Test
+    @Tag("JavaFX")
     void testPopulateCalendarWithDueHabits() {
         Habit dueTodayHabit = new Habit("Due Today Habit", Habit.Frequency.DAILY);
         dueTodayHabit.setCreationDate(LocalDate.now());
@@ -131,6 +134,7 @@ public class MainControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testShowMainView() {
         mainController.showMainView();
 
@@ -139,6 +143,7 @@ public class MainControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testShowSettingsView() {
         mainController.showSettingsView();
 
@@ -147,6 +152,7 @@ public class MainControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testShowAddHabitView() {
         mainController.showAddHabitView();
 
@@ -155,6 +161,7 @@ public class MainControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testShowEditHabitView() {
         Habit habitToEdit = new Habit("Test Habit", Habit.Frequency.DAILY);
         mainController.showEditHabitView(habitToEdit);
@@ -164,6 +171,7 @@ public class MainControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testShowProgressView() {
         Habit habitToView = new Habit("Test Habit", Habit.Frequency.DAILY);
         mainController.showProgressView(habitToView);
@@ -174,6 +182,7 @@ public class MainControllerTest {
 
 
     @Test
+    @Tag("JavaFX")
     void testShowReportView() {
         mainController.showReportView();
 
@@ -184,6 +193,7 @@ public class MainControllerTest {
 
 
     @Test
+    @Tag("JavaFX")
     void testUpdateHabitsDueToday() {
         Habit dueTodayHabit = new Habit("Habit Due Today", Habit.Frequency.DAILY);
         dueTodayHabit.setCreationDate(LocalDate.now());
@@ -198,6 +208,7 @@ public class MainControllerTest {
 
     @ParameterizedTest
     @MethodSource("habitDueTodayTestCases")
+    @Tag("JavaFX")
     void testIsHabitDueToday(Habit habit, LocalDate today, boolean expected) {
         assertEquals(expected, mainController.isHabitDueToday(habit, today));
     }
@@ -222,6 +233,7 @@ public class MainControllerTest {
 
     @ParameterizedTest
     @MethodSource("reminderDueTestCases")
+    @Tag("JavaFX")
     void testIsReminderDue(Habit habit, LocalDate date, boolean expected) {
         assertEquals(expected, mainController.isReminderDue(habit, date));
     }
@@ -243,12 +255,14 @@ public class MainControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testStartReminderScheduler() {
         mainController.startReminderScheduler();
         assertFalse(mainController.scheduler.isShutdown(), "Scheduler should not be shut down immediately after start");
     }
 
     @Test
+    @Tag("JavaFX")
     void testShutdownScheduler() {
         mainController.startReminderScheduler();
         mainController.shutdownScheduler();
