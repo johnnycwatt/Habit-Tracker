@@ -11,6 +11,7 @@ import org.habittracker.util.NotificationHelper;
 import org.habittracker.util.Notifier;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class EditHabitController {
     private Notifier notifier;
 
     @FXML
-    private CheckBox mondayCheckBox, tuesdayCheckBox, wednesdayCheckBox, thursdayCheckBox, fridayCheckBox, saturdayCheckBox, sundayCheckBox;
+    private ToggleButton mondayToggle, tuesdayToggle, wednesdayToggle, thursdayToggle, fridayToggle, saturdayToggle, sundayToggle;
 
     private HabitRepository habitRepository;
     private Habit habit;
@@ -49,27 +50,26 @@ public class EditHabitController {
         editHabitNameField.setText(habit.getName());
         frequencyChoiceBox.setValue(habit.getFrequency().toString());
         startDatePicker.setValue(habit.getCreationDate());
-        String habitColorName = getColorNameFromHex(habit.getColor());
-        colorChoiceBox.setValue(habitColorName);
+        colorChoiceBox.setValue(getColorNameFromHex(habit.getColor()));
 
         if ("Custom".equals(habit.getFrequency().toString())) {
             customDaysContainer.setVisible(true);
-            // Check the boxes for the custom days that were previously set
             if (habit.getCustomDays() != null) {
                 habit.getCustomDays().forEach(day -> {
                     switch (day) {
-                        case MONDAY -> mondayCheckBox.setSelected(true);
-                        case TUESDAY -> tuesdayCheckBox.setSelected(true);
-                        case WEDNESDAY -> wednesdayCheckBox.setSelected(true);
-                        case THURSDAY -> thursdayCheckBox.setSelected(true);
-                        case FRIDAY -> fridayCheckBox.setSelected(true);
-                        case SATURDAY -> saturdayCheckBox.setSelected(true);
-                        case SUNDAY -> sundayCheckBox.setSelected(true);
+                        case MONDAY -> mondayToggle.setSelected(true);
+                        case TUESDAY -> tuesdayToggle.setSelected(true);
+                        case WEDNESDAY -> wednesdayToggle.setSelected(true);
+                        case THURSDAY -> thursdayToggle.setSelected(true);
+                        case FRIDAY -> fridayToggle.setSelected(true);
+                        case SATURDAY -> saturdayToggle.setSelected(true);
+                        case SUNDAY -> sundayToggle.setSelected(true);
                     }
                 });
             }
         }
     }
+
 
     @FXML
     private void initialize() {
@@ -112,13 +112,6 @@ public class EditHabitController {
     private void onSaveChanges(ActionEvent event) {
         if (habit != null && habitRepository != null) {
             String newName = editHabitNameField.getText();
-
-            Habit existingHabit = habitRepository.findHabitByName(newName);
-            if (existingHabit != null && !existingHabit.getId().equals(habit.getId())) {
-                notifier.showMessage("A habit with this name already exists. Please choose a different name.", "red");
-                return;
-            }
-
             if (newName == null || newName.trim().isEmpty()) {
                 notifier.showMessage("Habit name is required!", "red");
                 return;
@@ -133,16 +126,16 @@ public class EditHabitController {
 
             if ("Custom".equals(frequencyChoiceBox.getValue())) {
                 List<DayOfWeek> selectedDays = new ArrayList<>();
-                if (mondayCheckBox.isSelected()) selectedDays.add(DayOfWeek.MONDAY);
-                if (tuesdayCheckBox.isSelected()) selectedDays.add(DayOfWeek.TUESDAY);
-                if (wednesdayCheckBox.isSelected()) selectedDays.add(DayOfWeek.WEDNESDAY);
-                if (thursdayCheckBox.isSelected()) selectedDays.add(DayOfWeek.THURSDAY);
-                if (fridayCheckBox.isSelected()) selectedDays.add(DayOfWeek.FRIDAY);
-                if (saturdayCheckBox.isSelected()) selectedDays.add(DayOfWeek.SATURDAY);
-                if (sundayCheckBox.isSelected()) selectedDays.add(DayOfWeek.SUNDAY);
+                if (mondayToggle.isSelected()) selectedDays.add(DayOfWeek.MONDAY);
+                if (tuesdayToggle.isSelected()) selectedDays.add(DayOfWeek.TUESDAY);
+                if (wednesdayToggle.isSelected()) selectedDays.add(DayOfWeek.WEDNESDAY);
+                if (thursdayToggle.isSelected()) selectedDays.add(DayOfWeek.THURSDAY);
+                if (fridayToggle.isSelected()) selectedDays.add(DayOfWeek.FRIDAY);
+                if (saturdayToggle.isSelected()) selectedDays.add(DayOfWeek.SATURDAY);
+                if (sundayToggle.isSelected()) selectedDays.add(DayOfWeek.SUNDAY);
                 habit.setCustomDays(selectedDays);
             } else {
-                habit.setCustomDays(null); // Clear custom days if not custom frequency
+                habit.setCustomDays(null);
             }
 
             habitRepository.updateHabit(habit);
@@ -151,7 +144,6 @@ public class EditHabitController {
             goBack();
         }
     }
-
     @FXML
     private void onFrequencyChanged() {
         String selectedFrequency = frequencyChoiceBox.getValue();

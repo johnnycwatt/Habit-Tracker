@@ -3,17 +3,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.ToggleButton?>
 
+<?import java.lang.String?>
 <VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/javafx"
       fx:controller="org.habittracker.controller.EditHabitController">
 
     <Label text="Edit Habit" style="-fx-font-size: 18px; -fx-font-weight: bold;" styleClass="title-label"/>
 
-    <VBox spacing="5" alignment="CENTER" style="-fx-padding: 10;">
+    <!-- Habit Name Section -->
+    <VBox spacing="5" alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #f5f5f5; -fx-border-color: #dddddd; -fx-border-radius: 5;">
         <Label text="Habit Name:" styleClass="heading"/>
         <TextField fx:id="editHabitNameField" promptText="Enter habit name"/>
+    </VBox>
 
+    <!-- Frequency Section -->
+    <VBox spacing="5" alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #f5f5f5; -fx-border-color: #dddddd; -fx-border-radius: 5;">
         <Label text="Frequency:" styleClass="heading"/>
         <ChoiceBox fx:id="frequencyChoiceBox" styleClass="rounded-choicebox" onAction="#onFrequencyChanged">
             <items>
@@ -25,19 +31,24 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
+    </VBox>
 
-        <!-- Custom frequency checkboxes container, hidden initially -->
-        <HBox fx:id="customDaysContainer" spacing="10" visible="false">
-            <CheckBox fx:id="mondayCheckBox" text="Mon"/>
-            <CheckBox fx:id="tuesdayCheckBox" text="Tue"/>
-            <CheckBox fx:id="wednesdayCheckBox" text="Wed"/>
-            <CheckBox fx:id="thursdayCheckBox" text="Thu"/>
-            <CheckBox fx:id="fridayCheckBox" text="Fri"/>
-            <CheckBox fx:id="saturdayCheckBox" text="Sat"/>
-            <CheckBox fx:id="sundayCheckBox" text="Sun"/>
+    <!-- Custom Days Selection as Toggle Buttons -->
+    <HBox fx:id="customDaysContainer" spacing="10" alignment="CENTER" visible="false" style="-fx-padding: 10; -fx-background-color: #f5f5f5; -fx-border-color: #dddddd; -fx-border-radius: 5;">
+        <Label text="Select Days for Custom Frequency:" styleClass="heading"/>
+        <HBox spacing="10">
+            <ToggleButton text="Mon" fx:id="mondayToggle"/>
+            <ToggleButton text="Tue" fx:id="tuesdayToggle"/>
+            <ToggleButton text="Wed" fx:id="wednesdayToggle"/>
+            <ToggleButton text="Thu" fx:id="thursdayToggle"/>
+            <ToggleButton text="Fri" fx:id="fridayToggle"/>
+            <ToggleButton text="Sat" fx:id="saturdayToggle"/>
+            <ToggleButton text="Sun" fx:id="sundayToggle"/>
         </HBox>
+    </HBox>
 
-        <!-- Color selection -->
+    <!-- Color Selection Section -->
+    <VBox spacing="5" alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #f5f5f5; -fx-border-color: #dddddd; -fx-border-radius: 5;">
         <Label text="Select Color:" styleClass="heading"/>
         <ChoiceBox fx:id="colorChoiceBox" style="-fx-min-width: 150; -fx-max-width: 150;">
             <items>
@@ -53,7 +64,10 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
+    </VBox>
 
+    <!-- Start Date Section -->
+    <VBox spacing="5" alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #f5f5f5; -fx-border-color: #dddddd; -fx-border-radius: 5;">
         <Label text="Start Date:" styleClass="heading"/>
         <DatePicker fx:id="startDatePicker"/>
     </VBox>

@@ -39,7 +39,7 @@ public class AddHabitController {
     private ChoiceBox<String> colorChoiceBox;
 
     @FXML
-    private CheckBox mondayCheckBox, tuesdayCheckBox, wednesdayCheckBox, thursdayCheckBox, fridayCheckBox, saturdayCheckBox, sundayCheckBox;
+    private ToggleButton mondayToggle, tuesdayToggle, wednesdayToggle, thursdayToggle, fridayToggle, saturdayToggle, sundayToggle;
 
     @FXML
     private void onFrequencyChanged() {
@@ -52,6 +52,7 @@ public class AddHabitController {
         frequencyChoiceBox.setValue("Daily");
         notifier = new NotificationHelper(notificationLabel); // Initialize notifier with NotificationHelper
         colorChoiceBox.setValue("Black");
+        startDatePicker.setValue(LocalDate.now());
     }
 
     private String getColorHexCode(String colorName) {
@@ -114,13 +115,13 @@ public class AddHabitController {
 
         if ("Custom".equals(frequency)) {
             List<DayOfWeek> selectedDays = new ArrayList<>();
-            if (mondayCheckBox.isSelected()) selectedDays.add(DayOfWeek.MONDAY);
-            if (tuesdayCheckBox.isSelected()) selectedDays.add(DayOfWeek.TUESDAY);
-            if (wednesdayCheckBox.isSelected()) selectedDays.add(DayOfWeek.WEDNESDAY);
-            if (thursdayCheckBox.isSelected()) selectedDays.add(DayOfWeek.THURSDAY);
-            if (fridayCheckBox.isSelected()) selectedDays.add(DayOfWeek.FRIDAY);
-            if (saturdayCheckBox.isSelected()) selectedDays.add(DayOfWeek.SATURDAY);
-            if (sundayCheckBox.isSelected()) selectedDays.add(DayOfWeek.SUNDAY);
+            if (mondayToggle.isSelected()) selectedDays.add(DayOfWeek.MONDAY);
+            if (tuesdayToggle.isSelected()) selectedDays.add(DayOfWeek.TUESDAY);
+            if (wednesdayToggle.isSelected()) selectedDays.add(DayOfWeek.WEDNESDAY);
+            if (thursdayToggle.isSelected()) selectedDays.add(DayOfWeek.THURSDAY);
+            if (fridayToggle.isSelected()) selectedDays.add(DayOfWeek.FRIDAY);
+            if (saturdayToggle.isSelected()) selectedDays.add(DayOfWeek.SATURDAY);
+            if (sundayToggle.isSelected()) selectedDays.add(DayOfWeek.SUNDAY);
             newHabit.setCustomDays(selectedDays);
         }
 
@@ -133,6 +134,6 @@ public class AddHabitController {
     private void clearForm() {
         habitNameField.clear();
         frequencyChoiceBox.setValue("Daily");
-        startDatePicker.setValue(null);
+        startDatePicker.setValue(LocalDate.now());
     }
 }
