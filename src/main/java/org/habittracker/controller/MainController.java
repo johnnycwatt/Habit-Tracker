@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -194,6 +195,18 @@ public class MainController {
             }
         });
     }
+
+
+    public void showReportView() {
+        loadView("/view/ReportView.fxml", controller -> {
+            if (controller instanceof ReportViewController) {
+                ReportViewController reportViewController = (ReportViewController) controller;
+                reportViewController.setMainController(this);
+            }
+        });
+    }
+
+
 
     private void loadView(String fxmlPath, Consumer<Object> controllerSetup) {
         try {

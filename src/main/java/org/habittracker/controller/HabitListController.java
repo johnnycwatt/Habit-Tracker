@@ -172,6 +172,11 @@ public class HabitListController {
         this.mainApp = mainApp;
     }
 
+    public void showReportView() {
+        mainApp.getMainController().showReportView();
+    }
+
+
     @FXML
     private void goBack() {
         mainApp.getMainController().showMainView();

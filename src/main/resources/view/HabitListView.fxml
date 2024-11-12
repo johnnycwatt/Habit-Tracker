@@ -19,6 +19,7 @@
         <Button fx:id="editButton" onAction="#onEditHabit" text="Edit Habit" styleClass="primary-button"/>
         <Button text="Delete Selected" onAction="#onDeleteHabit" styleClass="primary-button"/>
         <Button text="Mark as Completed" onAction="#onMarkAsCompleted" styleClass="primary-button"/>
+        <Button text="View Monthly Reports" onAction="#showReportView" styleClass="primary-button"/>
     </HBox>
 
     <!-- Notification Label for messages like "Please select a habit to edit" -->

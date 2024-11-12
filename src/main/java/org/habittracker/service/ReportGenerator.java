@@ -135,12 +135,12 @@ public class ReportGenerator {
         LocalDate today = LocalDate.now();
         YearMonth currentMonth = YearMonth.now();
 
-        generateMonthlyReport(currentMonth); //Running daily for testing purposes.
-        //if (today.getDayOfMonth() == currentMonth.lengthOfMonth()) {
-          //  System.out.println("Generating monthly report for " + currentMonth);
-           // generateMonthlyReport(currentMonth);
-      //  }
-        System.out.println("Scheduler check at " + LocalDate.now());
+        //generateMonthlyReport(currentMonth); //Running daily for testing purposes.
+        if (today.getDayOfMonth() == currentMonth.lengthOfMonth()) {
+            System.out.println("Generating monthly report for " + currentMonth);
+            generateMonthlyReport(currentMonth);
+        }
+        //System.out.println("Scheduler check at " + LocalDate.now());
 
     }
 
