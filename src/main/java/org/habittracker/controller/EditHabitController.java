@@ -72,7 +72,7 @@ public class EditHabitController {
 
 
     @FXML
-    private void initialize() {
+    void initialize() {
         notifier = new NotificationHelper(notificationLabel); // Initialize notifier
     }
 

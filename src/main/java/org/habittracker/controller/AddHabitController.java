@@ -25,7 +25,7 @@ public class AddHabitController {
     @FXML
     private DatePicker startDatePicker;
 
-    private final HabitRepository habitRepository = new HabitRepository();
+    private HabitRepository habitRepository = new HabitRepository();
 
     @FXML
     private Label notificationLabel;
@@ -55,6 +55,16 @@ public class AddHabitController {
         startDatePicker.setValue(LocalDate.now());
     }
 
+    public AddHabitController() {
+        // This constructor is required for FXML loading
+    }
+
+    public AddHabitController(HabitRepository habitRepository, Notifier notifier) {
+        this.habitRepository = habitRepository;
+        this.notifier = notifier;
+    }
+
+
     private String getColorHexCode(String colorName) {
         switch (colorName) {
             case "Black": return "#000000";
@@ -81,31 +91,36 @@ public class AddHabitController {
     }
 
     @FXML
-    private void addHabit() {
+    void addHabit() {
         String habitName = habitNameField.getText();
         String frequency = frequencyChoiceBox.getValue();
         LocalDate startDate = startDatePicker.getValue();
 
         // validate input
         if (habitName == null || habitName.trim().isEmpty()) {
+            System.out.println("Habit name is empty");
             notifier.showMessage("Habit name is required!", "red");
             return;
         }
         if (frequency == null) {
+            System.out.println("Frequency not selected");
             notifier.showMessage("Please select a frequency.", "red");
             return;
         }
         if (startDate == null) {
+            System.out.println("Start date not selected");
             notifier.showMessage("Please select a start date.", "red");
             return;
         }
 
         // Check for duplicate habit name
         if (habitRepository.habitExistsByName(habitName)) {
+            System.out.println("Habit with this name already exists");
             notifier.showMessage("A habit with this name already exists. Please choose a different name.", "red");
             return;
         }
 
+        System.out.println("Creating new habit");
         Habit newHabit = new Habit(habitName, Habit.Frequency.valueOf(frequency.toUpperCase()));
         newHabit.setCreationDate(startDate);
 
@@ -126,6 +141,7 @@ public class AddHabitController {
         }
 
         habitRepository.addHabit(newHabit);
+        System.out.println("Habit added to repository");
         notifier.showMessage("Habit added successfully!", "green");
         clearForm();
         mainApp.getMainController().updateHabitsDueToday();
