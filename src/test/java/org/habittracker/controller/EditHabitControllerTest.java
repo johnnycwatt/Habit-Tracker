@@ -10,6 +10,7 @@ import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.Notifier;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -104,6 +105,7 @@ public class EditHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testEditHabitWithValidData() throws Exception {
         Habit habit = new Habit("Initial Habit", Habit.Frequency.DAILY);
         habit.setCreationDate(LocalDate.now());
@@ -138,6 +140,7 @@ public class EditHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testEditHabitWithEmptyName() throws Exception {
         Habit habit = new Habit("Initial Habit", Habit.Frequency.DAILY);
         editHabitController.setHabit(habit);
@@ -158,6 +161,7 @@ public class EditHabitControllerTest {
 
 
     @Test
+    @Tag("JavaFX")
     void testEditHabitWithCustomFrequencyAndSelectedDays() throws Exception {
         Habit habit = new Habit("Custom Habit", Habit.Frequency.CUSTOM);
         editHabitController.setHabit(habit);
@@ -184,6 +188,7 @@ public class EditHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testEditHabitWithCustomFrequencyNoDaysSelected() throws Exception {
         Habit habit = new Habit("Custom Habit", Habit.Frequency.CUSTOM);
         editHabitController.setHabit(habit);
@@ -203,6 +208,7 @@ public class EditHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testEditHabitWithColorSelection() throws Exception {
         Habit habit = new Habit("Color Habit", Habit.Frequency.DAILY);
         habit.setColor("#008000"); // Green
@@ -224,6 +230,7 @@ public class EditHabitControllerTest {
 
 
     @Test
+    @Tag("JavaFX")
     void testFrequencyChangeHidesCustomDaysContainer() throws Exception {
         ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(editHabitController, "frequencyChoiceBox");
         HBox customDaysContainer = (HBox) getPrivateField(editHabitController, "customDaysContainer");

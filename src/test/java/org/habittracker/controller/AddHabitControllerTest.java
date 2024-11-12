@@ -6,6 +6,7 @@ import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.Notifier;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -89,6 +90,7 @@ public class AddHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testAddHabitWithValidData() throws Exception {
         TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
         ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
@@ -117,6 +119,7 @@ public class AddHabitControllerTest {
 
 
     @Test
+    @Tag("JavaFX")
     void testAddHabitWithEmptyName() throws Exception {
         TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
         ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
@@ -139,6 +142,7 @@ public class AddHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testAddHabitWithNoFrequencySelected() throws Exception {
         TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
         DatePicker startDatePicker = (DatePicker) getPrivateField(addHabitController, "startDatePicker");
@@ -159,6 +163,7 @@ public class AddHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testAddHabitWithExistingName() throws Exception {
         TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
         ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
@@ -182,6 +187,7 @@ public class AddHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testAddHabitWithCustomFrequencyAndSelectedDays() throws Exception {
         TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
         ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
@@ -215,6 +221,7 @@ public class AddHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testAddHabitWithColorSelection() throws Exception {
         TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
         ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
@@ -240,6 +247,7 @@ public class AddHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testAddHabitWithFarFutureStartDate() throws Exception {
         TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
         ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
@@ -262,6 +270,7 @@ public class AddHabitControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testAddHabitWithUndefinedColor() throws Exception {
         TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
         ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
