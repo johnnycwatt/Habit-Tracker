@@ -2,312 +2,46 @@
   "period": "2024-11",
   "habitData": [
     {
-      "habitName": "Monthly Habit",
-      "completionRate": 100,
-      "longestStreak": 1,
-      "monthlyConsistency": 1,
+      "habitName": "Spanish",
+      "completionRate": 23,
+      "longestStreak": 5,
+      "monthlyConsistency": 0,
       "ranking": 1
     },
     {
-      "habitName": "Weekly Habit",
-      "completionRate": 20,
-      "longestStreak": 1,
+      "habitName": "Exercise",
+      "completionRate": 23,
+      "longestStreak": 7,
       "monthlyConsistency": 0,
       "ranking": 2
     },
     {
-      "habitName": "Weekly Habit",
+      "habitName": "Fasting",
       "completionRate": 20,
       "longestStreak": 1,
       "monthlyConsistency": 0,
       "ranking": 3
     },
     {
-      "habitName": "Exercise",
-      "completionRate": 0,
-      "longestStreak": 0,
+      "habitName": "Work on Habit Tracker App",
+      "completionRate": 3,
+      "longestStreak": 1,
       "monthlyConsistency": 0,
       "ranking": 4
     },
     {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
+      "habitName": "Study",
+      "completionRate": 3,
+      "longestStreak": 1,
       "monthlyConsistency": 0,
       "ranking": 5
     },
     {
-      "habitName": "Daily Habit",
+      "habitName": "Weekly Update",
       "completionRate": 0,
       "longestStreak": 0,
       "monthlyConsistency": 0,
       "ranking": 6
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 7
-    },
-    {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 8
-    },
-    {
-      "habitName": "Weekly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 9
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 10
-    },
-    {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 11
-    },
-    {
-      "habitName": "Weekly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 12
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 13
-    },
-    {
-      "habitName": "Custom Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 14
-    },
-    {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 15
-    },
-    {
-      "habitName": "Weekly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 16
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 17
-    },
-    {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 18
-    },
-    {
-      "habitName": "Weekly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 19
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 20
-    },
-    {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 21
-    },
-    {
-      "habitName": "Weekly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 22
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 23
-    },
-    {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 24
-    },
-    {
-      "habitName": "Weekly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 25
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 26
-    },
-    {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 27
-    },
-    {
-      "habitName": "Weekly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 28
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 29
-    },
-    {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 30
-    },
-    {
-      "habitName": "Weekly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 31
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 32
-    },
-    {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 33
-    },
-    {
-      "habitName": "Weekly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 34
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 35
-    },
-    {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 36
-    },
-    {
-      "habitName": "Weekly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 37
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 38
-    },
-    {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 39
-    },
-    {
-      "habitName": "Weekly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 40
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 41
-    },
-    {
-      "habitName": "Daily Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 42
-    },
-    {
-      "habitName": "Weekly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 43
-    },
-    {
-      "habitName": "Monthly Habit",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 44
     }
   ],
   "reportGeneratedDate": "2024-11-12"
