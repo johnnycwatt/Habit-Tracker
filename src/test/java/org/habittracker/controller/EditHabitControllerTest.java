@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -19,7 +20,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,11 +40,6 @@ public class EditHabitControllerTest {
             Platform.startup(() -> {});
         }
     }
-
-
-
-
-
     @Mock
     private HabitRepository habitRepository;
 
@@ -88,9 +91,6 @@ public class EditHabitControllerTest {
         ((ChoiceBox<String>) getPrivateField(editHabitController, "colorChoiceBox")).getItems().addAll("Black", "Red", "Green", "Blue");
     }
 
-
-
-
     // Helper methods for reflection
     private void setPrivateField(Object target, String fieldName, Object value) throws Exception {
         Field field = target.getClass().getDeclaredField(fieldName);
@@ -104,12 +104,18 @@ public class EditHabitControllerTest {
         return field.get(target);
     }
 
-    @Test
+    @ParameterizedTest
     @Tag("JavaFX")
-    void testEditHabitWithValidData() throws Exception {
-        Habit habit = new Habit("Initial Habit", Habit.Frequency.DAILY);
+    @CsvSource({
+            "Daily, #000000, Black",
+            "Weekly, #FF0000, Red",
+            "Monthly, #008000, Green",
+            "Custom, #0000FF, Blue"
+    })
+    void testEditHabitWithValidData(String frequency, String colorHex, String colorName) throws Exception {
+        Habit habit = new Habit("Initial Habit", Habit.Frequency.valueOf(frequency.toUpperCase()));
         habit.setCreationDate(LocalDate.now());
-        habit.setColor("#000000"); // Black
+        habit.setColor(colorHex);
 
         editHabitController.setHabit(habit);
 
@@ -119,10 +125,11 @@ public class EditHabitControllerTest {
         DatePicker startDatePicker = (DatePicker) getPrivateField(editHabitController, "startDatePicker");
         ChoiceBox<String> colorChoiceBox = (ChoiceBox<String>) getPrivateField(editHabitController, "colorChoiceBox");
 
+        // Update values based on parameters
         editHabitNameField.setText("Updated Habit");
-        frequencyChoiceBox.setValue("Weekly");
+        frequencyChoiceBox.setValue(frequency);
         startDatePicker.setValue(LocalDate.now().plusDays(1));
-        colorChoiceBox.setValue("Red");
+        colorChoiceBox.setValue(colorName);
 
         //onSaveChanges
         Method onSaveChangesMethod = editHabitController.getClass().getDeclaredMethod("onSaveChanges", ActionEvent.class);
@@ -132,8 +139,8 @@ public class EditHabitControllerTest {
         // Verify repository interaction and updated habit data
         verify(habitRepository, times(1)).updateHabit(argThat(updatedHabit -> {
             assertEquals("Updated Habit", updatedHabit.getName());
-            assertEquals(Habit.Frequency.WEEKLY, updatedHabit.getFrequency());
-            assertEquals("#FF0000", updatedHabit.getColor()); // Red
+            assertEquals(Habit.Frequency.valueOf(frequency.toUpperCase()), updatedHabit.getFrequency());
+            assertEquals(colorHex, updatedHabit.getColor());
             return true;
         }));
         verify(notifier, times(1)).showMessage("Habit updated successfully!", "green");
@@ -243,5 +250,62 @@ public class EditHabitControllerTest {
         assertFalse(customDaysContainer.isVisible());
     }
 
+    @ParameterizedTest
+    @Tag("JavaFX")
+    @CsvSource({
+            "DAILY, DAILY",
+            "WEEKLY, WEEKLY",
+            "MONTHLY, MONTHLY",
+            "CUSTOM, CUSTOM"
+    })
+    void testSetHabitWithFrequencies(Habit.Frequency frequency, String frequencyDisplay) throws Exception {
+        // Different frequencies
+        Habit habit = new Habit("Test Habit", frequency);
+        habit.setCreationDate(LocalDate.now());
+        habit.setColor("#0000FF"); // Blue
+
+        // Set custom days only for "Custom" frequency
+        if (frequency == Habit.Frequency.CUSTOM) {
+            habit.setCustomDays(List.of(DayOfWeek.MONDAY, DayOfWeek.FRIDAY));
+        } else {
+            habit.setCustomDays(Collections.emptyList());
+        }
+
+        editHabitController.setHabit(habit);
+
+        TextField editHabitNameField = (TextField) getPrivateField(editHabitController, "editHabitNameField");
+        ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(editHabitController, "frequencyChoiceBox");
+        DatePicker startDatePicker = (DatePicker) getPrivateField(editHabitController, "startDatePicker");
+        ChoiceBox<String> colorChoiceBox = (ChoiceBox<String>) getPrivateField(editHabitController, "colorChoiceBox");
+
+        assertEquals("Test Habit", editHabitNameField.getText());
+        assertEquals(frequencyDisplay, frequencyChoiceBox.getValue());
+        assertEquals(LocalDate.now(), startDatePicker.getValue());
+        assertEquals("Blue", colorChoiceBox.getValue());
+
+    }
+
+    @Test
+    void testGetColorNameFromHex() throws Exception {
+        Method getColorNameFromHex = editHabitController.getClass().getDeclaredMethod("getColorNameFromHex", String.class);
+        getColorNameFromHex.setAccessible(true);
+
+        assertEquals("Black", getColorNameFromHex.invoke(editHabitController, "#000000"));
+        assertEquals("Red", getColorNameFromHex.invoke(editHabitController, "#FF0000"));
+        assertEquals("Green", getColorNameFromHex.invoke(editHabitController, "#008000"));
+        assertEquals("Blue", getColorNameFromHex.invoke(editHabitController, "#0000FF"));
+    }
+
+    @Test
+    void testGetColorHexCode() throws Exception {
+        Method getColorHexCode = editHabitController.getClass().getDeclaredMethod("getColorHexCode", String.class);
+        getColorHexCode.setAccessible(true);
+
+        assertEquals("#000000", getColorHexCode.invoke(editHabitController, "Black"));
+        assertEquals("#FF0000", getColorHexCode.invoke(editHabitController, "Red"));
+        assertEquals("#008000", getColorHexCode.invoke(editHabitController, "Green"));
+        assertEquals("#0000FF", getColorHexCode.invoke(editHabitController, "Blue"));
+    }
 
 }
+

@@ -39,31 +39,31 @@ public class MainController {
 
     private Main mainApp;
     public HabitRepository habitRepository = HabitRepository.getInstance();
-    private boolean remindersEnabled = true; // Default reminders to enabled
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    boolean remindersEnabled = true; // Default reminders to enabled
+    final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private ReportGenerator reportGenerator;
 
     @FXML
-    private ListView<Habit> habitsDueTodayList;
+    ListView<Habit> habitsDueTodayList;
 
 
     @FXML
-    private StackPane rootStackPane;
+    StackPane rootStackPane;
 
     @FXML
-    private VBox mainView;
+    VBox mainView;
 
     @FXML
-    private VBox dynamicViewContainer;
+    VBox dynamicViewContainer;
 
     @FXML
-    private GridPane calendarGrid;
+    GridPane calendarGrid;
 
     @FXML
     private Label notificationLabel;
 
     @FXML
-    private Label calendarMonthLabel;
+    Label calendarMonthLabel;
 
     public Notifier notifier;
 
@@ -96,7 +96,7 @@ public class MainController {
         notifier.showMessage(message, color);
     }
 
-    private void startReminderScheduler() {
+    void startReminderScheduler() {
         scheduler.scheduleAtFixedRate(this::checkUpcomingReminders, 0, 24, TimeUnit.HOURS);
     }
 
@@ -310,7 +310,7 @@ public class MainController {
         return ChronoUnit.MONTHS.between(YearMonth.from(startDate), YearMonth.from(endDate));
     }
 
-    private void populateCalendar(LocalDate referenceDate) {
+    void populateCalendar(LocalDate referenceDate) {
         // Set the month label
         calendarMonthLabel.setText(referenceDate.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + referenceDate.getYear());
 

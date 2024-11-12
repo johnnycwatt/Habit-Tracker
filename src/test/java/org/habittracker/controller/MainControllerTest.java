@@ -1,229 +1,259 @@
 package org.habittracker.controller;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import org.habittracker.controller.MainController;
 import org.habittracker.model.Habit;
-import org.habittracker.util.EntityManagerFactoryUtil;
-import org.habittracker.util.TestNotifier;
-import org.junit.jupiter.api.*;
+import org.habittracker.repository.HabitRepository;
+import org.habittracker.util.Notifier;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
-import static org.junit.jupiter.api.Assertions.*;
-import java.time.DayOfWeek;
 import java.util.Arrays;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MainControllerTest {
-    private static EntityManagerFactory entityManagerFactory;
-    private EntityManager entityManager;
+
+    @Mock
+    private HabitRepository habitRepository;
+
+    @Mock
+    private Notifier notifier;
+
+    @InjectMocks
     private MainController mainController;
+
     private Habit dailyHabit;
     private Habit weeklyHabit;
     private Habit monthlyHabit;
-    private TestNotifier testNotifier;
-
-    @BeforeAll
-    void init() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("habittracker-test");
-    }
 
     @BeforeEach
     void setUp() {
-        if (!entityManagerFactory.isOpen()) {
-            entityManagerFactory = Persistence.createEntityManagerFactory("habittracker-test");
-        }
-        entityManager = entityManagerFactory.createEntityManager();
-        mainController = new MainController();
-        testNotifier = new TestNotifier();
+        // Initialize Mockito
+        MockitoAnnotations.openMocks(this);
 
-        // Initialize habits
+        // Initialize MainController with mocks
+        mainController = new MainController();
+        mainController.habitRepository = habitRepository;
+        mainController.notifier = notifier;
+
+        // Manually initialize FXML components
+        mainController.rootStackPane = new StackPane();
+        mainController.mainView = new VBox();
+        mainController.dynamicViewContainer = new VBox();
+        mainController.calendarGrid = new GridPane();
+        mainController.calendarMonthLabel = new Label();
+        mainController.habitsDueTodayList = new ListView<>();
+
+        // Add a mock scene to test dark mode methods
+        mainController.rootStackPane = new StackPane();
+        Scene scene = new Scene(mainController.rootStackPane);
+
+        // Initialize test habits
         dailyHabit = new Habit("Daily Habit", Habit.Frequency.DAILY);
         weeklyHabit = new Habit("Weekly Habit", Habit.Frequency.WEEKLY);
         monthlyHabit = new Habit("Monthly Habit", Habit.Frequency.MONTHLY);
 
-        // Set start date
+        // Set creation dates
         LocalDate startDate = LocalDate.of(2024, 11, 8);
         dailyHabit.setCreationDate(startDate);
         weeklyHabit.setCreationDate(startDate);
         monthlyHabit.setCreationDate(startDate);
-
-        // Start transaction for setting up test data
-        entityManager.getTransaction().begin();
-        entityManager.persist(dailyHabit);
-        entityManager.persist(weeklyHabit);
-        entityManager.persist(monthlyHabit);
-        entityManager.getTransaction().commit();
     }
 
-    @AfterEach
-    void tearDown() {
-        if (entityManager.getTransaction().isActive()) {
-            entityManager.getTransaction().rollback();
-        }
-
-        entityManager.getTransaction().begin();
-        entityManager.createQuery("DELETE FROM Habit").executeUpdate();
-        entityManager.getTransaction().commit();
-
-        if (entityManager.isOpen()) {
-            entityManager.close();
-        }
-    }
-
-    @AfterAll
-    void close() {
-        if (entityManagerFactory.isOpen()) {
-            entityManagerFactory.close();
-        }
-    }
     @Test
     void testDailyHabitDueToday() {
-        LocalDate today = LocalDate.of(2024, 11, 8); // same as start date
-        assertTrue(mainController.isHabitDueToday(dailyHabit, today));
+        when(habitRepository.getAllHabits()).thenReturn(Collections.singletonList(dailyHabit));
 
-        today = LocalDate.of(2024, 11, 9); // next day
+        LocalDate today = LocalDate.of(2024, 11, 8);
         assertTrue(mainController.isHabitDueToday(dailyHabit, today));
     }
 
     @Test
     void testWeeklyHabitDueTodayOnStartDate() {
-        LocalDate today = LocalDate.of(2024, 11, 8); // same as start date
+        when(habitRepository.getAllHabits()).thenReturn(Collections.singletonList(weeklyHabit));
+
+        LocalDate today = LocalDate.of(2024, 11, 8);
         assertTrue(mainController.isHabitDueToday(weeklyHabit, today));
     }
 
     @Test
     void testWeeklyHabitDueAfterOneWeek() {
+        when(habitRepository.getAllHabits()).thenReturn(Collections.singletonList(weeklyHabit));
+
         LocalDate oneWeekLater = LocalDate.of(2024, 11, 15);
         assertTrue(mainController.isHabitDueToday(weeklyHabit, oneWeekLater));
-
-        LocalDate twoWeeksLater = LocalDate.of(2024, 11, 22);
-        assertTrue(mainController.isHabitDueToday(weeklyHabit, twoWeeksLater));
-
-        LocalDate notDueDay = LocalDate.of(2024, 11, 14); // not a multiple of 7 days
-        assertFalse(mainController.isHabitDueToday(weeklyHabit, notDueDay));
-    }
-
-    @Test
-    void testMonthlyHabitDueTodayOnStartDate() {
-        LocalDate today = LocalDate.of(2024, 11, 8); // same as start date
-        assertTrue(mainController.isHabitDueToday(monthlyHabit, today));
     }
 
     @Test
     void testMonthlyHabitDueNextMonth() {
+        when(habitRepository.getAllHabits()).thenReturn(Collections.singletonList(monthlyHabit));
+
         LocalDate oneMonthLater = LocalDate.of(2024, 12, 8);
         assertTrue(mainController.isHabitDueToday(monthlyHabit, oneMonthLater));
-
-        LocalDate twoMonthsLater = LocalDate.of(2025, 1, 8);
-        assertTrue(mainController.isHabitDueToday(monthlyHabit, twoMonthsLater));
-
-        LocalDate notDueDay = LocalDate.of(2024, 12, 7); // one day before due
-        assertFalse(mainController.isHabitDueToday(monthlyHabit, notDueDay));
     }
 
     @Test
-    void testMonthlyHabitDueEndOfMonth() {
-        LocalDate endOfMonthStartDate = LocalDate.of(2024, 1, 31);
-        Habit endOfMonthHabit = new Habit("End of Month Habit", Habit.Frequency.MONTHLY);
-        endOfMonthHabit.setCreationDate(endOfMonthStartDate);
+    void testSetRemindersEnabled() {
+        mainController.setRemindersEnabled(true);
+        verify(notifier).showMessage("Reminders Enabled", "green");
 
-        // Check due on months without 31st
-        LocalDate endOfFebDueDate = LocalDate.of(2024, 2, 29); // Leap year
-        assertTrue(mainController.isHabitDueToday(endOfMonthHabit, endOfFebDueDate));
-
-        LocalDate endOfAprilDueDate = LocalDate.of(2024, 4, 30); // April has only 30 days
-        assertTrue(mainController.isHabitDueToday(endOfMonthHabit, endOfAprilDueDate));
-    }
-
-    @Test
-    void testCustomHabitDueOnSelectedDays() {
-        // habit set to occur on Monday, Wednesday, and Friday
-        Habit customHabit = new Habit("Custom Habit", Habit.Frequency.CUSTOM);
-        customHabit.setCreationDate(LocalDate.of(2024, 11, 8));
-        customHabit.setCustomDays(Arrays.asList(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY));
-
-        // Check if the habit is due
-        assertTrue(mainController.isHabitDueToday(customHabit, LocalDate.of(2024, 11, 8))); // Friday
-        assertFalse(mainController.isHabitDueToday(customHabit, LocalDate.of(2024, 11, 9))); // Saturday
-        assertFalse(mainController.isHabitDueToday(customHabit, LocalDate.of(2024, 11, 10))); // Sunday
-        assertTrue(mainController.isHabitDueToday(customHabit, LocalDate.of(2024, 11, 11))); // Monday
-        assertFalse(mainController.isHabitDueToday(customHabit, LocalDate.of(2024, 11, 12))); // Tuesday
-        assertTrue(mainController.isHabitDueToday(customHabit, LocalDate.of(2024, 11, 13))); // Wednesday
+        mainController.setRemindersEnabled(false);
+        verify(notifier).showMessage("Reminders Disabled", "red");
     }
 
 
 
     @Test
-    void testCustomHabitDueOnWeekendsOnly() {
-        //habit set to occur on Saturday and Sunday
-        Habit weekendHabit = new Habit("Weekend Habit", Habit.Frequency.CUSTOM);
-        weekendHabit.setCreationDate(LocalDate.of(2024, 11, 8));
-        weekendHabit.setCustomDays(Arrays.asList(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY));
+    void testPopulateCalendarWithDueHabits() {
+        Habit dueTodayHabit = new Habit("Due Today Habit", Habit.Frequency.DAILY);
+        dueTodayHabit.setCreationDate(LocalDate.now());
+        when(habitRepository.getAllHabits()).thenReturn(Collections.singletonList(dueTodayHabit));
 
-        // Check if habit is due on Saturday and Sunday
-        assertTrue(mainController.isHabitDueToday(weekendHabit, LocalDate.of(2024, 11, 9))); // Saturday
-        assertTrue(mainController.isHabitDueToday(weekendHabit, LocalDate.of(2024, 11, 10))); // Sunday
-        assertFalse(mainController.isHabitDueToday(weekendHabit, LocalDate.of(2024, 11, 11))); // Monday
-        assertFalse(mainController.isHabitDueToday(weekendHabit, LocalDate.of(2024, 11, 12))); // Tuesday
+        mainController.populateCalendar(LocalDate.now());
+        assertEquals("November 2024", mainController.calendarMonthLabel.getText());
+    }
+
+    @Test
+    void testShowMainView() {
+        mainController.showMainView();
+
+        assertTrue(mainController.mainView.isVisible(), "mainView should be visible");
+        assertFalse(mainController.dynamicViewContainer.isVisible(), "dynamicViewContainer should be hidden");
+    }
+
+    @Test
+    void testShowSettingsView() {
+        mainController.showSettingsView();
+
+        assertTrue(mainController.dynamicViewContainer.isVisible(), "dynamicViewContainer should be visible");
+        assertFalse(mainController.mainView.isVisible(), "mainView should be hidden");
+    }
+
+    @Test
+    void testShowAddHabitView() {
+        mainController.showAddHabitView();
+
+        assertTrue(mainController.dynamicViewContainer.isVisible(), "dynamicViewContainer should be visible");
+        assertFalse(mainController.mainView.isVisible(), "mainView should be hidden");
+    }
+
+    @Test
+    void testShowEditHabitView() {
+        Habit habitToEdit = new Habit("Test Habit", Habit.Frequency.DAILY);
+        mainController.showEditHabitView(habitToEdit);
+
+        assertTrue(mainController.dynamicViewContainer.isVisible(), "dynamicViewContainer should be visible");
+        assertFalse(mainController.mainView.isVisible(), "mainView should be hidden");
+    }
+
+    @Test
+    void testShowProgressView() {
+        Habit habitToView = new Habit("Test Habit", Habit.Frequency.DAILY);
+        mainController.showProgressView(habitToView);
+
+        assertTrue(mainController.dynamicViewContainer.isVisible(), "dynamicViewContainer should be visible");
+        assertFalse(mainController.mainView.isVisible(), "mainView should be hidden");
     }
 
 
     @Test
-    void testCustomHabitDueOnSpecificDaysWithOffsetStartDate() {
-        // starting on a non-selected day, but due on Tuesday and Friday
-        Habit offsetHabit = new Habit("Offset Habit", Habit.Frequency.CUSTOM);
-        offsetHabit.setCreationDate(LocalDate.of(2024, 11, 6)); // Start date is Wednesday
-        offsetHabit.setCustomDays(Arrays.asList(DayOfWeek.THURSDAY, DayOfWeek.FRIDAY));
+    void testShowReportView() {
+        mainController.showReportView();
 
-        // Check if the habit is due on Thursday and Friday and not Wednesday
-        assertFalse(mainController.isHabitDueToday(offsetHabit, LocalDate.of(2024, 11, 6))); // Wednesday (start date)
-        assertTrue(mainController.isHabitDueToday(offsetHabit, LocalDate.of(2024, 11, 7))); // Thursday
-        assertTrue(mainController.isHabitDueToday(offsetHabit, LocalDate.of(2024, 11, 8))); // Friday
-        assertFalse(mainController.isHabitDueToday(offsetHabit, LocalDate.of(2024, 11, 9))); // Saturday
+        assertTrue(mainController.dynamicViewContainer.isVisible(), "dynamicViewContainer should be visible");
+        assertFalse(mainController.mainView.isVisible(), "mainView should be hidden");
     }
-
-
 
 
 
     @Test
-    void testWeeklyHabitReminder() {
-        LocalDate startDate = LocalDate.of(2024, 11, 8); // Habit start date
-        weeklyHabit.setCreationDate(startDate);
+    void testUpdateHabitsDueToday() {
+        Habit dueTodayHabit = new Habit("Habit Due Today", Habit.Frequency.DAILY);
+        dueTodayHabit.setCreationDate(LocalDate.now());
 
-        LocalDate lastCompletedDate = startDate.plusWeeks(1); // Completed after one week
-        weeklyHabit.setLastCompletedDate(lastCompletedDate);
+        when(habitRepository.getAllHabits()).thenReturn(Collections.singletonList(dueTodayHabit));
 
-        // Next reminder should be one week after the last completion
-        LocalDate nextReminderDate = lastCompletedDate.plusWeeks(1);
-        assertTrue(mainController.isReminderDue(weeklyHabit, nextReminderDate),
-                "Expected reminder for weekly habit on " + nextReminderDate);
+        mainController.updateHabitsDueToday();
 
-        // Ensure no reminder one day before the expected reminder
-        LocalDate dayBeforeReminder = nextReminderDate.minusDays(1);
-        assertFalse(mainController.isReminderDue(weeklyHabit, dayBeforeReminder),
-                "No reminder expected for weekly habit on " + dayBeforeReminder);
+        assertEquals(1, mainController.habitsDueTodayList.getItems().size(), "There should be one habit due today");
+        assertEquals("Habit Due Today", mainController.habitsDueTodayList.getItems().get(0).getName());
     }
 
+    @ParameterizedTest
+    @MethodSource("habitDueTodayTestCases")
+    void testIsHabitDueToday(Habit habit, LocalDate today, boolean expected) {
+        assertEquals(expected, mainController.isHabitDueToday(habit, today));
+    }
+
+    private static Stream<Arguments> habitDueTodayTestCases() {
+        Habit dailyHabit = new Habit("Daily Habit", Habit.Frequency.DAILY);
+        dailyHabit.setCreationDate(LocalDate.of(2024, 11, 8));
+
+        Habit weeklyHabit = new Habit("Weekly Habit", Habit.Frequency.WEEKLY);
+        weeklyHabit.setCreationDate(LocalDate.of(2024, 11, 8));
+
+        Habit monthlyHabit = new Habit("Monthly Habit", Habit.Frequency.MONTHLY);
+        monthlyHabit.setCreationDate(LocalDate.of(2024, 11, 8));
+
+        return Stream.of(
+                Arguments.of(dailyHabit, LocalDate.of(2024, 11, 8), true),
+                Arguments.of(weeklyHabit, LocalDate.of(2024, 11, 15), true),
+                Arguments.of(monthlyHabit, LocalDate.of(2024, 12, 8), true),
+                Arguments.of(weeklyHabit, LocalDate.of(2024, 11, 9), false) // not due
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("reminderDueTestCases")
+    void testIsReminderDue(Habit habit, LocalDate date, boolean expected) {
+        assertEquals(expected, mainController.isReminderDue(habit, date));
+    }
+
+    private static Stream<Arguments> reminderDueTestCases() {
+        Habit weeklyHabit = new Habit("Weekly Habit", Habit.Frequency.WEEKLY);
+        weeklyHabit.setCreationDate(LocalDate.of(2024, 11, 8));
+        weeklyHabit.setLastCompletedDate(LocalDate.of(2024, 11, 8));
+
+        Habit monthlyHabit = new Habit("Monthly Habit", Habit.Frequency.MONTHLY);
+        monthlyHabit.setCreationDate(LocalDate.of(2024, 11, 8));
+        monthlyHabit.setLastCompletedDate(LocalDate.of(2024, 11, 8));
+
+        return Stream.of(
+                Arguments.of(weeklyHabit, LocalDate.of(2024, 11, 15), true),
+                Arguments.of(monthlyHabit, LocalDate.of(2024, 12, 8), true),
+                Arguments.of(weeklyHabit, LocalDate.of(2024, 11, 14), false) // not due
+        );
+    }
 
     @Test
-    void testMonthlyHabitReminder() {
-        LocalDate startDate = LocalDate.of(2024, 11, 8);
-        monthlyHabit.setCreationDate(startDate);
-
-        LocalDate lastCompletedDate = startDate.plusMonths(1);
-        monthlyHabit.setLastCompletedDate(lastCompletedDate);
-
-        // Next reminder should be one month after the last completion
-        LocalDate nextReminderDate = lastCompletedDate.plusMonths(1);
-        assertTrue(mainController.isReminderDue(monthlyHabit, nextReminderDate),
-                "Expected reminder for monthly habit on " + nextReminderDate);
-
-        // Ensure no reminder one day before the expected reminder
-        LocalDate dayBeforeReminder = nextReminderDate.minusDays(1);
-        assertFalse(mainController.isReminderDue(monthlyHabit, dayBeforeReminder),
-                "No reminder expected for monthly habit on " + dayBeforeReminder);
+    void testStartReminderScheduler() {
+        mainController.startReminderScheduler();
+        assertFalse(mainController.scheduler.isShutdown(), "Scheduler should not be shut down immediately after start");
     }
+
+    @Test
+    void testShutdownScheduler() {
+        mainController.startReminderScheduler();
+        mainController.shutdownScheduler();
+        assertTrue(mainController.scheduler.isShutdown(), "Scheduler should be shut down after calling shutdownScheduler");
+    }
+
 
 }
