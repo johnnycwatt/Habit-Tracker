@@ -21,6 +21,11 @@ public class HabitStatisticsCalculator {
                 .filter(date -> !date.isBefore(startOfWeek) && !date.isAfter(endOfWeek))
                 .count();
 
+        System.out.println("Start of Week: " + startOfWeek);
+        System.out.println("End of Week: " + endOfWeek);
+        System.out.println("Expected Completions: " + expectedCompletions);
+        System.out.println("Actual Completions: " + actualCompletions);
+
         int performance = expectedCompletions > 0 ? (int) ((actualCompletions / (double) expectedCompletions) * 100) : 0;
         return Math.min(performance, 100);
     }

@@ -131,6 +131,4 @@ public class HabitRepository {
             em.close();
         }
     }
-
-
 }

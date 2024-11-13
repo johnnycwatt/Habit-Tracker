@@ -73,7 +73,7 @@ public class MainController {
     }
 
     @FXML
-    private void initialize() {
+    void initialize() {
             notifier = new NotificationHelper(notificationLabel);
             habitRepository = HabitRepository.getInstance();
             reportGenerator = new ReportGenerator(habitRepository, notifier);
@@ -123,15 +123,19 @@ public class MainController {
     }
 
     boolean isReminderDue(Habit habit, LocalDate date) {
+        LocalDate dueDate = habit.getLastCompletedDate() != null ? habit.getLastCompletedDate() : habit.getCreationDate();
+
         if (habit.getFrequency() == Habit.Frequency.WEEKLY) {
-            return habit.getCreationDate().plusWeeks(1).equals(date) ||
-                    (habit.getLastCompletedDate() != null && habit.getLastCompletedDate().plusWeeks(1).equals(date));
+            return ChronoUnit.DAYS.between(dueDate, date) % 7 == 0 && !dueDate.isAfter(date);
         } else if (habit.getFrequency() == Habit.Frequency.MONTHLY) {
-            return habit.getCreationDate().plusMonths(1).equals(date) ||
-                    (habit.getLastCompletedDate() != null && habit.getLastCompletedDate().plusMonths(1).equals(date));
+            LocalDate nextDueDate = dueDate.plusMonths(1).withDayOfMonth(
+                    Math.min(dueDate.getDayOfMonth(), date.lengthOfMonth()));
+            return nextDueDate.equals(date);
         }
         return false;
     }
+
+
 
     public void showMainView() {
         mainView.setVisible(true);
@@ -142,7 +146,7 @@ public class MainController {
     }
 
     @FXML
-    private void openSettings() {
+    void openSettings() {
         showSettingsView();
     }
 

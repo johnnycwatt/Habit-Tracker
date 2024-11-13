@@ -16,13 +16,13 @@ import java.util.List;
 
 public class SettingsController {
 
-    private MainController mainController;
+    MainController mainController;
     private Main mainApp;
 
     @FXML
-    private Label notificationLabel;
+    Label notificationLabel;
 
-    private Notifier notifier;
+    Notifier notifier;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -30,13 +30,13 @@ public class SettingsController {
     }
 
     @FXML
-    private void enableDarkMode() {
+    void enableDarkMode() {
         mainController.enableDarkMode();
         notifier.showMessage("Dark Mode Enabled", "green");
     }
 
     @FXML
-    private void disableDarkMode() {
+    void disableDarkMode() {
         mainController.disableDarkMode();
         notifier.showMessage("Dark Mode Disabled", "red");
     }
@@ -54,7 +54,7 @@ public class SettingsController {
     }
 
     @FXML
-    private void goBack() {
+    void goBack() {
         mainController.showMainView();
     }
 
@@ -63,7 +63,7 @@ public class SettingsController {
     }
 
     @FXML
-    private void backupDataToJson() {
+    void backupDataToJson() {
         List<Habit> habits = mainController.getAllHabits();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Backup");
@@ -95,7 +95,7 @@ public class SettingsController {
 
 
     @FXML
-    private void restoreDataFromJson() {
+    void restoreDataFromJson() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Backup File to Restore");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));

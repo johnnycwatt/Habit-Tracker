@@ -1,4 +1,4 @@
-package org.habittracker.repository;
+package org.habittracker.util;
 
 import org.habittracker.model.Habit;
 import org.habittracker.model.Habit.Frequency;

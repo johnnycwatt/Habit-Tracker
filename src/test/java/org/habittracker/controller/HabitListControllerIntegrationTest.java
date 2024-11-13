@@ -249,9 +249,10 @@ public class HabitListControllerIntegrationTest {
     public void testOnMarkAsCompletedCustomHabitInsideDays() throws Exception {
         Habit habit = new Habit("Custom Habit", Habit.Frequency.CUSTOM);
         habit.setCustomDays(List.of(LocalDate.now().getDayOfWeek())); // Set custom day to today
-        entityManager.getTransaction().begin();
+
+        entityManager.getTransaction().begin(); // Start a transaction
         habitRepository.addHabit(habit);
-        entityManager.getTransaction().commit();
+        entityManager.getTransaction().commit(); // Commit the transaction after adding the habit
 
         Platform.runLater(() -> {
             try {
@@ -271,6 +272,7 @@ public class HabitListControllerIntegrationTest {
             }
         });
     }
+
 
     @Test
     @Tag("JavaFX")

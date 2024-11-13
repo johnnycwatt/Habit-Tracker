@@ -28,22 +28,29 @@ import java.util.List;
 
 public class ReportViewController {
     @FXML
-    private ComboBox<String> monthSelector;
+    ComboBox<String> monthSelector;
     @FXML
-    private Label reportPeriodLabel;
+    Label reportPeriodLabel;
     @FXML
-    private TableView<HabitReportData> habitReportTable;
+    TableView<HabitReportData> habitReportTable;
     @FXML
-    private TableColumn<HabitReportData, String> habitNameColumn;
+    TableColumn<HabitReportData, String> habitNameColumn;
     @FXML
-    private TableColumn<HabitReportData, Integer> completionRateColumn;
+    TableColumn<HabitReportData, Integer> completionRateColumn;
     @FXML
-    private TableColumn<HabitReportData, Integer> longestStreakColumn;
+    TableColumn<HabitReportData, Integer> longestStreakColumn;
     @FXML
-    private TableColumn<HabitReportData, Integer> consistencyColumn;
+    TableColumn<HabitReportData, Integer> consistencyColumn;
 
     @FXML
-    private VBox reportContent;
+    VBox reportContent;
+
+    private Path reportsDirectory = Paths.get("reports");
+
+    public void setReportsDirectory(Path path) {
+        this.reportsDirectory = path;
+    }
+
 
     private static final Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()) // Register the LocalDateAdapter
@@ -70,10 +77,10 @@ public class ReportViewController {
         loadAvailableMonths();
     }
 
-    private void loadAvailableMonths() {
+    void loadAvailableMonths() {
         monthSelector.getItems().clear();
         try {
-            Files.list(Paths.get("reports"))
+            Files.list(reportsDirectory)
                     .map(Path::getFileName)
                     .map(Path::toString)
                     .filter(filename -> filename.endsWith(".json"))
@@ -85,8 +92,9 @@ public class ReportViewController {
     }
 
 
+
     @FXML
-    private void onMonthSelected() {
+    void onMonthSelected() {
         String selectedMonth = monthSelector.getValue();
         if (selectedMonth != null) {
             loadReportData(selectedMonth);
@@ -94,24 +102,26 @@ public class ReportViewController {
         }
     }
 
-    private void loadReportData(String period) {
-        Path reportPath = Paths.get("reports", period + ".json");
-        try (FileReader reader = new FileReader(reportPath.toFile())) {
-            MonthlyReport monthlyReport = gson.fromJson(reader, MonthlyReport.class);
-            displayReportData(monthlyReport);
+    public void loadReportData(String month) {
+        Path reportFilePath = reportsDirectory.resolve(month + ".json");
+        try (FileReader reader = new FileReader(reportFilePath.toFile())) {
+            MonthlyReport report = gson.fromJson(reader, MonthlyReport.class);
+            displayReportData(report);
+            reportPeriodLabel.setText("Report for " + month);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void displayReportData(MonthlyReport report) {
+
+    void displayReportData(MonthlyReport report) {
         reportPeriodLabel.setText("Report for " + report.getPeriod());
         habitReportTable.getItems().setAll(report.getHabitData());
     }
 
 
     @FXML
-    private void goBack() {
+    void goBack() {
             mainController.showHabitListView();
     }
 }

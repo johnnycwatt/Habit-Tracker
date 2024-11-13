@@ -64,6 +64,17 @@ public class Habit {
         this.streakCounter = 0;
     }
 
+    public Habit(String name, Frequency frequency, List<DayOfWeek> customDays) {
+        this.name = name;
+        this.isCompleted = false;
+        this.creationDate = LocalDate.now();
+        this.frequency = frequency;
+        this.color = "#000000";
+        this.streakCounter = 0;
+        this.customDays = customDays; // Set custom days here
+    }
+
+
     public void markAsCompleted() {
         markAsCompletedOnDate(LocalDate.now());
     }
