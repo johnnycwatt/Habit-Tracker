@@ -69,7 +69,7 @@ public class HabitService {
         return milestoneReached;
     }
 
-    private String generateMilestoneMessage(int milestone) {
+    String generateMilestoneMessage(int milestone) {
         return switch (milestone) {
             case Milestones.FIRST_DAY -> "Great start! Every journey begins with the first step. Keep it up!";
             case Milestones.SEVEN_DAYS -> "One week down! Keep the momentum going!";

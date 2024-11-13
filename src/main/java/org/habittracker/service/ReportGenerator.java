@@ -34,7 +34,7 @@ public class ReportGenerator {
 
     private final HabitRepository habitRepository;
     private final Notifier notifier;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public ReportGenerator(HabitRepository habitRepository, Notifier notifier) {
         this.habitRepository = habitRepository;
@@ -131,7 +131,7 @@ public class ReportGenerator {
         scheduler.scheduleAtFixedRate(this::generateMonthlyReportIfEndOfMonth, 0, 1, TimeUnit.DAYS);
     }
 
-    private void generateMonthlyReportIfEndOfMonth() {
+    void generateMonthlyReportIfEndOfMonth() {
         LocalDate today = LocalDate.now();
         YearMonth currentMonth = YearMonth.now();
 
