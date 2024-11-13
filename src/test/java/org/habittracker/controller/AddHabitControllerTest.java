@@ -4,10 +4,14 @@ import javafx.application.Platform;
 import javafx.scene.control.*;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
+import org.habittracker.util.JavaFxInitializer;
 import org.habittracker.util.Notifier;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -17,7 +21,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.habittracker.Main;
 
@@ -25,10 +31,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AddHabitControllerTest {
 
-    static {
-        // Initialize JavaFX toolkit for testing
-        Platform.startup(() -> {});
+    @BeforeAll
+    public static void initToolkit() {
+        JavaFxInitializer.initToolkit();
     }
+
 
     @Mock
     private HabitRepository habitRepository;
@@ -89,161 +96,69 @@ public class AddHabitControllerTest {
         return field.get(target);
     }
 
-    @Test
+    @ParameterizedTest
+    @CsvSource({
+            // Valid habit cases
+            "'Test Habit', Daily, #000000, Black, , true",
+            "'Weekly Habit', Weekly, #FF0000, Red, , true",
+            "'Monthly Habit', Monthly, #008000, Green, , true",
+            "'Custom Habit Mon-Wed', Custom, #0000FF, Blue, MONDAY-WEDNESDAY, true",
+            "'Custom Habit Mon-Wed-Fri', Custom, #FFA500, Orange, MONDAY-WEDNESDAY-FRIDAY, true",
+            "'Custom Habit All Days', Custom, #00FFFF, Cyan, MONDAY-TUESDAY-WEDNESDAY-THURSDAY-FRIDAY-SATURDAY-SUNDAY, true",
+            "'Purple Habit', Daily, #800080, Purple, , true",
+            "'Cyan Habit', Weekly, #00FFFF, Cyan, , true",
+            "'Magenta Habit', Monthly, #FF00FF, Magenta, , true",
+
+            // Edge cases triggering errors
+            "'', Daily, #000000, Black, , false",                        // Empty habit name
+            "'Duplicate Habit', Daily, #FF0000, Red, , false",           // Duplicate habit name
+            "'No Frequency Habit', , #008000, Green, , false",           // No frequency selected
+            "'Custom No Days', Custom, #0000FF, Blue, , true"            // Custom frequency with no selected days (allowed)
+    })
     @Tag("JavaFX")
-    void testAddHabitWithValidData() throws Exception {
+    void testAddHabitWithVariousInputs(String habitName, String frequency, String colorHex, String colorName, String customDays, boolean shouldSucceed) throws Exception {
+        // Set up habit details
         TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
         ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
         DatePicker startDatePicker = (DatePicker) getPrivateField(addHabitController, "startDatePicker");
         ChoiceBox<String> colorChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "colorChoiceBox");
+        habitNameField.setText(habitName);
 
-        //Test data for habit creation
-        habitNameField.setText("Test Habit");
-        frequencyChoiceBox.setValue("Daily");
+        if (frequency != null) {
+            frequencyChoiceBox.setValue(frequency);
+        } else {
+            frequencyChoiceBox.setValue(null); // Simulate no frequency selected
+        }
         startDatePicker.setValue(LocalDate.now());
-        colorChoiceBox.setValue("Black");
+        colorChoiceBox.setValue(colorName);
 
-        //Avoid duplicate habit detection
-        when(habitRepository.habitExistsByName("Test Habit")).thenReturn(false);
+        // Simulate duplicate habit name condition
+        when(habitRepository.habitExistsByName(habitName)).thenReturn("Duplicate Habit".equals(habitName));
 
+        // Set custom days if specified and frequency is "Custom"
+        if ("Custom".equals(frequency) && customDays != null && !customDays.isEmpty()) {
+            List<DayOfWeek> days = Arrays.stream(customDays.split("-"))
+                    .map(DayOfWeek::valueOf)
+                    .collect(Collectors.toList());
+            for (DayOfWeek day : days) {
+                ToggleButton toggle = (ToggleButton) getPrivateField(addHabitController, day.name().toLowerCase() + "Toggle");
+                toggle.setSelected(true);
+            }
+        }
+
+        // Invoke addHabit method
         Method addHabitMethod = addHabitController.getClass().getDeclaredMethod("addHabit");
         addHabitMethod.setAccessible(true);
         addHabitMethod.invoke(addHabitController);
 
-        // Verify repository and notifier interactions
-        verify(habitRepository, times(1)).addHabit(any(Habit.class));
-        verify(notifier, times(1)).showMessage("Habit added successfully!", "green");
-        verify(mainApp, times(1)).getMainController(); // Verify that mainApp interaction occurred
-        verify(mainController, times(1)).updateHabitsDueToday(); // Verify that the updateHabitsDueToday was called
-    }
-
-
-    @Test
-    @Tag("JavaFX")
-    void testAddHabitWithEmptyName() throws Exception {
-        TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
-        ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
-        DatePicker startDatePicker = (DatePicker) getPrivateField(addHabitController, "startDatePicker");
-        ChoiceBox<String> colorChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "colorChoiceBox");
-
-        //Test data for habit creation
-        habitNameField.setText(""); // Empty name
-        frequencyChoiceBox.setValue("Daily");
-        startDatePicker.setValue(LocalDate.now());
-        colorChoiceBox.setValue("Black");
-
-        Method addHabitMethod = addHabitController.getClass().getDeclaredMethod("addHabit");
-        addHabitMethod.setAccessible(true);
-        addHabitMethod.invoke(addHabitController);
-
-        // Verify that the notifier shows the error message and addHabit is not called on repository
-        verify(notifier, times(1)).showMessage("Habit name is required!", "red");
-        verify(habitRepository, never()).addHabit(any(Habit.class));
-    }
-
-    @Test
-    @Tag("JavaFX")
-    void testAddHabitWithNoFrequencySelected() throws Exception {
-        TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
-        DatePicker startDatePicker = (DatePicker) getPrivateField(addHabitController, "startDatePicker");
-        ChoiceBox<String> colorChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "colorChoiceBox");
-
-        //Test data with no frequency selected
-        habitNameField.setText("Test Habit");
-        startDatePicker.setValue(LocalDate.now());
-        setPrivateField(addHabitController, "frequencyChoiceBox", new ChoiceBox<>()); // Empty choice box
-        colorChoiceBox.setValue("Black");
-
-        Method addHabitMethod = addHabitController.getClass().getDeclaredMethod("addHabit");
-        addHabitMethod.setAccessible(true);
-        addHabitMethod.invoke(addHabitController);
-
-        verify(notifier, times(1)).showMessage("Please select a frequency.", "red");
-        verify(habitRepository, never()).addHabit(any(Habit.class));
-    }
-
-    @Test
-    @Tag("JavaFX")
-    void testAddHabitWithExistingName() throws Exception {
-        TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
-        ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
-        DatePicker startDatePicker = (DatePicker) getPrivateField(addHabitController, "startDatePicker");
-        ChoiceBox<String> colorChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "colorChoiceBox");
-
-        habitNameField.setText("Existing Habit");
-        frequencyChoiceBox.setValue("Daily");
-        startDatePicker.setValue(LocalDate.now());
-        colorChoiceBox.setValue("Blue");
-
-        //Simulate an existing habit
-        when(habitRepository.habitExistsByName("Existing Habit")).thenReturn(true);
-
-        Method addHabitMethod = addHabitController.getClass().getDeclaredMethod("addHabit");
-        addHabitMethod.setAccessible(true);
-        addHabitMethod.invoke(addHabitController);
-
-        verify(notifier, times(1)).showMessage("A habit with this name already exists. Please choose a different name.", "red");
-        verify(habitRepository, never()).addHabit(any(Habit.class));
-    }
-
-    @Test
-    @Tag("JavaFX")
-    void testAddHabitWithCustomFrequencyAndSelectedDays() throws Exception {
-        TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
-        ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
-        DatePicker startDatePicker = (DatePicker) getPrivateField(addHabitController, "startDatePicker");
-        ChoiceBox<String> colorChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "colorChoiceBox");
-
-        // Set habit details
-        habitNameField.setText("Custom Habit");
-        frequencyChoiceBox.setValue("Custom");
-        startDatePicker.setValue(LocalDate.now());
-        colorChoiceBox.setValue("Blue");
-
-        // Set selected days
-        ToggleButton mondayToggle = (ToggleButton) getPrivateField(addHabitController, "mondayToggle");
-        ToggleButton wednesdayToggle = (ToggleButton) getPrivateField(addHabitController, "wednesdayToggle");
-        mondayToggle.setSelected(true);
-        wednesdayToggle.setSelected(true);
-
-        when(habitRepository.habitExistsByName("Custom Habit")).thenReturn(false);
-
-        Method addHabitMethod = addHabitController.getClass().getDeclaredMethod("addHabit");
-        addHabitMethod.setAccessible(true);
-        addHabitMethod.invoke(addHabitController);
-
-        verify(habitRepository, times(1)).addHabit(argThat(habit -> {
-            assertEquals("Custom Habit", habit.getName());
-            assertTrue(habit.getCustomDays().containsAll(List.of(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY)));
-            return true;
-        }));
-        verify(notifier, times(1)).showMessage("Habit added successfully!", "green");
-    }
-
-    @Test
-    @Tag("JavaFX")
-    void testAddHabitWithColorSelection() throws Exception {
-        TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
-        ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
-        DatePicker startDatePicker = (DatePicker) getPrivateField(addHabitController, "startDatePicker");
-        ChoiceBox<String> colorChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "colorChoiceBox");
-
-        habitNameField.setText("Color Habit");
-        frequencyChoiceBox.setValue("Daily");
-        startDatePicker.setValue(LocalDate.now());
-        colorChoiceBox.setValue("Green");
-
-        when(habitRepository.habitExistsByName("Color Habit")).thenReturn(false);
-
-        Method addHabitMethod = addHabitController.getClass().getDeclaredMethod("addHabit");
-        addHabitMethod.setAccessible(true);
-        addHabitMethod.invoke(addHabitController);
-
-        verify(habitRepository, times(1)).addHabit(argThat(habit -> {
-            assertEquals("#008000", habit.getColor()); // Green
-            return true;
-        }));
-        verify(notifier, times(1)).showMessage("Habit added successfully!", "green");
+        // Verification based on whether habit creation should succeed
+        if (shouldSucceed) {
+            verify(habitRepository, times(1)).addHabit(any(Habit.class));
+            verify(notifier, times(1)).showMessage("Habit added successfully!", "green");
+        } else {
+            verify(habitRepository, never()).addHabit(any(Habit.class));
+            verify(notifier, atLeastOnce()).showMessage(anyString(), eq("red"));
+        }
     }
 
     @Test

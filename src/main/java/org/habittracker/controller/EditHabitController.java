@@ -52,7 +52,8 @@ public class EditHabitController {
         startDatePicker.setValue(habit.getCreationDate());
         colorChoiceBox.setValue(getColorNameFromHex(habit.getColor()));
 
-        if ("Custom".equals(habit.getFrequency().toString())) {
+        // Convert frequency to lowercase to handle both "Custom" and "CUSTOM" cases
+        if ("custom".equalsIgnoreCase(habit.getFrequency().toString())) {
             customDaysContainer.setVisible(true);
             if (habit.getCustomDays() != null) {
                 habit.getCustomDays().forEach(day -> {
@@ -67,8 +68,18 @@ public class EditHabitController {
                     }
                 });
             }
+        } else {
+            customDaysContainer.setVisible(false);  // Hide for non-custom frequencies
+            mondayToggle.setSelected(false);
+            tuesdayToggle.setSelected(false);
+            wednesdayToggle.setSelected(false);
+            thursdayToggle.setSelected(false);
+            fridayToggle.setSelected(false);
+            saturdayToggle.setSelected(false);
+            sundayToggle.setSelected(false);
         }
     }
+
 
 
     @FXML
@@ -152,12 +163,17 @@ public class EditHabitController {
 
     @FXML
     private void onCancel(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to discard changes?", ButtonType.YES, ButtonType.NO);
+        Alert alert = createConfirmationAlert("Are you sure you want to discard changes?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.YES) {
             goBack();
         }
     }
+
+    protected Alert createConfirmationAlert(String message) {
+        return new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.YES, ButtonType.NO);
+    }
+
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;

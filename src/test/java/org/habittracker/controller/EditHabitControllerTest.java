@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
+import org.habittracker.util.JavaFxInitializer;
 import org.habittracker.util.Notifier;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,8 +20,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -32,11 +37,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class EditHabitControllerTest {
     @BeforeAll
-    static void initToolkit() {
-        if (!Platform.isFxApplicationThread() && !Platform.isImplicitExit()) {
-            Platform.startup(() -> {});
-        }
+    public static void initToolkit() {
+        JavaFxInitializer.initToolkit();
     }
+
     @Mock
     private HabitRepository habitRepository;
 
@@ -292,7 +296,15 @@ public class EditHabitControllerTest {
         assertEquals("Red", getColorNameFromHex.invoke(editHabitController, "#FF0000"));
         assertEquals("Green", getColorNameFromHex.invoke(editHabitController, "#008000"));
         assertEquals("Blue", getColorNameFromHex.invoke(editHabitController, "#0000FF"));
+        assertEquals("Magenta", getColorNameFromHex.invoke(editHabitController, "#FF00FF"));
+        assertEquals("Yellow", getColorNameFromHex.invoke(editHabitController, "#FFFF00"));
+        assertEquals("Orange", getColorNameFromHex.invoke(editHabitController, "#FFA500"));
+        assertEquals("Cyan", getColorNameFromHex.invoke(editHabitController, "#00FFFF"));
+
+        // Test default case
+        assertEquals("Black", getColorNameFromHex.invoke(editHabitController, "#ABCDEF")); // Any non-matching color
     }
+
 
     @Test
     @Tag("JavaFX")
@@ -304,6 +316,72 @@ public class EditHabitControllerTest {
         assertEquals("#FF0000", getColorHexCode.invoke(editHabitController, "Red"));
         assertEquals("#008000", getColorHexCode.invoke(editHabitController, "Green"));
         assertEquals("#0000FF", getColorHexCode.invoke(editHabitController, "Blue"));
+        assertEquals("#FF00FF", getColorHexCode.invoke(editHabitController, "Magenta"));
+        assertEquals("#FFFF00", getColorHexCode.invoke(editHabitController, "Yellow"));
+        assertEquals("#FFA500", getColorHexCode.invoke(editHabitController, "Orange"));
+        assertEquals("#00FFFF", getColorHexCode.invoke(editHabitController, "Cyan"));
+    }
+
+
+
+    @ParameterizedTest
+    @CsvSource({
+            "DAILY, #000000, Black, ''",          // Daily frequency, no custom days
+            "WEEKLY, #FF0000, Red, ''",           // Weekly frequency, no custom days
+            "MONTHLY, #008000, Green, ''",        // Monthly frequency, no custom days
+            "CUSTOM, #0000FF, Blue, MONDAY-FRIDAY",  // Custom frequency with custom days
+            "CUSTOM, #FFA500, Orange, MONDAY-WEDNESDAY-FRIDAY", // Custom frequency with scattered days
+            "CUSTOM, #FFA500, Orange, TUESDAY-WEDNESDAY-THURSDAY-SATURDAY-SUNDAY", // Custom frequency with scattered days
+            "CUSTOM, #FFFF00, Yellow, MONDAY-TUESDAY-WEDNESDAY-THURSDAY-FRIDAY-SATURDAY-SUNDAY" // Custom frequency with all days
+    })
+    @Tag("JavaFX")
+    void testSetHabitWithDifferentFrequencies(Habit.Frequency frequency, String colorHex, String colorName, String customDays) throws Exception {
+        Habit habit = new Habit("Test Habit", frequency);
+        habit.setCreationDate(LocalDate.now());
+        habit.setColor(colorHex);
+
+        // Set custom days if specified
+        if (!customDays.isEmpty()) {
+            List<DayOfWeek> days = Arrays.stream(customDays.split("-"))
+                    .map(DayOfWeek::valueOf)
+                    .collect(Collectors.toList());
+            habit.setCustomDays(days);
+        }
+
+        editHabitController.setHabit(habit);
+
+        TextField editHabitNameField = (TextField) getPrivateField(editHabitController, "editHabitNameField");
+        ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(editHabitController, "frequencyChoiceBox");
+        DatePicker startDatePicker = (DatePicker) getPrivateField(editHabitController, "startDatePicker");
+        ChoiceBox<String> colorChoiceBox = (ChoiceBox<String>) getPrivateField(editHabitController, "colorChoiceBox");
+        HBox customDaysContainer = (HBox) getPrivateField(editHabitController, "customDaysContainer");
+
+        // Verify basic fields
+        assertEquals("Test Habit", editHabitNameField.getText());
+        assertEquals(frequency.toString(), frequencyChoiceBox.getValue());
+        assertEquals(LocalDate.now(), startDatePicker.getValue());
+        assertEquals(colorName, colorChoiceBox.getValue());
+
+        // Verify custom days container visibility based on frequency
+        if (frequency == Habit.Frequency.CUSTOM) {
+            assertTrue(customDaysContainer.isVisible());
+
+            // Check toggle buttons for selected days
+            verifyToggleButtonState("mondayToggle", customDays.contains("MONDAY"));
+            verifyToggleButtonState("tuesdayToggle", customDays.contains("TUESDAY"));
+            verifyToggleButtonState("wednesdayToggle", customDays.contains("WEDNESDAY"));
+            verifyToggleButtonState("thursdayToggle", customDays.contains("THURSDAY"));
+            verifyToggleButtonState("fridayToggle", customDays.contains("FRIDAY"));
+            verifyToggleButtonState("saturdayToggle", customDays.contains("SATURDAY"));
+            verifyToggleButtonState("sundayToggle", customDays.contains("SUNDAY"));
+        } else {
+            assertFalse(customDaysContainer.isVisible());
+        }
+    }
+
+    private void verifyToggleButtonState(String toggleButtonName, boolean expectedState) throws Exception {
+        ToggleButton toggleButton = (ToggleButton) getPrivateField(editHabitController, toggleButtonName);
+        assertEquals(expectedState, toggleButton.isSelected());
     }
 
 }
