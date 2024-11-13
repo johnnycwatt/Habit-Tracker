@@ -111,5 +111,11 @@ public class SettingsController {
         }
     }
 
+    @FXML
+    void openHelp() {
+        if (mainController != null) {
+            mainController.openHelp();
+        }
+    }
 
 }

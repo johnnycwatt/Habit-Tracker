@@ -160,6 +160,16 @@ public class MainController {
         });
     }
 
+    public void openHelp() {
+        loadView("/view/HelpView.fxml", controller -> {
+            if (controller instanceof HelpController) {
+                HelpController helpController = (HelpController) controller;
+                helpController.setMainController(this); // Pass MainController to HelpController
+            }
+        });
+    }
+
+
     @FXML
     public void showAddHabitView() {
         loadView("/view/AddHabitView.fxml", controller -> {

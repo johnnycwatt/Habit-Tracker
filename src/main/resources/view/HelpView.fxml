@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.HelpController">
+
+    <!-- Title -->
+    <Label text="Help Guide" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+
+    <!-- Navigation List for Help Topics -->
+    <HBox spacing="20">
+        <ListView fx:id="topicsList" prefWidth="200" onMouseClicked="#displayContent">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Getting Started" />
+                    <String fx:value="Habit Management" />
+                    <String fx:value="Tracking and Progress" />
+                    <String fx:value="Reports" />
+                    <String fx:value="Settings" />
+                    <String fx:value="Backup and Restore" />
+                </FXCollections>
+            </items>
+        </ListView>
+
+        <!-- Content Display Area -->
+        <TextArea fx:id="contentArea" wrapText="true" editable="false" prefWidth="400" prefHeight="300"/>
+    </HBox>
+
+    <!-- Back Button -->
+    <Button text="Back" onAction="#goBack" styleClass="secondary-button" prefWidth="100"/>
+
+</VBox>
