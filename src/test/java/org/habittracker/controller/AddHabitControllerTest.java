@@ -104,9 +104,9 @@ public class AddHabitControllerTest {
             "'Monthly Habit', Monthly, #008000, Green, , true",
             "'Custom Habit Mon-Wed', Custom, #0000FF, Blue, MONDAY-WEDNESDAY, true",
             "'Custom Habit Mon-Wed-Fri', Custom, #FFA500, Orange, MONDAY-WEDNESDAY-FRIDAY, true",
-            "'Custom Habit All Days', Custom, #00FFFF, Cyan, MONDAY-TUESDAY-WEDNESDAY-THURSDAY-FRIDAY-SATURDAY-SUNDAY, true",
+            "'Custom Habit All Days', Custom, #009999, Cyan, MONDAY-TUESDAY-WEDNESDAY-THURSDAY-FRIDAY-SATURDAY-SUNDAY, true",
             "'Purple Habit', Daily, #800080, Purple, , true",
-            "'Cyan Habit', Weekly, #00FFFF, Cyan, , true",
+            "'Cyan Habit', Weekly, #009999, Cyan, , true",
             "'Magenta Habit', Monthly, #FF00FF, Magenta, , true",
 
             // Edge cases triggering errors

@@ -2,14 +2,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.HabitListController" styleClass="habit-list-container" style="-fx-padding: 20;">
+<VBox spacing="20" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.HabitListController" styleClass="habit-list-container">
     <!-- Header -->
-    <Label text="Habit Tracker" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <Label text="Habit Tracker" styleClass="custom-label" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
     <!-- Habit List Section -->
-    <VBox spacing="10" alignment="CENTER_LEFT" style="-fx-pref-width: 450;">
-        <Label text="Your Habits" styleClass="input-label" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+    <VBox spacing="10" alignment="CENTER_LEFT" styleClass="section-container" style="-fx-pref-width: 450;">
+        <Label text="Your Habits" styleClass="custom-label" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
         <ListView fx:id="habitListView" prefHeight="300" styleClass="habit-list-view" onMouseClicked="#onHabitSelected"/>
     </VBox>
 

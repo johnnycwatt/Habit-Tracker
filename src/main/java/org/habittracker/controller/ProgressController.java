@@ -63,10 +63,12 @@ public class ProgressController {
     private Habit habit;
     private Main mainApp;
     private HabitRepository habitRepository;
+    private boolean isDarkModeEnabled = false;
 
     public ProgressController() {
         this.habitRepository = new HabitRepository();
     }
+    private MainController mainController;
 
     @FXML
     private void initialize() {
@@ -76,6 +78,7 @@ public class ProgressController {
     public void setHabit(Habit habit) {
         this.habit = habit;
 
+        this.isDarkModeEnabled = mainController.isDarkModeEnabled();
         String color = habit.getColor();
         applyColorTheme(color);
         habitNameLabel.setText(habit.getName());
@@ -87,28 +90,43 @@ public class ProgressController {
     }
 
     private void applyColorTheme(String color) {
-        habitNameLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-weight: bold;");
-        currentStreakLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-weight: bold;");
-        bestStreakLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-weight: bold;");
-        totalCompletionsLabel.setStyle("-fx-text-fill: " + color + ";");
-        weeklyPerformanceLabel.setStyle("-fx-text-fill: " + color + ";");
-        monthlyPerformanceLabel.setStyle("-fx-text-fill: " + color + ";");
-        overallPerformanceLabel.setStyle("-fx-text-fill: " + color + ";");
-        weeklyConsistencyLabel.setStyle("-fx-text-fill: " + color + ";");
-        monthlyConsistencyLabel.setStyle("-fx-text-fill: " + color + ";");
+        String adjustedColor = adjustColorForMode(color);
 
-        calendarMonthLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-size: 18px; -fx-font-weight: bold;");
-        historyLabel.setStyle("-fx-text-fill: " + color + ";");
-        Label habitProgressTitleLabel = new Label("Habit Progress");
-        habitProgressTitleLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-size: 20px; -fx-font-weight: bold;");
-        Label statisticsTitleLabel = new Label("Statistics");
-        statisticsTitleLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-size: 18px; -fx-font-weight: bold;");
+        habitNameLabel.setStyle("-fx-text-fill: " + adjustedColor + "; -fx-font-weight: bold;");
+        currentStreakLabel.setStyle("-fx-text-fill: " + adjustedColor + "; -fx-font-weight: bold;");
+        bestStreakLabel.setStyle("-fx-text-fill: " + adjustedColor + "; -fx-font-weight: bold;");
+        totalCompletionsLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
+        weeklyPerformanceLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
+        monthlyPerformanceLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
+        overallPerformanceLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
+        weeklyConsistencyLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
+        monthlyConsistencyLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
 
+        calendarMonthLabel.setStyle("-fx-text-fill: " + adjustedColor + "; -fx-font-size: 18px; -fx-font-weight: bold;");
+        historyLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
+
+        // Adjust day labels color
         String[] dayNames = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         for (int i = 0; i < dayNames.length; i++) {
             Label dayNameLabel = new Label(dayNames[i]);
-            dayNameLabel.setStyle("-fx-text-fill: " + color + "; -fx-font-size: 12px; -fx-font-weight: bold;");
+            dayNameLabel.setStyle("-fx-text-fill: " + adjustedColor + "; -fx-font-size: 12px; -fx-font-weight: bold;");
             calendarGrid.add(dayNameLabel, i, 0);
+        }
+    }
+
+    private String adjustColorForMode(String color) {
+        if (isDarkModeEnabled) {
+            // Dark Mode adjustments
+            switch (color) {
+                case "#000000": return "#FFFFFF"; // Black to White
+                case "#FF0000": return "#FF6666"; // Red to Lighter Red
+                case "#0000FF": return "#6699FF"; // Blue to Lighter Blue
+                // Add any other adjustments for Dark Mode here
+                default: return color; // No change for colors that look fine
+            }
+        } else {
+            // Light Mode adjustments (e.g., for Yellow and Cyan that look better in Dark Mode)
+               return color; // Keep the original color
         }
     }
 
@@ -131,6 +149,7 @@ public class ProgressController {
         for (int i = 0; i < dayNames.length; i++) {
             Label dayNameLabel = new Label(dayNames[i]);
             dayNameLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
+            dayNameLabel.getStyleClass().add("custom-label");
             calendarGrid.add(dayNameLabel, i, 0);
         }
 
@@ -146,11 +165,25 @@ public class ProgressController {
             Label dayLabel = new Label(String.valueOf(day));
             dayLabel.setStyle(defaultStyle);
 
+            // Check if the current day is completed
             if (completedDates.contains(currentDate)) {
-                dayLabel.setStyle(defaultStyle + "-fx-background-color: " + habit.getColor() + "; -fx-text-fill: white;");
+                String completedColor = adjustColorForMode(habit.getColor());
+                // Adjust color for readability if in dark mode and color is black
+                if (isDarkModeEnabled && completedColor.equals("#FFFFFF")) {
+                    dayLabel.setStyle(defaultStyle + "-fx-background-color: #333333; -fx-text-fill: white;");
+                } else {
+                    dayLabel.setStyle(defaultStyle + "-fx-background-color: " + completedColor + "; -fx-text-fill: white;");
+                }
             } else if (currentDate.equals(today)) {
-                dayLabel.setStyle(defaultStyle + "-fx-background-color: lightblue; -fx-text-fill: black; -fx-border-color: blue; -fx-border-width: 1px;");
+                // Highlight today’s date with a visually pleasing color
+                String todayColor = isDarkModeEnabled ? "#add8e6" : "#b0c4de"; // Light blue in dark mode
+                String textColor = isDarkModeEnabled ? "black" : "black"; // Text color to contrast
+                dayLabel.setStyle(defaultStyle + "-fx-background-color: " + todayColor + "; -fx-text-fill: " + textColor + "; -fx-border-color: #6699FF; -fx-border-width: 1px;");
+            } else {
+                // Style for other days
+                dayLabel.getStyleClass().add("custom-label");
             }
+
 
             if (!completedDates.contains(currentDate) && !currentDate.isAfter(today)) {
                 ContextMenu contextMenu = new ContextMenu();
@@ -250,7 +283,7 @@ public class ProgressController {
 
         historyChart.getData().add(series);
 
-        String habitColor = habit.getColor();
+        String habitColor = adjustColorForMode(habit.getColor());
         for (XYChart.Data<String, Number> data : series.getData()) {
             data.getNode().setStyle("-fx-bar-fill: " + habitColor + ";");
         }
@@ -274,5 +307,10 @@ public class ProgressController {
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+        this.isDarkModeEnabled = mainController.isDarkModeEnabled();
     }
 }

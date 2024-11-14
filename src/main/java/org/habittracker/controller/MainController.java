@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.habittracker.Main;
@@ -195,8 +196,9 @@ public class MainController {
         loadView("/view/ProgressView.fxml", controller -> {
             if (controller instanceof ProgressController) {
                 ProgressController progressController = (ProgressController) controller;
-                progressController.setHabit(habit);
                 progressController.setMainApp(mainApp);
+                progressController.setMainController(this);
+                progressController.setHabit(habit);
             }
         });
     }
@@ -325,8 +327,9 @@ public class MainController {
     }
 
     void populateCalendar(LocalDate referenceDate) {
-        // Set the month label
+        // Set the month label color based on Dark Mode
         calendarMonthLabel.setText(referenceDate.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + referenceDate.getYear());
+        calendarMonthLabel.getStyleClass().add("custom-label");
 
         calendarGrid.getChildren().clear();
 
@@ -340,16 +343,20 @@ public class MainController {
         for (int i = 0; i < dayNames.length; i++) {
             Label dayNameLabel = new Label(dayNames[i]);
             dayNameLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
+            dayNameLabel.getStyleClass().add("custom-label"); // Apply custom-label style for dark mode compatibility
             calendarGrid.add(dayNameLabel, i, 0);
         }
 
         for (int day = 1; day <= daysInMonth; day++) {
             LocalDate date = yearMonth.atDay(day);
             Label dayLabel = new Label(String.valueOf(day));
+            dayLabel.getStyleClass().add("custom-label"); // Apply custom-label style for day labels
 
-            // Style the current day
+            // Style the current day with distinct colors for Dark and Light Modes
             if (date.equals(LocalDate.now())) {
-                dayLabel.setStyle("-fx-background-color: lightblue; -fx-text-fill: black; -fx-border-color: blue; -fx-border-width: 1px; -fx-alignment: center; -fx-pref-width: 35; -fx-pref-height: 35;");
+                dayLabel.setStyle(isDarkModeEnabled
+                        ? "-fx-background-color: #4d4dff; -fx-text-fill: white; -fx-border-color: blue; -fx-border-width: 1px; -fx-alignment: center; -fx-pref-width: 35; -fx-pref-height: 35;"
+                        : "-fx-background-color: lightblue; -fx-text-fill: black; -fx-border-color: blue; -fx-border-width: 1px; -fx-alignment: center; -fx-pref-width: 35; -fx-pref-height: 35;");
             } else {
                 dayLabel.setStyle("-fx-alignment: center; -fx-pref-width: 35; -fx-pref-height: 35;");
             }
@@ -375,13 +382,20 @@ public class MainController {
         }
     }
 
+
+
+    private boolean isDarkModeEnabled = false;
+
     public void enableDarkMode() {
+        isDarkModeEnabled = true;
         rootStackPane.getScene().getStylesheets().add(getClass().getResource("/css/dark-theme.css").toExternalForm());
     }
 
     public void disableDarkMode() {
+        isDarkModeEnabled = false;
         rootStackPane.getScene().getStylesheets().remove(getClass().getResource("/css/dark-theme.css").toExternalForm());
     }
+
     public Notifier getNotifier() {
         return notifier;
     }
@@ -397,6 +411,10 @@ public class MainController {
 
     public List<Habit> getAllHabits() {
         return HabitRepository.getInstance().getAllHabits();
+    }
+
+    public boolean isDarkModeEnabled() {
+        return isDarkModeEnabled;
     }
 
 

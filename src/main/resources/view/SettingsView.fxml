@@ -2,14 +2,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="20" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.SettingsController" style="-fx-padding: 15;">
-
+<VBox alignment="CENTER" spacing="20" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.SettingsController" styleClass="habit-list-container" style="-fx-padding: 15;">
     <!-- Title Label -->
-    <Label text="Settings" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" styleClass="title-label"/>
+    <Label text="Settings" styleClass="custom-label" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
     <!-- Dark Mode Section -->
-    <VBox alignment="CENTER" spacing="5">
-        <Label text="Dark Mode" style="-fx-font-size: 16px; -fx-font-weight: bold;" styleClass="heading"/>
+    <VBox alignment="CENTER" spacing="5" styleClass="section-container">
+        <Label text="Dark Mode" styleClass="custom-label" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
         <HBox alignment="CENTER" spacing="10">
             <Button text="Enable Dark Mode" onAction="#enableDarkMode" styleClass="primary-button"/>
             <Button text="Disable Dark Mode" onAction="#disableDarkMode" styleClass="primary-button"/>
@@ -17,13 +16,13 @@
     </VBox>
 
     <!-- Divider -->
-    <Separator prefWidth="500" style="-fx-background-color: #cccccc;"/>
+    <Separator prefWidth="500" style="-fx-background-color: #666666;"/>
 
     <!-- Habit Reminders Section -->
-    <VBox alignment="CENTER" spacing="5">
-        <Label text="Habit Reminders" style="-fx-font-size: 16px; -fx-font-weight: bold;" styleClass="heading"/>
+    <VBox alignment="CENTER" spacing="5" styleClass="section-container">
+        <Label text="Habit Reminders" styleClass="custom-label" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
         <Label text="Receive reminders a day in advance for weekly and monthly habits to help you stay on track."
-               wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: gray; -fx-alignment: center;" maxWidth="450"/>
+               wrapText="true" styleClass="secondary-label" maxWidth="450"/>
         <HBox alignment="CENTER" spacing="10">
             <Button text="Enable Reminders" onAction="#enableReminders" styleClass="primary-button"/>
             <Button text="Disable Reminders" onAction="#disableReminders" styleClass="primary-button"/>
@@ -31,13 +30,13 @@
     </VBox>
 
     <!-- Divider -->
-    <Separator prefWidth="500" style="-fx-background-color: #cccccc;"/>
+    <Separator prefWidth="500" style="-fx-background-color: #666666;"/>
 
     <!-- Automatic Backup Section -->
-    <VBox alignment="CENTER" spacing="5">
-        <Label text="Automatic Monthly Backup" style="-fx-font-size: 16px; -fx-font-weight: bold;" styleClass="heading"/>
+    <VBox alignment="CENTER" spacing="5" styleClass="section-container">
+        <Label text="Automatic Monthly Backup" styleClass="custom-label" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
         <Label text="Don't lose your progress. Back up your habit tracking data to a JSON file."
-               wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: gray; -fx-alignment: center;" maxWidth="450"/>
+               wrapText="true" styleClass="secondary-label" maxWidth="450"/>
         <HBox alignment="CENTER" spacing="10">
             <Button text="Enable Automatic Backup" onAction="#enableAutoBackup" styleClass="primary-button"/>
             <Button text="Disable Automatic Backup" onAction="#disableAutoBackup" styleClass="primary-button"/>
@@ -45,37 +44,35 @@
     </VBox>
 
     <!-- Divider -->
-    <Separator prefWidth="500" style="-fx-background-color: #cccccc;"/>
+    <Separator prefWidth="500" style="-fx-background-color: #666666;"/>
 
     <!-- Manual Backup and Restore Data Section -->
-    <HBox alignment="CENTER" spacing="50">
+    <HBox alignment="CENTER" spacing="50" styleClass="section-container">
         <!-- Manual Backup Section -->
         <VBox alignment="CENTER" spacing="5">
-            <Label text="Manual Backup" style="-fx-font-size: 16px; -fx-font-weight: bold;" styleClass="heading"/>
+            <Label text="Manual Backup" styleClass="custom-label" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
             <Label text="Manually export your Habit Data to a JSON file."
-                   wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: gray; -fx-alignment: center;" maxWidth="180"/>
+                   wrapText="true" styleClass="secondary-label" maxWidth="180"/>
             <Button text="Export to JSON" onAction="#backupDataToJson" styleClass="primary-button"/>
         </VBox>
 
         <!-- Restore Data Section -->
         <VBox alignment="CENTER" spacing="5">
-            <Label text="Restore Data" style="-fx-font-size: 16px; -fx-font-weight: bold;" styleClass="heading"/>
+            <Label text="Restore Data" styleClass="custom-label" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
             <Label text="Supports full JSON backups generated by this application."
-                   wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: gray; -fx-alignment: center;" maxWidth="180"/>
+                   wrapText="true" styleClass="secondary-label" maxWidth="180"/>
             <Button text="Import Data" onAction="#restoreDataFromJson" styleClass="primary-button"/>
         </VBox>
     </HBox>
 
     <!-- Divider -->
-    <Separator prefWidth="500" style="-fx-background-color: #cccccc;"/>
+    <Separator prefWidth="500" style="-fx-background-color: #666666;"/>
 
     <!-- Help Guide Section -->
-    <VBox alignment="CENTER" spacing="5">
-        <Label text="Help Guide" style="-fx-font-size: 16px; -fx-font-weight: bold;" styleClass="heading"/>
+    <VBox alignment="CENTER" spacing="5" styleClass="section-container">
+        <Label text="Help Guide" styleClass="custom-label" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
         <Button text="Open Help Guide" onAction="#openHelp" styleClass="primary-button"/>
     </VBox>
-
-
 
     <!-- Notification Label -->
     <Label fx:id="notificationLabel" visible="false" styleClass="notification-label"/>

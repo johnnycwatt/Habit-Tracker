@@ -297,9 +297,9 @@ public class EditHabitControllerTest {
         assertEquals("Green", getColorNameFromHex.invoke(editHabitController, "#008000"));
         assertEquals("Blue", getColorNameFromHex.invoke(editHabitController, "#0000FF"));
         assertEquals("Magenta", getColorNameFromHex.invoke(editHabitController, "#FF00FF"));
-        assertEquals("Yellow", getColorNameFromHex.invoke(editHabitController, "#FFFF00"));
+        assertEquals("Yellow", getColorNameFromHex.invoke(editHabitController, "#CCCC00"));
         assertEquals("Orange", getColorNameFromHex.invoke(editHabitController, "#FFA500"));
-        assertEquals("Cyan", getColorNameFromHex.invoke(editHabitController, "#00FFFF"));
+        assertEquals("Cyan", getColorNameFromHex.invoke(editHabitController, "#009999"));
 
         // Test default case
         assertEquals("Black", getColorNameFromHex.invoke(editHabitController, "#ABCDEF")); // Any non-matching color
@@ -317,9 +317,9 @@ public class EditHabitControllerTest {
         assertEquals("#008000", getColorHexCode.invoke(editHabitController, "Green"));
         assertEquals("#0000FF", getColorHexCode.invoke(editHabitController, "Blue"));
         assertEquals("#FF00FF", getColorHexCode.invoke(editHabitController, "Magenta"));
-        assertEquals("#FFFF00", getColorHexCode.invoke(editHabitController, "Yellow"));
+        assertEquals("#CCCC00", getColorHexCode.invoke(editHabitController, "Yellow"));
         assertEquals("#FFA500", getColorHexCode.invoke(editHabitController, "Orange"));
-        assertEquals("#00FFFF", getColorHexCode.invoke(editHabitController, "Cyan"));
+        assertEquals("#009999", getColorHexCode.invoke(editHabitController, "Cyan"));
     }
 
 
@@ -332,7 +332,7 @@ public class EditHabitControllerTest {
             "CUSTOM, #0000FF, Blue, MONDAY-FRIDAY",  // Custom frequency with custom days
             "CUSTOM, #FFA500, Orange, MONDAY-WEDNESDAY-FRIDAY", // Custom frequency with scattered days
             "CUSTOM, #FFA500, Orange, TUESDAY-WEDNESDAY-THURSDAY-SATURDAY-SUNDAY", // Custom frequency with scattered days
-            "CUSTOM, #FFFF00, Yellow, MONDAY-TUESDAY-WEDNESDAY-THURSDAY-FRIDAY-SATURDAY-SUNDAY" // Custom frequency with all days
+            "CUSTOM, #CCCC00, Yellow, MONDAY-TUESDAY-WEDNESDAY-THURSDAY-FRIDAY-SATURDAY-SUNDAY" // Custom frequency with all days
     })
     @Tag("JavaFX")
     void testSetHabitWithDifferentFrequencies(Habit.Frequency frequency, String colorHex, String colorName, String customDays) throws Exception {

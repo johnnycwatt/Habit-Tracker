@@ -1,23 +1,25 @@
-/* General Dark Mode Styles */
+/* General Dark Mode Background */
 .root {
     -fx-background-color: #333333;
     -fx-text-fill: #dddddd;
 }
 
+/* Default Label Style: Black Text */
 .label {
     -fx-text-fill: #000000; /* Default black text */
 }
 
-.heading {
-    -fx-text-fill: #ffffff; /* White text for dark mode */
+/* Custom White Label Style */
+.custom-label {
+    -fx-text-fill: #ffffff; /* White text for labels that need it */
 }
 
-.title-label{
-    -fx-text-fill: #ffffff;
-}
-
-.input-label{
-    -fx-text-fill: #ffffff;
+/* Gray text for secondary labels (explanatory text) */
+.secondary-label {
+    -fx-text-fill: #bbbbbb;
+    -fx-font-size: 12px;
+    -fx-alignment: center;
+    -fx-wrap-text: true;
 }
 
 /* Button Styling */
@@ -44,35 +46,13 @@
     -fx-border-radius: 5;
 }
 
-.calendar-today {
-    -fx-background-color: #666666;
-    -fx-text-fill: #dddddd;
-    -fx-border-color: #888888;
-    -fx-border-radius: 5px;
-}
-
-
 /* ChoiceBox Styling */
-.choice-box, .rounded-choicebox, .combo-box {
-    -fx-background-color: #444444;
-    -fx-text-fill: #dddddd;
+.choice-box, .combo-box {
+    -fx-background-color: #ffffff; /* Keeping it white */
+    -fx-text-fill: #000000; /* Black text inside */
     -fx-border-color: #666666;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
-}
-
-.choice-box .arrow-button, .combo-box .arrow-button {
-    -fx-background-color: #555555;
-}
-
-/* Popup Menu for ChoiceBox */
-.combo-box-popup .list-cell, .choice-box-popup .list-cell {
-    -fx-background-color: #444444;
-    -fx-text-fill: #dddddd;
-}
-
-.choice-box:focused, .combo-box:focused {
-    -fx-border-color: #888888;
 }
 
 /* DatePicker Styling */
@@ -84,50 +64,49 @@
     -fx-border-radius: 5;
 }
 
-.date-picker:hover .text-field {
-    -fx-border-color: #888888;
-}
-
-/* CheckBox Styling */
-.check-box {
-    -fx-text-fill: #dddddd;
-}
-
-/* Container Styling for VBox and HBox */
-.v-box, .h-box, .add-habit-container {
-    -fx-background-color: #333333;
+/* Dark Background for Sections */
+.section-container {
+    -fx-background-color: #444444; /* Darker background for sections */
     -fx-border-color: #666666;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-padding: 8;
 }
 
-/* Notification Label Styling */
-.notification-label {
-    -fx-text-fill: #ffdd57; /* Soft yellow for notifications */
-    -fx-font-weight: bold;
-}
-
-/* Styling for Back Button */
-#backButton {
-    -fx-background-color: #555555;
-    -fx-text-fill: #ffffff;
-    -fx-border-color: #777777;
-    -fx-background-radius: 5;
+/* Dark theme background for the main add habit container */
+.add-habit-container {
+    -fx-background-color: #333333; /* Darker background for main container */
+    -fx-border-color: #666666;
     -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
 }
 
-#backButton:hover {
+/* Dark ListView Styling */
+.habit-list-view {
+    -fx-background-color: #444444; /* Dark background for list items */
+    -fx-control-inner-background: #444444;
+    -fx-cell-hover-color: #555555; /* Slightly lighter on hover */
+    -fx-border-color: #666666;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-text-fill: #dddddd; /* Light text color for dark background */
+}
+
+/* Dark theme background for the main habit list container */
+.habit-list-container {
+    -fx-background-color: #333333; /* Darker background for main container */
+    -fx-padding: 20;
+}
+
+/* Divider line color */
+.separator {
     -fx-background-color: #666666;
 }
 
-/* Set ChoiceBox and ComboBox main area background to dark */
-.choice-box, .combo-box {
-    -fx-background-color: #444444;
-    -fx-text-fill: #dddddd;
-    -fx-border-color: #666666;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
+.axis-label {
+    -fx-text-fill: white;
 }
+
 
 

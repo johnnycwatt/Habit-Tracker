@@ -94,9 +94,9 @@ public class EditHabitController {
             case "Green": return "#008000";
             case "Blue": return "#0000FF";
             case "Magenta": return "#FF00FF";
-            case "Yellow": return "#FFFF00";
+            case "Yellow": return "#CCCC00";
             case "Orange": return "#FFA500";
-            case "Cyan": return "#00FFFF";
+            case "Cyan": return "#009999";
             default: return "#000000";
         }
     }
@@ -108,9 +108,9 @@ public class EditHabitController {
             case "#008000": return "Green";
             case "#0000FF": return "Blue";
             case "#FF00FF": return "Magenta";
-            case "#FFFF00": return "Yellow";
+            case "#CCCC00": return "Yellow";
             case "#FFA500": return "Orange";
-            case "#00FFFF": return "Cyan";
+            case "#009999": return "Cyan";
             default: return "Black";
         }
     }
