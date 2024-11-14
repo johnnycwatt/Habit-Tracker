@@ -9,6 +9,7 @@ import org.habittracker.model.HabitReportData;
 import org.habittracker.model.MonthlyReport;
 import org.habittracker.util.JavaFxInitializer;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mockito;
@@ -83,6 +84,7 @@ public class ReportViewControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testDisplayReportData() {
         // Create a sample MonthlyReport
         HabitReportData exerciseData = new HabitReportData("Exercise", 80, 10, 85, 1);
@@ -100,6 +102,7 @@ public class ReportViewControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testGoBack() {
         // Simulate the goBack action
         reportViewController.goBack();
@@ -109,6 +112,7 @@ public class ReportViewControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testLoadAvailableMonths() {
         // Verify that the monthSelector is populated with the available months
         assertEquals(1, reportViewController.monthSelector.getItems().size(), "Month selector should contain one entry");
@@ -116,6 +120,7 @@ public class ReportViewControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testOnMonthSelected() {
         // Select a month from the ComboBox
         reportViewController.monthSelector.getItems().add("2023-10");
@@ -132,6 +137,7 @@ public class ReportViewControllerTest {
     }
 
     @Test
+    @Tag("JavaFX")
     void testLoadReportData() {
         // Directly load the report data for the period "2023-10"
         reportViewController.loadReportData("2023-10");

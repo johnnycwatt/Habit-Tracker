@@ -72,9 +72,9 @@ public class AddHabitController {
             case "Green": return "#008000";
             case "Blue": return "#0000FF";
             case "Magenta": return "#FF00FF";
-            case "Yellow": return "#FFFF00";
+            case "Yellow": return "#CCCC00";
             case "Orange": return "#FFA500";
-            case "Cyan": return "#00FFFF";
+            case "Cyan": return "#009999";
             default: return "#000000";
         }
     }

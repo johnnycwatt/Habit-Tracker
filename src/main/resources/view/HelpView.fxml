@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.HelpController">
 
-    <!-- Title -->
-    <Label text="Help Guide" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+<VBox alignment="TOP_CENTER" spacing="20" xmlns:fx="http://javafx.com/fxml" fx:controller="org.habittracker.controller.HelpController" style="-fx-padding: 20;">
 
-    <!-- Navigation List for Help Topics -->
-    <HBox spacing="20">
-        <ListView fx:id="topicsList" prefWidth="200" onMouseClicked="#displayContent">
+    <!-- Title with Custom Label for Dark Mode Compatibility -->
+    <Label text="Help Guide" styleClass="custom-label" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <!-- Main Content Section -->
+    <HBox spacing="20" alignment="CENTER" style="-fx-padding: 10;">
+
+        <!-- Navigation List for Help Topics with Enhanced Styling -->
+        <ListView fx:id="topicsList" prefWidth="200" onMouseClicked="#displayContent" style="-fx-background-color: #333333; -fx-border-color: #666666; -fx-border-radius: 5;">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Getting Started" />
@@ -24,11 +26,11 @@
             </items>
         </ListView>
 
-        <!-- Content Display Area -->
-        <TextArea fx:id="contentArea" wrapText="true" editable="false" prefWidth="400" prefHeight="300"/>
+        <!-- Content Display Area with Padding and Improved Border Styling -->
+        <TextArea fx:id="contentArea" wrapText="true" editable="false" prefWidth="400" prefHeight="300" style="-fx-background-color: #444444; -fx-text-fill: black; -fx-padding: 10; -fx-border-color: #666666; -fx-border-radius: 5;"/>
     </HBox>
 
-    <!-- Back Button -->
-    <Button text="Back" onAction="#goBack" styleClass="secondary-button" prefWidth="100"/>
+    <!-- Back Button with Custom Styling for Consistency -->
+    <Button text="Back" onAction="#goBack" styleClass="secondary-button" prefWidth="100" style="-fx-padding: 10; -fx-background-color: #2E8B57; -fx-text-fill: white; -fx-font-weight: bold;"/>
 
 </VBox>
