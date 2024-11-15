@@ -1,6 +1,5 @@
 package org.hibernate.dialect;
 
-import org.hibernate.dialect.SQLiteIdentityColumnSupport;
 import org.hibernate.dialect.function.StandardSQLFunction;
 import org.hibernate.dialect.function.SQLFunctionTemplate;
 import org.hibernate.dialect.function.VarArgsSQLFunction;
@@ -11,6 +10,10 @@ import java.sql.Types;
 public class SQLiteDialect extends Dialect {
 
     public SQLiteDialect() {
+        init();
+    }
+
+    public void init(){
         registerColumnType(Types.BIT, "integer");
         registerColumnType(Types.TINYINT, "tinyint");
         registerColumnType(Types.SMALLINT, "smallint");

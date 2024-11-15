@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Custom PMD Rules"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>Custom PMD rules excluding specific rules</description>
+
+    <!-- Include the Best Practices ruleset but exclude specific rules -->
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="UnusedPrivateMethod"/>
+        <exclude name="UnusedFormalParameter"/>
+        <exclude name="UnusedPrivateField"/>
+    </rule>
+
+    <!-- Include other rulesets as needed -->
+    <rule ref="category/java/codestyle.xml"/>
+    <rule ref="category/java/errorprone.xml"/>
+    <rule ref="category/java/performance.xml"/>
+    <rule ref="category/java/design.xml"/>
+
+</ruleset>

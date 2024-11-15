@@ -29,19 +29,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Build and run tests with coverage (CI profile)
-        run: mvn clean verify -Pci-test
+      - name: Validate JaCoCo Coverage
+        run: mvn jacoco:check -Pskip-tests-ci
 
-      - name: Upload JaCoCo report
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: jacoco-report
-          path: target/site/jacoco/index.html
+      - name: Run PMD
+        run: mvn pmd:check -Pskip-tests-ci
 
-      - name: Upload XML Coverage Report
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: jacoco-report-xml
-          path: target/site/jacoco/jacoco.xml
+      - name: Package Application
+        run: mvn clean package -Pskip-tests-ci

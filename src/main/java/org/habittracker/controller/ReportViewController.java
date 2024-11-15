@@ -12,19 +12,13 @@ import javafx.scene.layout.VBox;
 import org.habittracker.Main;
 import org.habittracker.model.HabitReportData;
 import org.habittracker.model.MonthlyReport;
-import org.habittracker.util.JsonBackupHelper;
 import org.habittracker.util.LocalDateAdapter;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.YearMonth;
-import java.util.List;
-
-
 
 public class ReportViewController {
     @FXML
@@ -51,21 +45,17 @@ public class ReportViewController {
         this.reportsDirectory = path;
     }
 
-
-    private static final Gson gson = new GsonBuilder()
+    private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()) // Register the LocalDateAdapter
             .setPrettyPrinting()
             .create();
-
 
     private MainController mainController;
     private Main mainApp;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
-        System.out.println("MainController set in ReportViewController: " + (mainController != null));
     }
-
 
     @FXML
     public void initialize() {
@@ -91,8 +81,6 @@ public class ReportViewController {
         }
     }
 
-
-
     @FXML
     void onMonthSelected() {
         String selectedMonth = monthSelector.getValue();
@@ -104,8 +92,8 @@ public class ReportViewController {
 
     public void loadReportData(String month) {
         Path reportFilePath = reportsDirectory.resolve(month + ".json");
-        try (FileReader reader = new FileReader(reportFilePath.toFile())) {
-            MonthlyReport report = gson.fromJson(reader, MonthlyReport.class);
+        try (var reader = Files.newBufferedReader(reportFilePath)) {
+            MonthlyReport report = GSON.fromJson(reader, MonthlyReport.class);
             displayReportData(report);
             reportPeriodLabel.setText("Report for " + month);
         } catch (IOException e) {
@@ -113,15 +101,13 @@ public class ReportViewController {
         }
     }
 
-
     void displayReportData(MonthlyReport report) {
         reportPeriodLabel.setText("Report for " + report.getPeriod());
         habitReportTable.getItems().setAll(report.getHabitData());
     }
 
-
     @FXML
     void goBack() {
-            mainController.showHabitListView();
+        mainController.showHabitListView();
     }
 }

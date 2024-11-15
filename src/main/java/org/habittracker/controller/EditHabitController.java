@@ -9,9 +9,7 @@ import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.NotificationHelper;
 import org.habittracker.util.Notifier;
-
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
