@@ -3,6 +3,8 @@ package org.habittracker.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +13,8 @@ import java.util.Map;
 import java.util.Properties;
 
 public class HelpController {
+
+    private static final Logger LOGGER = LogManager.getLogger(HelpController.class);
 
     @FXML
     private ListView<String> topicsList;
@@ -39,7 +43,7 @@ public class HelpController {
 
         try (InputStream input = getClass().getResourceAsStream("/help_content.properties")) {
             if (input == null) {
-                System.out.println("Sorry, unable to find help_content.properties");
+                LOGGER.warn("Unable to find help_content.properties");
                 return;
             }
             properties.load(input);
@@ -51,10 +55,9 @@ public class HelpController {
             helpContent.put("Settings", properties.getProperty("Settings"));
             helpContent.put("Backup and Restore", properties.getProperty("Backup_and_Restore"));
         } catch (IOException ex) {
-            ex.printStackTrace();
+            LOGGER.error("Failed to load help content from properties file", ex);
         }
     }
-
 
     @FXML
     private void displayContent() {

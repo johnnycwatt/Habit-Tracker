@@ -4,12 +4,15 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.habittracker.controller.MainController;
-
 
 import java.io.IOException;
 
 public class Main extends Application {
+    private static final Logger LOGGER = LogManager.getLogger(Main.class);
+
     private MainController mainController;
 
     @Override
@@ -25,9 +28,13 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
+            LOGGER.info("Application started successfully");
+
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading FXML file: " + e.getMessage());
+            if (LOGGER.isErrorEnabled()) {
+                LOGGER.error("Error loading FXML file: ", e);
+            }
+
         }
     }
 
@@ -35,8 +42,8 @@ public class Main extends Application {
         return mainController;
     }
 
-
     public static void main(String[] args) {
+        LOGGER.info("Launching Habit Tracker application");
         launch(args);
     }
 }

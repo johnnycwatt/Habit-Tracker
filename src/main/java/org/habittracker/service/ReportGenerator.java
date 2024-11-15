@@ -2,23 +2,22 @@ package org.habittracker.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.habittracker.model.Habit;
 import org.habittracker.model.MonthlyReport;
 import org.habittracker.model.HabitReportData;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.HabitStatisticsCalculator;
 import org.habittracker.util.LocalDateAdapter;
-import org.habittracker.util.NotificationHelper;
 import org.habittracker.util.Notifier;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,7 +26,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ReportGenerator {
-    private static final Gson gson = new GsonBuilder()
+    private static final Logger LOGGER = LogManager.getLogger(ReportGenerator.class);
+    private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()) // Register the LocalDateAdapter
             .setPrettyPrinting()
             .create();
@@ -84,31 +84,32 @@ public class ReportGenerator {
 
     private void saveReportAsJson(MonthlyReport report, YearMonth period) {
         String fileName = "MonthlyReport-" + period.toString() + ".json";
-        String filePath = Paths.get("reports", fileName).toString();
+        Path filePath = Paths.get("reports", fileName);
 
         // Ensure the 'reports' directory exists
-        File directory = new File("reports");
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        Path directory = filePath.getParent();
+        try {
+            if (directory != null && !Files.exists(directory)) {
+                Files.createDirectories(directory);
+            }
 
-        try (FileWriter writer = new FileWriter(filePath)) {
-            gson.toJson(report, writer);
-            System.out.println("Report saved successfully to " + filePath);
+            try (var writer = Files.newBufferedWriter(filePath)) {
+                GSON.toJson(report, writer);
+                LOGGER.info("Report saved successfully to {}", filePath);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Error saving report to JSON file: {}", filePath, e);
         }
     }
 
-
     public MonthlyReport loadMonthlyReport(YearMonth period) {
         String fileName = "MonthlyReport-" + period.toString() + ".json";
-        String filePath = Paths.get("reports", fileName).toString();
+        Path filePath = Paths.get("reports", fileName);
 
-        try (FileReader reader = new FileReader(filePath)) {
-            return gson.fromJson(reader, MonthlyReport.class);
+        try (var reader = Files.newBufferedReader(filePath)) {
+            return GSON.fromJson(reader, MonthlyReport.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Error loading monthly report from JSON file: {}", filePath, e);
             return null;
         }
     }
@@ -117,13 +118,13 @@ public class ReportGenerator {
         LocalDate lastDayOfPreviousMonth = LocalDate.now().minusMonths(1).withDayOfMonth(LocalDate.now().minusMonths(1).lengthOfMonth());
         YearMonth lastMonth = YearMonth.from(lastDayOfPreviousMonth);
         String reportFilename = "MonthlyReport-" + lastMonth.toString() + ".json";
-        String filePath = Paths.get("reports", reportFilename).toString();
+        Path filePath = Paths.get("reports", reportFilename);
 
         // If the report file doesn’t exist, generate it
-        if (!new File(filePath).exists()) {
-            System.out.println("Generating missed report for " + lastMonth);
+        if (!Files.exists(filePath)) {
+            LOGGER.info("Generating missed report for {}", lastMonth);
             generateMonthlyReport(lastMonth);
-            notifier.showMessage("New Monthly Report for " +  lastMonth.getMonth() + " is available!", "green");
+            notifier.showMessage("New Monthly Report for " + lastMonth.getMonth() + " is available!", "green");
         }
     }
 
@@ -135,18 +136,14 @@ public class ReportGenerator {
         LocalDate today = LocalDate.now();
         YearMonth currentMonth = YearMonth.now();
 
-        //generateMonthlyReport(currentMonth); //Running daily for testing purposes.
         if (today.getDayOfMonth() == currentMonth.lengthOfMonth()) {
-            System.out.println("Generating monthly report for " + currentMonth);
+            LOGGER.info("Generating monthly report for {}", currentMonth);
             generateMonthlyReport(currentMonth);
         }
-        //System.out.println("Scheduler check at " + LocalDate.now());
-
     }
 
     public void stopScheduler() {
         scheduler.shutdown();
+        LOGGER.info("Scheduler stopped.");
     }
-
-
 }

@@ -4,23 +4,20 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.NotificationHelper;
 import org.habittracker.util.Notifier;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -39,6 +36,7 @@ import org.habittracker.service.ReportGenerator;
 public class MainController {
 
     private Main mainApp;
+    private static final Logger LOGGER = LogManager.getLogger(MainController.class);
     public HabitRepository habitRepository = HabitRepository.getInstance();
     boolean remindersEnabled = true; // Default reminders to enabled
     final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -234,9 +232,9 @@ public class MainController {
             dynamicViewContainer.getChildren().setAll(view);
             mainView.setVisible(false);
             dynamicViewContainer.setVisible(true);
+            LOGGER.info("View {} loaded successfully", fxmlPath);
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading FXML file: " + fxmlPath);
+            LOGGER.error("Error loading FXML file: {}", fxmlPath, e);
         }
     }
 

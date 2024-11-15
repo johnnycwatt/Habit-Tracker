@@ -10,10 +10,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Entity
 @Table(name = "Habit", uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
 public class Habit {
+
+    private static final Logger LOGGER = LogManager.getLogger(Habit.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -81,11 +85,11 @@ public class Habit {
 
     public void markAsCompletedOnDate(LocalDate date) {
         if (date.isBefore(creationDate)) {
-            System.out.println("Cannot mark completion before the habit's start date.");
+            LOGGER.warn("Cannot mark completion before the habit's start date.");
             return;
         }
         if (date.isAfter(LocalDate.now())) {
-            System.out.println("Cannot mark a future date as completed.");
+            LOGGER.warn("Cannot mark a future date as completed.");
             return;
         }
 
@@ -94,6 +98,7 @@ public class Habit {
             lastCompletedDate = date;
             calculateStreak();
             isCompleted = true;
+            LOGGER.info("Habit marked as completed on {}", date);
         }
     }
 
@@ -124,6 +129,7 @@ public class Habit {
         }
 
         streakCounter = Math.max(longestStreak, currentStreak);
+        LOGGER.info("Streak calculated. Current streak: {}, Longest streak: {}", currentStreak, longestStreak);
     }
 
     public int getCompletionsOnDate(LocalDate date) {

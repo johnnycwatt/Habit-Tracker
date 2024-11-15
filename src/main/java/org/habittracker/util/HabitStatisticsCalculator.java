@@ -21,10 +21,6 @@ public class HabitStatisticsCalculator {
                 .filter(date -> !date.isBefore(startOfWeek) && !date.isAfter(endOfWeek))
                 .count();
 
-        System.out.println("Start of Week: " + startOfWeek);
-        System.out.println("End of Week: " + endOfWeek);
-        System.out.println("Expected Completions: " + expectedCompletions);
-        System.out.println("Actual Completions: " + actualCompletions);
 
         int performance = expectedCompletions > 0 ? (int) ((actualCompletions / (double) expectedCompletions) * 100) : 0;
         return Math.min(performance, 100);
@@ -116,10 +112,6 @@ public class HabitStatisticsCalculator {
                 return 0;
             }
 
-            // Debugging output to confirm weekly check
-            //System.out.println("Checking week from " + startOfWeek + " to " + endOfWeek);
-            //System.out.println("Weekly habit - " + (isConsistent ? "Week has completion" : "No completion for this week"));
-
             if (isConsistent) {
                 consistentWeeks++;
                 consecutiveIncompleteWeeks = 0; // Reset incomplete week counter if this week is consistent
@@ -134,8 +126,6 @@ public class HabitStatisticsCalculator {
             startOfWeek = startOfWeek.minusWeeks(1);
         }
 
-        // Final output
-        System.out.println("Total consistent weeks: " + consistentWeeks);
         return consistentWeeks;
     }
 
@@ -180,10 +170,6 @@ public class HabitStatisticsCalculator {
                         .anyMatch(date -> !date.isBefore(startOfMonth) && !date.isAfter(endOfMonth));
             }
 
-            // Debugging output to confirm monthly check
-            //System.out.println("Checking month: " + currentMonth);
-            //System.out.println("Habit consistency for this month - " + (isConsistent ? "Consistent" : "Not consistent"));
-
             if (isConsistent) {
                 consistentMonths++;
                 consecutiveIncompleteMonths = 0; // Reset the counter if this month is consistent
@@ -198,7 +184,6 @@ public class HabitStatisticsCalculator {
             currentMonth = currentMonth.minusMonths(1);
         }
 
-        System.out.println("Total consistent months: " + consistentMonths);
         return consistentMonths;
     }
 
