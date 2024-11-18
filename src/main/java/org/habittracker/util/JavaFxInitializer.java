@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 
 public class JavaFxInitializer {
-    private static boolean initialized = false;
+    private static boolean initialized;
     private static final Logger LOGGER = LogManager.getLogger(JavaFxInitializer.class);
 
 

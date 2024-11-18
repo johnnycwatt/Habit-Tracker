@@ -170,7 +170,7 @@ class HabitStatisticsCalculatorTest {
         Habit weeklyHabit = new Habit("Weekly Habit for Weekly Consistency", Frequency.WEEKLY);
 
 
-        LocalDate today = LocalDate.of(2024, 11, 10);
+        LocalDate today = LocalDate.now();
         weeklyHabit.setCreationDate(today.minusWeeks(4));
 
         weeklyHabit.addCompletionForTesting(today);

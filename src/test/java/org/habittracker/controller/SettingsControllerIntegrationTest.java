@@ -52,7 +52,8 @@ public class SettingsControllerIntegrationTest {
     @BeforeEach
     void setUp() {
         entityManager = entityManagerFactory.createEntityManager();
-        habitRepository = new HabitRepository(entityManagerFactory);
+        habitRepository = HabitRepository.getInstance();
+
 
         notificationLabel = new Label();
         Notifier notifier = new NotificationHelper(notificationLabel);
@@ -60,7 +61,7 @@ public class SettingsControllerIntegrationTest {
         settingsController.notifier = notifier;
 
         MainController mainController = new MainController();
-        mainController.habitRepository = habitRepository;
+        //mainController.habitRepository = habitRepository;
         settingsController.setMainController(mainController);
     }
 
@@ -111,7 +112,7 @@ public class SettingsControllerIntegrationTest {
         JsonBackupHelper.restoreDataFromJson(backupFile.getAbsolutePath());
 
         // Re-instantiate HabitRepository to ensure it fetches the latest state from the database
-        habitRepository = new HabitRepository(entityManagerFactory);
+        habitRepository = HabitRepository.getInstance();
         List<Habit> restoredHabits = habitRepository.getAllHabits();
 
         // Verify that the habits were restored correctly

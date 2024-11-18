@@ -14,10 +14,10 @@ public class BackupScheduler {
     private static final Logger LOGGER = LogManager.getLogger(BackupScheduler.class);
 
     private static Timer timer;
-    private static boolean isAutoBackupEnabled = false;
+    private static boolean autoBackupStatus;
 
     public static void startAutoBackup(List<Habit> habits) {
-        if (isAutoBackupEnabled) {
+        if (autoBackupStatus) {
             LocalDate nextBackupDate = LocalDate.now().plus(1, ChronoUnit.MONTHS);
             timer = new Timer(true);
             timer.scheduleAtFixedRate(new TimerTask() {
@@ -43,13 +43,13 @@ public class BackupScheduler {
     }
 
     public static void enableAutoBackup(List<Habit> habits) {
-        isAutoBackupEnabled = true;
+        autoBackupStatus = true;
         LOGGER.info("Auto-backup enabled.");
         startAutoBackup(habits);
     }
 
     public static void disableAutoBackup() {
-        isAutoBackupEnabled = false;
+        autoBackupStatus = false;
         if (timer != null) {
             timer.cancel();
             LOGGER.info("Auto-backup disabled and timer cancelled.");
@@ -59,6 +59,6 @@ public class BackupScheduler {
     }
 
     public static boolean isAutoBackupEnabled() {
-        return isAutoBackupEnabled;
+        return autoBackupStatus;
     }
 }

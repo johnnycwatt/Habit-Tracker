@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.habittracker.controller.MainController;
+import org.habittracker.repository.HabitRepository;
 
 import java.io.IOException;
 
@@ -14,6 +15,15 @@ public class Main extends Application {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     private MainController mainController;
+    private HabitRepository habitRepository;
+
+    @Override
+    public void init() {
+        // Initialize HabitRepository here
+        LOGGER.info("Initializing HabitRepository...");
+        HabitRepository.initialize("habittracker");
+        habitRepository = HabitRepository.getInstance();
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -31,15 +41,22 @@ public class Main extends Application {
             LOGGER.info("Application started successfully");
 
         } catch (IOException e) {
-            if (LOGGER.isErrorEnabled()) {
-                LOGGER.error("Error loading FXML file: ", e);
-            }
-
+            LOGGER.error("Error loading FXML file: ", e);
         }
+    }
+
+    @Override
+    public void stop() {
+        LOGGER.info("Shutting down application and closing HabitRepository...");
+        habitRepository.close();
     }
 
     public MainController getMainController() {
         return mainController;
+    }
+
+    public HabitRepository getHabitRepository() {
+        return habitRepository;
     }
 
     public static void main(String[] args) {

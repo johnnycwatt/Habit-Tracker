@@ -70,23 +70,6 @@ public class SettingsControllerTest {
         verify(notifier, times(1)).showMessage("Dark Mode Disabled", "red");
     }
 
-    @Test
-    @Tag("JavaFX")
-    void testEnableReminders() {
-        settingsController.enableReminders();
-
-        verify(mainController, times(1)).setRemindersEnabled(true);
-        verify(notifier, times(1)).showMessage("Habit Reminders Enabled", "green");
-    }
-
-    @Test
-    @Tag("JavaFX")
-    void testDisableReminders() {
-        settingsController.disableReminders();
-
-        verify(mainController, times(1)).setRemindersEnabled(false);
-        verify(notifier, times(1)).showMessage("Habit Reminders Disabled", "red");
-    }
 
     @Test
     @Tag("JavaFX")

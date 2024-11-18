@@ -3,7 +3,7 @@ package org.habittracker.service;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.Notifier;
-import org.habittracker.util.Milestones;
+import org.habittracker.util.MilestoneManager;
 import java.util.List;
 
 public class HabitService {
@@ -34,11 +34,8 @@ public class HabitService {
 
         habit.markAsCompleted();
 
-        // Check for milestones
-        boolean milestoneReached = checkMilestones(habit);
-
-        // If no milestone was reached, show the regular completion message
-        if (!milestoneReached) {
+        // Check for milestones and send only milestone-related notifications
+        if (!checkMilestones(habit)) {
             notifier.showMessage(
                     "Habit marked as completed for today! Streak: " + habit.getStreakCounter(), "green"
             );
@@ -46,6 +43,8 @@ public class HabitService {
 
         habitRepository.updateHabit(habit);
     }
+
+
 
     public void deleteHabit(Habit habit) {
         habitRepository.deleteHabit(habit);
@@ -57,26 +56,33 @@ public class HabitService {
         int streak = habit.getStreakCounter();
         boolean milestoneReached = false;
 
-        for (int milestone : Milestones.MILESTONES) {
+        for (int milestone : MilestoneManager.MILESTONES) {
             if (streak == milestone && !habit.isMilestoneAchieved(milestone)) {
-                String message = generateMilestoneMessage(milestone);
-                notifier.showMessage(message, "green");
                 habit.addMilestone(milestone); // Mark milestone as achieved
                 milestoneReached = true;
-                break;
+                break; // Stop further checks once a milestone is achieved
             }
         }
+
+        // If a milestone was reached, notify the user
+        if (milestoneReached) {
+            int lastMilestone = habit.getLatestMilestone(); // Assume this retrieves the most recent milestone
+            String message = generateMilestoneMessage(lastMilestone);
+            notifier.showMessage(message, "green");
+        }
+
         return milestoneReached;
     }
 
+
     String generateMilestoneMessage(int milestone) {
         return switch (milestone) {
-            case Milestones.FIRST_DAY -> "Great start! Every journey begins with the first step. Keep it up!";
-            case Milestones.SEVEN_DAYS -> "One week down! Keep the momentum going!";
-            case Milestones.TWENTY_ONE_DAYS -> "Three weeks in! You're building a great habit!";
-            case Milestones.FIFTY_DAYS -> "50 days! That's some serious dedication!";
-            case Milestones.SIXTY_SIX_DAYS -> "66 days—this habit is becoming a part of your life!";
-            case Milestones.ONE_HUNDRED_DAYS -> "100 days! You've reached an incredible milestone!";
+            case MilestoneManager.FIRST_DAY -> "Great start! Every journey begins with the first step. Keep it up!";
+            case MilestoneManager.SEVEN_DAYS -> "One week down! Keep the momentum going!";
+            case MilestoneManager.TWENTY_ONE_DAYS -> "Three weeks in! You're building a great habit!";
+            case MilestoneManager.FIFTY_DAYS -> "50 days! That's some serious dedication!";
+            case MilestoneManager.SIXTY_SIX_DAYS -> "66 days—this habit is becoming a part of your life!";
+            case MilestoneManager.ONE_HUNDRED_DAYS -> "100 days! You've reached an incredible milestone!";
             default -> "Milestone reached! Keep up the good work!";
         };
     }

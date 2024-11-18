@@ -34,7 +34,11 @@ public class ReportGenerator {
 
     private final HabitRepository habitRepository;
     private final Notifier notifier;
-    final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+    // Reusable list and objects
+    private final List<HabitReportData> habitDataList = new ArrayList<>();
+    private final HabitReportData reusableHabitReportData = new HabitReportData("", 0, 0, 0, 0);
 
     public ReportGenerator(HabitRepository habitRepository, Notifier notifier) {
         this.habitRepository = habitRepository;
@@ -43,23 +47,24 @@ public class ReportGenerator {
 
     public void generateMonthlyReport(YearMonth period) {
         List<Habit> habits = habitRepository.getAllHabits();
-        List<HabitReportData> habitDataList = new ArrayList<>();
+        habitDataList.clear(); // Clear the list for reuse
 
-        // Collect data for each habit
+        // Collect data for each habit without creating new HabitReportData objects
         for (Habit habit : habits) {
-            int completionRate = HabitStatisticsCalculator.calculateMonthlyPerformance(habit);
-            int longestStreak = HabitStatisticsCalculator.calculateLongestStreak(habit);
-            int monthlyConsistency = HabitStatisticsCalculator.calculateMonthlyConsistency(habit);
+            reusableHabitReportData.setHabitName(habit.getName());
+            reusableHabitReportData.setCompletionRate(HabitStatisticsCalculator.calculateMonthlyPerformance(habit));
+            reusableHabitReportData.setLongestStreak(HabitStatisticsCalculator.calculateLongestStreak(habit));
+            reusableHabitReportData.setMonthlyConsistency(HabitStatisticsCalculator.calculateMonthlyConsistency(habit));
+            reusableHabitReportData.setRanking(0);
 
-            HabitReportData habitData = new HabitReportData(
-                    habit.getName(),
-                    completionRate,
-                    longestStreak,
-                    monthlyConsistency,
-                    0
-            );
-
-            habitDataList.add(habitData);
+            // Clone the reusable object to avoid overwriting data and add to the list
+            habitDataList.add(new HabitReportData(
+                    reusableHabitReportData.getHabitName(),
+                    reusableHabitReportData.getCompletionRate(),
+                    reusableHabitReportData.getLongestStreak(),
+                    reusableHabitReportData.getMonthlyConsistency(),
+                    reusableHabitReportData.getRanking()
+            ));
         }
 
         // Sort habits by completion rate and then assign rankings
@@ -71,7 +76,7 @@ public class ReportGenerator {
         // Create the report
         MonthlyReport monthlyReport = new MonthlyReport(
                 period.toString(),
-                habitDataList,
+                new ArrayList<>(habitDataList), // Ensure a separate list is passed
                 LocalDate.now()
         );
 

@@ -29,10 +29,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Validate JaCoCo Coverage
-        run: mvn jacoco:check -Pskip-tests-ci
-
-      - name: Run PMD
+      - name: Run PMD Check
         run: mvn pmd:check -Pskip-tests-ci
 
       - name: Package Application

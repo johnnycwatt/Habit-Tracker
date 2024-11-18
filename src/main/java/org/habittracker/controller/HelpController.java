@@ -17,15 +17,15 @@ public class HelpController {
     private static final Logger LOGGER = LogManager.getLogger(HelpController.class);
 
     @FXML
-    private ListView<String> topicsList;
+    ListView<String> topicsList;
 
     @FXML
-    private TextArea contentArea;
+    TextArea contentArea;
 
-    private Map<String, String> helpContent;
+    Map<String, String> helpContent;
     private MainController mainController; // Reference to MainController
 
-    // Method to set MainController from outside this class
+
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
@@ -33,11 +33,13 @@ public class HelpController {
     @FXML
     public void initialize() {
         loadHelpContent();
-        topicsList.getSelectionModel().select(0);
-        displayContent();
+        initializeTopicsList();
+        topicsList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> displayContent());
+        topicsList.getSelectionModel().selectFirst(); // Automatically select the first topic
     }
 
-    private void loadHelpContent() {
+
+    void loadHelpContent() {
         helpContent = new HashMap<>();
         Properties properties = new Properties();
 
@@ -48,28 +50,32 @@ public class HelpController {
             }
             properties.load(input);
 
-            helpContent.put("Getting Started", properties.getProperty("Getting_Started"));
-            helpContent.put("Habit Management", properties.getProperty("Habit_Management"));
-            helpContent.put("Tracking and Progress", properties.getProperty("Tracking_and_Progress"));
-            helpContent.put("Reports", properties.getProperty("Reports"));
-            helpContent.put("Settings", properties.getProperty("Settings"));
-            helpContent.put("Backup and Restore", properties.getProperty("Backup_and_Restore"));
+            for (String key : properties.stringPropertyNames()) {
+                helpContent.put(key.replace("_", " "), properties.getProperty(key));
+            }
         } catch (IOException ex) {
             LOGGER.error("Failed to load help content from properties file", ex);
         }
     }
 
+
+    void initializeTopicsList() {
+        topicsList.getItems().clear();
+        topicsList.getItems().addAll(helpContent.keySet());
+    }
+
     @FXML
-    private void displayContent() {
+    void displayContent() {
         String selectedTopic = topicsList.getSelectionModel().getSelectedItem();
         contentArea.setText(helpContent.getOrDefault(selectedTopic, "Content not available."));
     }
 
     @FXML
-    private void goBack() {
-        // Switch back to SettingsView
+    void goBack() {
         if (mainController != null) {
             mainController.showSettingsView();
+        } else {
+            LOGGER.warn("MainController reference is not set. Unable to navigate back.");
         }
     }
 }

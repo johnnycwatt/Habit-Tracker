@@ -1,4 +1,5 @@
 package org.habittracker.repository;
+
 import org.habittracker.model.Habit;
 
 import javax.persistence.EntityManager;
@@ -8,26 +9,46 @@ import javax.persistence.PersistenceException;
 import java.util.List;
 
 public class HabitRepository {
-    private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("habittracker");
 
-    // Singleton instance
+    private static EntityManagerFactory entityManagerFactory;
     private static HabitRepository instance;
 
-    // Private constructor to prevent instantiation
-    public HabitRepository() {}
+    // Private constructor to enforce singleton usage
+    private HabitRepository() {}
 
-    public HabitRepository(EntityManagerFactory testEntityManagerFactory) {
-        entityManagerFactory = testEntityManagerFactory;
+    /**
+     * Initialize the repository with the specified persistence unit.
+     * This method must be called before getInstance() is used.
+     *
+     * @param persistenceUnitName The name of the persistence unit to initialize.
+     */
+    public static void initialize(String persistenceUnitName) {
+        if (entityManagerFactory == null || !entityManagerFactory.isOpen()) {
+            entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnitName);
+            instance = new HabitRepository();
+        }
     }
 
-    // Method to get the singleton instance
+    /**
+     * Get the singleton instance of the HabitRepository.
+     *
+     * @return HabitRepository instance.
+     */
     public static HabitRepository getInstance() {
         if (instance == null) {
-            instance = new HabitRepository();
+            throw new IllegalStateException("HabitRepository has not been initialized. Call initialize() first.");
         }
         return instance;
     }
 
+    /**
+     * Close the EntityManagerFactory when the application shuts down.
+     */
+    public void close() {
+        if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
+            entityManagerFactory.close();
+        }
+    }
 
     public Habit addHabit(Habit habit) {
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -39,23 +60,20 @@ public class HabitRepository {
         } catch (PersistenceException e) {
             em.getTransaction().rollback();
 
+            // Handle constraint violation exception
             Throwable cause = e.getCause();
             while (cause != null) {
                 if (cause instanceof org.hibernate.exception.ConstraintViolationException) {
-                    throw new DuplicateHabitException("A habit with the same name already exists.");
+                    throw new DuplicateHabitException("A habit with the same name already exists.", e);
                 }
                 cause = cause.getCause();
             }
 
-            throw e;
+            throw new RuntimeException("An error occurred while adding the habit", e);
         } finally {
             em.close();
         }
     }
-
-
-
-
 
     public List<Habit> getAllHabits() {
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -87,7 +105,6 @@ public class HabitRepository {
         }
     }
 
-
     public void updateHabit(Habit habit) {
         EntityManager em = entityManagerFactory.createEntityManager();
         try {
@@ -98,7 +115,6 @@ public class HabitRepository {
             em.close();
         }
     }
-
 
     public void deleteHabit(Habit habit) {
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -114,12 +130,6 @@ public class HabitRepository {
         }
     }
 
-    public class DuplicateHabitException extends RuntimeException {
-        public DuplicateHabitException(String message) {
-            super(message);
-        }
-    }
-
     public boolean habitExistsByName(String name) {
         EntityManager em = entityManagerFactory.createEntityManager();
         try {
@@ -131,4 +141,29 @@ public class HabitRepository {
             em.close();
         }
     }
+
+    // Custom exception for duplicate habits
+    public static class DuplicateHabitException extends RuntimeException {
+        private static final long serialVersionUID = 1L;
+
+        public DuplicateHabitException(String message) {
+            super(message);
+        }
+
+        public DuplicateHabitException(String message, Throwable cause) {
+            super(message, cause);
+        }
+    }
+
+    public void clearAll() {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.createQuery("DELETE FROM Habit").executeUpdate();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
 }

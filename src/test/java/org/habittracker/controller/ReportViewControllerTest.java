@@ -87,9 +87,9 @@ public class ReportViewControllerTest {
     @Tag("JavaFX")
     void testDisplayReportData() {
         // Create a sample MonthlyReport
-        HabitReportData exerciseData = new HabitReportData("Exercise", 80, 10, 85, 1);
-        HabitReportData readingData = new HabitReportData("Reading", 90, 15, 88, 2);
-        MonthlyReport report = new MonthlyReport("2023-10", Arrays.asList(exerciseData, readingData), LocalDate.of(2023, 10, 15));
+        HabitReportData testOneData = new HabitReportData("TestHabitOne", 80, 10, 85, 1);
+        HabitReportData testTwoData = new HabitReportData("TestTwoData", 90, 15, 88, 2);
+        MonthlyReport report = new MonthlyReport("2023-10", Arrays.asList(testOneData, testTwoData), LocalDate.of(2023, 10, 15));
 
         // Display the report data
         reportViewController.displayReportData(report);

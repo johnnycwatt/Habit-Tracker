@@ -13,6 +13,7 @@ import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.HabitStatisticsCalculator;
+import org.habittracker.util.NotificationColors;
 import org.habittracker.util.NotificationHelper;
 import org.habittracker.util.Notifier;
 
@@ -62,11 +63,12 @@ public class ProgressController {
 
     private Habit habit;
     private Main mainApp;
-    private HabitRepository habitRepository;
-    private boolean isDarkModeEnabled = false;
+    private final HabitRepository habitRepository;
+    private boolean isDarkModeEnabled;
 
     public ProgressController() {
-        this.habitRepository = new HabitRepository();
+        this.habitRepository = HabitRepository.getInstance();
+
     }
     private MainController mainController;
 
@@ -92,27 +94,40 @@ public class ProgressController {
     private void applyColorTheme(String color) {
         String adjustedColor = adjustColorForMode(color);
 
-        habitNameLabel.setStyle("-fx-text-fill: " + adjustedColor + "; -fx-font-weight: bold;");
-        currentStreakLabel.setStyle("-fx-text-fill: " + adjustedColor + "; -fx-font-weight: bold;");
-        bestStreakLabel.setStyle("-fx-text-fill: " + adjustedColor + "; -fx-font-weight: bold;");
-        totalCompletionsLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
-        weeklyPerformanceLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
-        monthlyPerformanceLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
-        overallPerformanceLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
-        weeklyConsistencyLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
-        monthlyConsistencyLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
+        // Define common styles
+        String boldTextStyle = "-fx-text-fill: " + adjustedColor + "; -fx-font-weight: bold;";
+        String defaultTextStyle = "-fx-text-fill: " + adjustedColor + ";";
 
-        calendarMonthLabel.setStyle("-fx-text-fill: " + adjustedColor + "; -fx-font-size: 18px; -fx-font-weight: bold;");
-        historyLabel.setStyle("-fx-text-fill: " + adjustedColor + ";");
+        // Apply styles to labels
+        habitNameLabel.setStyle(boldTextStyle);
+        currentStreakLabel.setStyle(boldTextStyle);
+        bestStreakLabel.setStyle(boldTextStyle);
+        totalCompletionsLabel.setStyle(defaultTextStyle);
+        weeklyPerformanceLabel.setStyle(defaultTextStyle);
+        monthlyPerformanceLabel.setStyle(defaultTextStyle);
+        overallPerformanceLabel.setStyle(defaultTextStyle);
+        weeklyConsistencyLabel.setStyle(defaultTextStyle);
+        monthlyConsistencyLabel.setStyle(defaultTextStyle);
+
+        calendarMonthLabel.setStyle(boldTextStyle + " -fx-font-size: 18px;");
+        historyLabel.setStyle(defaultTextStyle);
 
         // Adjust day labels color
         String[] dayNames = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        Label[] dayNameLabels = new Label[dayNames.length];
+
+        // Instantiate labels
         for (int i = 0; i < dayNames.length; i++) {
-            Label dayNameLabel = new Label(dayNames[i]);
-            dayNameLabel.setStyle("-fx-text-fill: " + adjustedColor + "; -fx-font-size: 12px; -fx-font-weight: bold;");
-            calendarGrid.add(dayNameLabel, i, 0);
+            dayNameLabels[i] = new Label(dayNames[i]);
+            dayNameLabels[i].setStyle("-fx-text-fill: " + adjustedColor + "; -fx-font-size: 12px; -fx-font-weight: bold;");
+        }
+
+        // Add labels to the grid
+        for (int i = 0; i < dayNameLabels.length; i++) {
+            calendarGrid.add(dayNameLabels[i], i, 0);
         }
     }
+
 
     private String adjustColorForMode(String color) {
         if (isDarkModeEnabled) {
@@ -133,86 +148,119 @@ public class ProgressController {
 
     private void populateCalendar(LocalDate date) {
         // Set the current month label
-        calendarMonthLabel.setText(date.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()));
+        setCalendarMonthLabel(date);
 
         YearMonth yearMonth = YearMonth.of(date.getYear(), date.getMonthValue());
         int daysInMonth = yearMonth.lengthOfMonth();
         LocalDate firstDayOfMonth = LocalDate.of(date.getYear(), date.getMonthValue(), 1);
 
-        // Calculate the start day, adjusting for a Monday start (1 = Monday, 7 = Sunday)
+        // Calculate the start day for the calendar
+        int startDay = calculateStartDay(firstDayOfMonth);
+
+        // Clear the grid and prepare headers
+        prepareCalendarGrid();
+
+        // Add day names to the grid
+        addDayNamesToCalendar();
+
+        // Populate calendar grid with day labels
+        populateCalendarDays(firstDayOfMonth, daysInMonth, startDay);
+    }
+
+    private void setCalendarMonthLabel(LocalDate date) {
+        calendarMonthLabel.setText(date.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()));
+    }
+
+    private int calculateStartDay(LocalDate firstDayOfMonth) {
         int startDay = firstDayOfMonth.getDayOfWeek().getValue();
-        startDay = startDay == 7 ? 0 : startDay;
+        return startDay == 7 ? 0 : startDay; // Adjust for Monday start
+    }
 
+    private void prepareCalendarGrid() {
         calendarGrid.getChildren().clear();
+    }
 
+    private void addDayNamesToCalendar() {
         String[] dayNames = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        Label[] dayNameLabels = new Label[dayNames.length];
+
         for (int i = 0; i < dayNames.length; i++) {
-            Label dayNameLabel = new Label(dayNames[i]);
-            dayNameLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
-            dayNameLabel.getStyleClass().add("custom-label");
-            calendarGrid.add(dayNameLabel, i, 0);
+            dayNameLabels[i] = new Label(dayNames[i]);
+            dayNameLabels[i].setStyle("-fx-font-size: 12px; -fx-font-weight: bold;");
+            dayNameLabels[i].getStyleClass().add("custom-label");
         }
 
+        // Add labels to the grid
+        for (int i = 0; i < dayNameLabels.length; i++) {
+            calendarGrid.add(dayNameLabels[i], i, 0);
+        }
+    }
+
+
+    private void populateCalendarDays(LocalDate firstDayOfMonth, int daysInMonth, int startDay) {
         Set<LocalDate> completedDates = habit.getCompletedDates();
         LocalDate today = LocalDate.now();
 
+        String defaultStyle = "-fx-alignment: center; -fx-pref-width: 35; -fx-pref-height: 35;";
 
-        String defaultStyle = "-fx-alignment: center; -fx-pref-width: 35; -fx-pref-height: 35;"; // Adjust width and height as needed
-
-        // Populate calendar grid with days
         for (int day = 1; day <= daysInMonth; day++) {
             LocalDate currentDate = firstDayOfMonth.plusDays(day - 1);
-            Label dayLabel = new Label(String.valueOf(day));
-            dayLabel.setStyle(defaultStyle);
+            Label dayLabel = createDayLabel(day, currentDate, completedDates, today, defaultStyle);
 
-            // Check if the current day is completed
-            if (completedDates.contains(currentDate)) {
-                String completedColor = adjustColorForMode(habit.getColor());
-                // Adjust color for readability if in dark mode and color is black
-                if (isDarkModeEnabled && completedColor.equals("#FFFFFF")) {
-                    dayLabel.setStyle(defaultStyle + "-fx-background-color: #333333; -fx-text-fill: white;");
-                } else {
-                    dayLabel.setStyle(defaultStyle + "-fx-background-color: " + completedColor + "; -fx-text-fill: white;");
-                }
-            } else if (currentDate.equals(today)) {
-                // Highlight today’s date with a visually pleasing color
-                String todayColor = isDarkModeEnabled ? "#add8e6" : "#b0c4de"; // Light blue in dark mode
-                String textColor = isDarkModeEnabled ? "black" : "black"; // Text color to contrast
-                dayLabel.setStyle(defaultStyle + "-fx-background-color: " + todayColor + "; -fx-text-fill: " + textColor + "; -fx-border-color: #6699FF; -fx-border-width: 1px;");
-            } else {
-                // Style for other days
-                dayLabel.getStyleClass().add("custom-label");
-            }
+            // Add context menu for incomplete days
+            addContextMenuToDayLabel(dayLabel, currentDate, completedDates, today);
 
-
-            if (!completedDates.contains(currentDate) && !currentDate.isAfter(today)) {
-                ContextMenu contextMenu = new ContextMenu();
-                MenuItem markCompleteItem = new MenuItem("Mark Completed");
-                markCompleteItem.setOnAction(e -> markHabitAsCompletedOnDate(currentDate));
-                contextMenu.getItems().add(markCompleteItem);
-                dayLabel.setOnContextMenuRequested(event -> {
-                    if (!currentDate.isBefore(habit.getCreationDate()) &&
-                            !currentDate.isAfter(today) &&
-                            !completedDates.contains(currentDate)) {
-                        contextMenu.show(dayLabel, event.getScreenX(), event.getScreenY());
-                    }
-                });
-            }
-
-            // Calculate row and column based on start day offset
+            // Calculate row and column for placement
             int row = (day + startDay - 2) / 7 + 1;
             int col = (day + startDay - 2) % 7;
             calendarGrid.add(dayLabel, col, row);
         }
     }
 
+    private Label createDayLabel(int day, LocalDate currentDate, Set<LocalDate> completedDates, LocalDate today, String defaultStyle) {
+        Label dayLabel = new Label(String.valueOf(day));
+        dayLabel.setStyle(defaultStyle);
+
+        if (completedDates.contains(currentDate)) {
+            String completedColor = adjustColorForMode(habit.getColor());
+            if ("#FFFFFF".equals(completedColor) && isDarkModeEnabled) {
+                dayLabel.setStyle(defaultStyle + "-fx-background-color: #333333; -fx-text-fill: white;");
+            } else {
+                dayLabel.setStyle(defaultStyle + "-fx-background-color: " + completedColor + "; -fx-text-fill: white;");
+            }
+        } else if (currentDate.equals(today)) {
+            String todayColor = isDarkModeEnabled ? "#add8e6" : "#b0c4de";
+            dayLabel.setStyle(defaultStyle + "-fx-background-color: " + todayColor + "; -fx-text-fill: black; -fx-border-color: #6699FF; -fx-border-width: 1px;");
+        } else {
+            dayLabel.getStyleClass().add("custom-label");
+        }
+
+        return dayLabel;
+    }
+
+
+    private void addContextMenuToDayLabel(Label dayLabel, LocalDate currentDate, Set<LocalDate> completedDates, LocalDate today) {
+        if (!completedDates.contains(currentDate) && !currentDate.isAfter(today)) {
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem markCompleteItem = new MenuItem("Mark Completed");
+            markCompleteItem.setOnAction(e -> markHabitAsCompletedOnDate(currentDate));
+            contextMenu.getItems().add(markCompleteItem);
+            dayLabel.setOnContextMenuRequested(event -> {
+                if (!currentDate.isBefore(habit.getCreationDate()) &&
+                        !currentDate.isAfter(today) &&
+                        !completedDates.contains(currentDate)) {
+                    contextMenu.show(dayLabel, event.getScreenX(), event.getScreenY());
+                }
+            });
+        }
+    }
 
 
     private void markHabitAsCompletedOnDate(LocalDate date) {
 
 
         if (habit.getFrequency() == Habit.Frequency.CUSTOM && !habit.getCustomDays().contains(date.getDayOfWeek())) {
-            notifier.showMessage("This habit can only be completed on specified days. Please select a valid day.", "red");
+            notifier.showMessage("This habit can only be completed on specified days. Please select a valid day.", NotificationColors.RED);
             return;
         }
 

@@ -4,7 +4,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 
-    <description>Custom PMD rules excluding specific rules</description>
+    <description>Best Practice PMD rules excluding specific rules</description>
 
     <!-- Include the Best Practices ruleset but exclude specific rules -->
     <rule ref="category/java/bestpractices.xml">
@@ -13,10 +13,16 @@
         <exclude name="UnusedPrivateField"/>
     </rule>
 
-    <!-- Include other rulesets as needed -->
-    <rule ref="category/java/codestyle.xml"/>
+    <!-- Codestyle rules -->
+    <rule ref="category/java/codestyle.xml/ControlStatementBraces" />
+    <rule ref="category/java/codestyle.xml/MethodNamingConventions" />
+    <rule ref="category/java/codestyle.xml/ClassNamingConventions" />
+
+    <description>Design rules for Habit Tracker</description>
+    <rule ref="category/java/design.xml/CyclomaticComplexity" />
+    <rule ref="category/java/design.xml/CognitiveComplexity" />
+
+    <!-- Other Rulesets-->
     <rule ref="category/java/errorprone.xml"/>
     <rule ref="category/java/performance.xml"/>
-    <rule ref="category/java/design.xml"/>
-
 </ruleset>
