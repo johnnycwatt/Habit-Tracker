@@ -79,5 +79,6 @@
     </HBox>
 
     <!-- Confirmation Message Label -->
-    <Label fx:id="notificationLabel" text="" visible="false" styleClass="notification-label"/>
+    <Label fx:id="notificationLabel" text="" visible="false" />
+
 </VBox>

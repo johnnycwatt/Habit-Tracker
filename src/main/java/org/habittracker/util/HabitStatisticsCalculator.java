@@ -11,19 +11,15 @@ import java.util.Set;
 
 public class HabitStatisticsCalculator {
 
+    private static final int MAX_CONSECUTIVE_INCOMPLETE = 2;
+    private static final int DAILY_COMPLETION_PERCENT = 100;
+
     public static int calculateWeeklyPerformance(Habit habit) {
         LocalDate today = LocalDate.now();
         LocalDate startOfWeek = today.with(DayOfWeek.MONDAY);
         LocalDate endOfWeek = today.with(DayOfWeek.SUNDAY);
 
-        int expectedCompletions = calculateExpectedCompletions(habit, startOfWeek, endOfWeek);
-        int actualCompletions = (int) habit.getCompletedDates().stream()
-                .filter(date -> !date.isBefore(startOfWeek) && !date.isAfter(endOfWeek))
-                .count();
-
-
-        int performance = expectedCompletions > 0 ? (int) ((actualCompletions / (double) expectedCompletions) * 100) : 0;
-        return Math.min(performance, 100);
+        return calculatePerformance(habit, startOfWeek, endOfWeek);
     }
 
     public static int calculateMonthlyPerformance(Habit habit) {
@@ -32,159 +28,126 @@ public class HabitStatisticsCalculator {
         LocalDate startOfMonth = currentMonth.atDay(1);
         LocalDate endOfMonth = currentMonth.atEndOfMonth();
 
-        int expectedCompletions = calculateExpectedCompletions(habit, startOfMonth, endOfMonth);
-        int actualCompletions = (int) habit.getCompletedDates().stream()
-                .filter(date -> !date.isBefore(startOfMonth) && !date.isAfter(endOfMonth))
-                .count();
-
-        int performance = expectedCompletions > 0 ? (int) ((actualCompletions / (double) expectedCompletions) * 100) : 0;
-        return Math.min(performance, 100);
+        return calculatePerformance(habit, startOfMonth, endOfMonth);
     }
 
     public static int calculateOverallPerformance(Habit habit) {
         LocalDate startDate = habit.getCreationDate();
         LocalDate endDate = LocalDate.now();
-        int expectedCompletions = calculateExpectedCompletions(habit, startDate, endDate);
-        int actualCompletions = habit.getCompletedDates().size();
 
-        int performance = expectedCompletions > 0 ? (int) ((actualCompletions / (double) expectedCompletions) * 100) : 0;
-        return Math.min(performance, 100);
+        return calculatePerformance(habit, startDate, endDate);
     }
 
+    private static int calculatePerformance(Habit habit, LocalDate startDate, LocalDate endDate) {
+        int expectedCompletions = calculateExpectedCompletions(habit, startDate, endDate);
+        int actualCompletions = (int) habit.getCompletedDates().stream()
+                .filter(date -> !date.isBefore(startDate) && !date.isAfter(endDate))
+                .count();
+
+        int performance = expectedCompletions > 0
+                ? (int) ((actualCompletions / (double) expectedCompletions) * DAILY_COMPLETION_PERCENT)
+                : 0;
+        return Math.min(performance, DAILY_COMPLETION_PERCENT);
+    }
 
     public static int calculateExpectedCompletions(Habit habit, LocalDate startDate, LocalDate endDate) {
+        switch (habit.getFrequency()) {
+            case DAILY:
+                return (int) ChronoUnit.DAYS.between(startDate, endDate) + 1;
+            case WEEKLY:
+                return (int) ChronoUnit.WEEKS.between(startDate, endDate) + 1;
+            case MONTHLY:
+                return (int) ChronoUnit.MONTHS.between(startDate, endDate) + 1;
+            case CUSTOM:
+                return calculateCustomExpectedCompletions(habit, startDate, endDate);
+            default:
+                return 0;
+        }
+    }
+
+    private static int calculateCustomExpectedCompletions(Habit habit, LocalDate startDate, LocalDate endDate) {
         int expectedCount = 0;
+        Set<DayOfWeek> customDays = Set.copyOf(habit.getCustomDays());
+        LocalDate date = startDate;
 
-        if (habit.getFrequency() == Habit.Frequency.DAILY) {
-            expectedCount = (int) ChronoUnit.DAYS.between(startDate, endDate) + 1;
-        } else if (habit.getFrequency() == Habit.Frequency.WEEKLY) {
-            expectedCount = (int) ChronoUnit.WEEKS.between(startDate, endDate) + 1;
-        } else if (habit.getFrequency() == Habit.Frequency.MONTHLY) {
-            expectedCount = (int) ChronoUnit.MONTHS.between(startDate, endDate) + 1;
-        } else if (habit.getFrequency() == Habit.Frequency.CUSTOM) {
-            Set<DayOfWeek> customDays = Set.copyOf(habit.getCustomDays());
-
-            LocalDate date = startDate;
-            while (!date.isAfter(endDate)) {
-                if (customDays.contains(date.getDayOfWeek())) {
-                    expectedCount++;
-                }
-                date = date.plusDays(1);
+        while (!date.isAfter(endDate)) {
+            if (customDays.contains(date.getDayOfWeek())) {
+                expectedCount++;
             }
+            date = date.plusDays(1);
         }
 
         return expectedCount;
     }
 
-
     public static int calculateWeeklyConsistency(Habit habit) {
         LocalDate today = LocalDate.now();
-        int consistentWeeks = 0;
-        int consecutiveIncompleteWeeks = 0;
-
-        // Set the starting week (current week)
         LocalDate startOfWeek = today.with(DayOfWeek.MONDAY);
 
-        while (!startOfWeek.isBefore(habit.getCreationDate())) {
-            LocalDate endOfWeek = startOfWeek.with(DayOfWeek.SUNDAY);
-            LocalDate currentStartOfWeek = startOfWeek;
-
-            boolean isConsistent = false;
-
-            if (habit.getFrequency() == Habit.Frequency.DAILY) {
-                // Daily habits: must be completed every day of the week
-                isConsistent = startOfWeek.datesUntil(endOfWeek.plusDays(1)) // Inclusive of endOfWeek
-                        .allMatch(date -> habit.getCompletedDates().contains(date));
-            } else if (habit.getFrequency() == Habit.Frequency.WEEKLY) {
-                // Weekly habits: must have at least one completion in the week
-                LocalDate finalStartOfWeek = startOfWeek;
-                isConsistent = habit.getCompletedDates().stream()
-                        .anyMatch(date -> !date.isBefore(finalStartOfWeek) && !date.isAfter(endOfWeek));
-            } else if (habit.getFrequency() == Habit.Frequency.CUSTOM) {
-                final Set<DayOfWeek> customDays = Set.copyOf(habit.getCustomDays());
-                isConsistent = customDays.stream()
-                        .allMatch(day -> habit.getCompletedDates().stream()
-                                .anyMatch(date -> date.getDayOfWeek() == day &&
-                                        !date.isBefore(currentStartOfWeek) &&
-                                        !date.isAfter(endOfWeek)));
-            }else if (habit.getFrequency() == Habit.Frequency.MONTHLY) {
-                // Monthly habits: weekly consistency is N/A
-                return 0;
-            }
-
-            if (isConsistent) {
-                consistentWeeks++;
-                consecutiveIncompleteWeeks = 0; // Reset incomplete week counter if this week is consistent
-            } else {
-                consecutiveIncompleteWeeks++;
-                if (consecutiveIncompleteWeeks >= 2) {
-                    break; // Stop if two consecutive weeks are incomplete
-                }
-            }
-
-            // Move to the previous week
-            startOfWeek = startOfWeek.minusWeeks(1);
-        }
-
-        return consistentWeeks;
+        return calculateConsistency(habit, startOfWeek, ChronoUnit.WEEKS);
     }
 
     public static int calculateMonthlyConsistency(Habit habit) {
         LocalDate today = LocalDate.now();
-        int consistentMonths = 0;
-        int consecutiveIncompleteMonths = 0;
-
-        // Start with the current month
         YearMonth currentMonth = YearMonth.from(today);
 
-        while (!currentMonth.isBefore(YearMonth.from(habit.getCreationDate()))) {
-            LocalDate startOfMonth = currentMonth.atDay(1);
-            LocalDate endOfMonth = currentMonth.atEndOfMonth();
+        return calculateConsistency(habit, currentMonth.atDay(1), ChronoUnit.MONTHS);
+    }
 
-            boolean isConsistent = false;
+    private static int calculateConsistency(Habit habit, LocalDate startDate, ChronoUnit unit) {
+        int consistentPeriods = 0;
+        int consecutiveIncompletePeriods = 0;
 
-            if (habit.getFrequency() == Habit.Frequency.DAILY) {
-                // Daily habits: must be completed every day of the month (for past months)
-                if (!currentMonth.equals(YearMonth.from(today)) || today.isAfter(endOfMonth)) {
-                    isConsistent = startOfMonth.datesUntil(endOfMonth.plusDays(1))
-                            .allMatch(date -> habit.getCompletedDates().contains(date));
-                }
-            } else if (habit.getFrequency() == Habit.Frequency.WEEKLY) {
-                // Weekly habits: must have at least one completion in each week of the month
-                isConsistent = startOfMonth.datesUntil(endOfMonth.plusDays(1))
-                        .filter(date -> date.getDayOfWeek() == DayOfWeek.MONDAY)
-                        .allMatch(startOfWeek -> habit.getCompletedDates().stream()
-                                .anyMatch(date -> !date.isBefore(startOfWeek) && !date.isAfter(startOfWeek.with(DayOfWeek.SUNDAY))));
-            } else if (habit.getFrequency() == Habit.Frequency.CUSTOM) {
-                final Set<DayOfWeek> customDays = Set.copyOf(habit.getCustomDays());
-                isConsistent = startOfMonth.datesUntil(endOfMonth.plusDays(1))
-                        .filter(date -> date.getDayOfWeek() == DayOfWeek.MONDAY)
-                        .allMatch(startOfWeek -> customDays.stream()
-                                .allMatch(day -> habit.getCompletedDates().stream()
-                                        .anyMatch(date -> date.getDayOfWeek() == day &&
-                                                !date.isBefore(startOfWeek) &&
-                                                !date.isAfter(startOfWeek.with(DayOfWeek.SUNDAY)))));
-            }else if (habit.getFrequency() == Habit.Frequency.MONTHLY) {
-                // Monthly habits: must have at least one completion in the month
-                isConsistent = habit.getCompletedDates().stream()
-                        .anyMatch(date -> !date.isBefore(startOfMonth) && !date.isAfter(endOfMonth));
-            }
+        LocalDate iterationDate = startDate;
+
+        while (!iterationDate.isBefore(habit.getCreationDate())) {
+            boolean isConsistent = isPeriodConsistent(habit, iterationDate, unit);
 
             if (isConsistent) {
-                consistentMonths++;
-                consecutiveIncompleteMonths = 0; // Reset the counter if this month is consistent
+                consistentPeriods++;
+                consecutiveIncompletePeriods = 0;
             } else {
-                consecutiveIncompleteMonths++;
-                if (consecutiveIncompleteMonths >= 2) {
-                    break; // Stop if two consecutive months are incomplete
+                consecutiveIncompletePeriods++;
+                if (consecutiveIncompletePeriods >= MAX_CONSECUTIVE_INCOMPLETE) {
+                    break; // Stop further calculation after enough consecutive inconsistencies
                 }
             }
 
-            // Move to the previous month
-            currentMonth = currentMonth.minusMonths(1);
+            iterationDate = iterationDate.minus(1, unit);
         }
 
-        return consistentMonths;
+        return consistentPeriods == 0 ? 0 : consistentPeriods; // Return 0 if no consistent periods
+    }
+
+
+    private static boolean isPeriodConsistent(Habit habit, LocalDate startDate, ChronoUnit unit) {
+        LocalDate endDate = unit == ChronoUnit.WEEKS
+                ? startDate.with(DayOfWeek.SUNDAY)
+                : YearMonth.from(startDate).atEndOfMonth();
+
+        switch (habit.getFrequency()) {
+            case DAILY:
+                return startDate.datesUntil(endDate.plusDays(1)) // Inclusive
+                        .allMatch(date -> habit.getCompletedDates().contains(date));
+            case WEEKLY:
+                return habit.getCompletedDates().stream()
+                        .anyMatch(date -> !date.isBefore(startDate) && !date.isAfter(endDate));
+            case CUSTOM:
+                return isCustomPeriodConsistent(habit, startDate, endDate);
+            case MONTHLY:
+                return habit.getCompletedDates().stream()
+                        .anyMatch(date -> !date.isBefore(startDate) && !date.isAfter(endDate));
+            default:
+                return false;
+        }
+    }
+
+    private static boolean isCustomPeriodConsistent(Habit habit, LocalDate startDate, LocalDate endDate) {
+        Set<DayOfWeek> customDays = Set.copyOf(habit.getCustomDays());
+        return customDays.stream()
+                .allMatch(day -> startDate.datesUntil(endDate.plusDays(1)) // Check all custom days within range
+                        .filter(date -> date.getDayOfWeek() == day)
+                        .allMatch(habit.getCompletedDates()::contains)); // All should be completed
     }
 
 
@@ -205,5 +168,4 @@ public class HabitStatisticsCalculator {
         }
         return Math.max(longestStreak, currentStreak);
     }
-
 }

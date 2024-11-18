@@ -2,9 +2,12 @@ package org.habittracker.util;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class NotificationHelper implements Notifier {
     private final Label notificationLabel;
+    private static final Logger LOGGER = LogManager.getLogger(NotificationHelper.class);
 
     public NotificationHelper(Label notificationLabel) {
         this.notificationLabel = notificationLabel;
@@ -23,8 +26,9 @@ public class NotificationHelper implements Notifier {
                 Thread.sleep(4000); // 4-second delay
                 Platform.runLater(() -> notificationLabel.setVisible(false));
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.error("Thread was interrupted while trying to hide the notification label.", e);
             }
         }).start();
+
     }
 }

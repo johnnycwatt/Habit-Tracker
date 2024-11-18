@@ -9,7 +9,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-import org.habittracker.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.habittracker.model.HabitReportData;
 import org.habittracker.model.MonthlyReport;
 import org.habittracker.util.LocalDateAdapter;
@@ -21,6 +22,9 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 
 public class ReportViewController {
+
+    private static final Logger LOGGER = LogManager.getLogger(ReportViewController.class);
+
     @FXML
     ComboBox<String> monthSelector;
     @FXML
@@ -51,7 +55,6 @@ public class ReportViewController {
             .create();
 
     private MainController mainController;
-    private Main mainApp;
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -77,7 +80,7 @@ public class ReportViewController {
                     .map(filename -> filename.replace(".json", ""))
                     .forEach(monthSelector.getItems()::add);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Error loading available months from directory: {}", reportsDirectory, e);
         }
     }
 
@@ -97,7 +100,7 @@ public class ReportViewController {
             displayReportData(report);
             reportPeriodLabel.setText("Report for " + month);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Error loading report data for month: {}", month, e);
         }
     }
 

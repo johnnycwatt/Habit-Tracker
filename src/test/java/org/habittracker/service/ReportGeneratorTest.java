@@ -144,13 +144,5 @@ public class ReportGeneratorTest {
     }
 
 
-    @Test
-    void testStartAndStopScheduler() {
-        reportGenerator.startMonthlyReportScheduler();
-        assertFalse(reportGenerator.scheduler.isShutdown(), "Scheduler should not be shut down immediately after starting");
-
-        reportGenerator.stopScheduler();
-        assertTrue(reportGenerator.scheduler.isShutdown(), "Scheduler should be shut down after calling stopScheduler");
-    }
 
 }

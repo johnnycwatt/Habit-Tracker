@@ -3,7 +3,7 @@ package org.habittracker.util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestNotifier implements Notifier {
+public class MockNotifier implements Notifier {
     private final List<String> messages = new ArrayList<>();
 
     @Override

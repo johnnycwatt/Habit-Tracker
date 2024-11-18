@@ -9,23 +9,38 @@ import java.sql.Types;
 
 public class SQLiteDialect extends Dialect {
 
+    private static final String INTEGER_TYPE = "integer";
+
+    @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
     public SQLiteDialect() {
-        init();
+        initializeDialect();
     }
 
-    public void init(){
-        registerColumnType(Types.BIT, "integer");
+    // Private helper method to encapsulate the initialization logic
+    private void initializeDialect() {
+        // Registering column types
+        doRegisterColumnTypes();
+
+        // Registering SQL functions
+        doRegisterFunctions();
+    }
+
+    // Encapsulate column type registration in a private method
+    private void doRegisterColumnTypes() {
+        registerColumnType(Types.BIT, INTEGER_TYPE);
         registerColumnType(Types.TINYINT, "tinyint");
         registerColumnType(Types.SMALLINT, "smallint");
-        registerColumnType(Types.INTEGER, "integer");
+        registerColumnType(Types.INTEGER, INTEGER_TYPE);
         registerColumnType(Types.BIGINT, "bigint");
         registerColumnType(Types.FLOAT, "float");
         registerColumnType(Types.DOUBLE, "double");
         registerColumnType(Types.VARCHAR, "varchar");
         registerColumnType(Types.BINARY, "blob");
-        registerColumnType(Types.BOOLEAN, "integer");
+        registerColumnType(Types.BOOLEAN, INTEGER_TYPE);
+    }
 
-        // Registering SQL functions
+    // Encapsulate function registration in a private method
+    private void doRegisterFunctions() {
         registerFunction("concat", new VarArgsSQLFunction(StringType.INSTANCE, "", "||", ""));
         registerFunction("mod", new SQLFunctionTemplate(StringType.INSTANCE, "?1 % ?2"));
         registerFunction("substr", new StandardSQLFunction("substr", StringType.INSTANCE));
@@ -37,7 +52,7 @@ public class SQLiteDialect extends Dialect {
     }
 
     public String getIdentityColumnString() {
-        return "integer";
+        return INTEGER_TYPE;
     }
 
     public String getIdentitySelectString() {
@@ -48,7 +63,6 @@ public class SQLiteDialect extends Dialect {
     public IdentityColumnSupport getIdentityColumnSupport() {
         return new SQLiteIdentityColumnSupport();
     }
-
 
     @Override
     public boolean supportsLimit() {
@@ -96,6 +110,4 @@ public class SQLiteDialect extends Dialect {
     public String getAddColumnString() {
         throw new UnsupportedOperationException("SQLite does not support the addition of columns through ALTER TABLE");
     }
-
-
 }

@@ -3,7 +3,7 @@ package org.habittracker.util;
 import java.util.Arrays;
 import java.util.List;
 
-public class Milestones {
+public class MilestoneManager {
     public static final int FIRST_DAY = 1;
     public static final int SEVEN_DAYS = 7;
     public static final int TWENTY_ONE_DAYS = 21;

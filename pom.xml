@@ -89,7 +89,6 @@
             </properties>
             <build>
                 <plugins>
-                    <!-- Jacoco Plugin -->
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
@@ -101,7 +100,7 @@
                                     <goal>check</goal>
                                 </goals>
                                 <configuration>
-                                    <dataFile>${project.basedir}/path/to/pre-generated/jacoco.exec</dataFile>
+                                    <dataFile>${project.build.directory}/jacoco.exec</dataFile>
                                     <rules>
                                         <rule>
                                             <element>BUNDLE</element>
@@ -118,9 +117,11 @@
                             </execution>
                         </executions>
                     </plugin>
+
                 </plugins>
             </build>
         </profile>
+
     </profiles>
 
     <repositories>

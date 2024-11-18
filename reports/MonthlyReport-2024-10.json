@@ -1,55 +1,5 @@
 {
   "period": "2024-10",
-  "habitData": [
-    {
-      "habitName": "Spanish",
-      "completionRate": 26,
-      "longestStreak": 5,
-      "monthlyConsistency": 0,
-      "ranking": 1
-    },
-    {
-      "habitName": "Exercise",
-      "completionRate": 26,
-      "longestStreak": 7,
-      "monthlyConsistency": 0,
-      "ranking": 2
-    },
-    {
-      "habitName": "Work on Habit Tracker App",
-      "completionRate": 20,
-      "longestStreak": 4,
-      "monthlyConsistency": 0,
-      "ranking": 3
-    },
-    {
-      "habitName": "Fasting",
-      "completionRate": 20,
-      "longestStreak": 1,
-      "monthlyConsistency": 0,
-      "ranking": 4
-    },
-    {
-      "habitName": "Study",
-      "completionRate": 3,
-      "longestStreak": 1,
-      "monthlyConsistency": 0,
-      "ranking": 5
-    },
-    {
-      "habitName": "Weekly Update",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 6
-    },
-    {
-      "habitName": "Piano",
-      "completionRate": 0,
-      "longestStreak": 0,
-      "monthlyConsistency": 0,
-      "ranking": 7
-    }
-  ],
-  "reportGeneratedDate": "2024-11-16"
+  "habitData": [],
+  "reportGeneratedDate": "2024-11-18"
 }

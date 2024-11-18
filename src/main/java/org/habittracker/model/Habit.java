@@ -187,7 +187,7 @@ public class Habit {
         this.name = name;
     }
 
-    public boolean isCompleted() {
+    public boolean checkCompletion() {
         return isCompleted;
     }
 
@@ -259,6 +259,13 @@ public class Habit {
     public void setReminderEligible(boolean reminderEligible) {
         this.reminderEligible = reminderEligible;
     }
+
+    public int getLatestMilestone() {
+        return completedMilestones.stream()
+                .max(Integer::compare)
+                .orElse(0);
+    }
+
 
     public enum Frequency {
         DAILY,

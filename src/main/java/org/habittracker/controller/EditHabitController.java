@@ -9,12 +9,18 @@ import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.util.NotificationHelper;
 import org.habittracker.util.Notifier;
+import org.habittracker.util.NotificationColors;
+
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 public class EditHabitController {
+
+    private static final String FREQUENCY_CUSTOM = "Custom";
+    private static final String DEFAULT_COLOR = "#000000";
 
     @FXML
     private TextField editHabitNameField;
@@ -37,7 +43,20 @@ public class EditHabitController {
     private Notifier notifier;
 
     @FXML
-    private ToggleButton mondayToggle, tuesdayToggle, wednesdayToggle, thursdayToggle, fridayToggle, saturdayToggle, sundayToggle;
+    private ToggleButton mondayToggle;
+    @FXML
+    private ToggleButton tuesdayToggle;
+    @FXML
+    private ToggleButton wednesdayToggle;
+    @FXML
+    private ToggleButton thursdayToggle;
+    @FXML
+    private ToggleButton fridayToggle;
+    @FXML
+    private ToggleButton saturdayToggle;
+    @FXML
+    private ToggleButton sundayToggle;
+
 
     private HabitRepository habitRepository;
     private Habit habit;
@@ -50,67 +69,73 @@ public class EditHabitController {
         startDatePicker.setValue(habit.getCreationDate());
         colorChoiceBox.setValue(getColorNameFromHex(habit.getColor()));
 
-        // Convert frequency to lowercase to handle both "Custom" and "CUSTOM" cases
-        if ("custom".equalsIgnoreCase(habit.getFrequency().toString())) {
+        if (FREQUENCY_CUSTOM.equalsIgnoreCase(habit.getFrequency().toString())) {
             customDaysContainer.setVisible(true);
-            if (habit.getCustomDays() != null) {
-                habit.getCustomDays().forEach(day -> {
-                    switch (day) {
-                        case MONDAY -> mondayToggle.setSelected(true);
-                        case TUESDAY -> tuesdayToggle.setSelected(true);
-                        case WEDNESDAY -> wednesdayToggle.setSelected(true);
-                        case THURSDAY -> thursdayToggle.setSelected(true);
-                        case FRIDAY -> fridayToggle.setSelected(true);
-                        case SATURDAY -> saturdayToggle.setSelected(true);
-                        case SUNDAY -> sundayToggle.setSelected(true);
-                    }
-                });
-            }
+            updateCustomDayToggles(habit.getCustomDays());
         } else {
-            customDaysContainer.setVisible(false);  // Hide for non-custom frequencies
-            mondayToggle.setSelected(false);
-            tuesdayToggle.setSelected(false);
-            wednesdayToggle.setSelected(false);
-            thursdayToggle.setSelected(false);
-            fridayToggle.setSelected(false);
-            saturdayToggle.setSelected(false);
-            sundayToggle.setSelected(false);
+            customDaysContainer.setVisible(false);
+            clearCustomDayToggles();
         }
     }
-
-
 
     @FXML
     void initialize() {
-        notifier = new NotificationHelper(notificationLabel); // Initialize notifier
+        notifier = new NotificationHelper(notificationLabel);
+    }
+
+    private void updateCustomDayToggles(List<DayOfWeek> customDays) {
+        clearCustomDayToggles();
+        if (customDays != null) {
+            customDays.forEach(day -> {
+                switch (day) {
+                    case MONDAY -> mondayToggle.setSelected(true);
+                    case TUESDAY -> tuesdayToggle.setSelected(true);
+                    case WEDNESDAY -> wednesdayToggle.setSelected(true);
+                    case THURSDAY -> thursdayToggle.setSelected(true);
+                    case FRIDAY -> fridayToggle.setSelected(true);
+                    case SATURDAY -> saturdayToggle.setSelected(true);
+                    case SUNDAY -> sundayToggle.setSelected(true);
+                }
+            });
+        }
+    }
+
+    private void clearCustomDayToggles() {
+        mondayToggle.setSelected(false);
+        tuesdayToggle.setSelected(false);
+        wednesdayToggle.setSelected(false);
+        thursdayToggle.setSelected(false);
+        fridayToggle.setSelected(false);
+        saturdayToggle.setSelected(false);
+        sundayToggle.setSelected(false);
     }
 
     private String getColorHexCode(String colorName) {
-        switch (colorName) {
-            case "Black": return "#000000";
-            case "Red": return "#FF0000";
-            case "Green": return "#008000";
-            case "Blue": return "#0000FF";
-            case "Magenta": return "#FF00FF";
-            case "Yellow": return "#CCCC00";
-            case "Orange": return "#FFA500";
-            case "Cyan": return "#009999";
-            default: return "#000000";
-        }
+        return switch (colorName) {
+            case "Black" -> "#000000";
+            case "Red" -> "#FF0000";
+            case "Green" -> "#008000";
+            case "Blue" -> "#0000FF";
+            case "Magenta" -> "#FF00FF";
+            case "Yellow" -> "#CCCC00";
+            case "Orange" -> "#FFA500";
+            case "Cyan" -> "#009999";
+            default -> DEFAULT_COLOR;
+        };
     }
 
     private String getColorNameFromHex(String colorHex) {
-        switch (colorHex) {
-            case "#000000": return "Black";
-            case "#FF0000": return "Red";
-            case "#008000": return "Green";
-            case "#0000FF": return "Blue";
-            case "#FF00FF": return "Magenta";
-            case "#CCCC00": return "Yellow";
-            case "#FFA500": return "Orange";
-            case "#009999": return "Cyan";
-            default: return "Black";
-        }
+        return switch (colorHex) {
+            case "#000000" -> "Black";
+            case "#FF0000" -> "Red";
+            case "#008000" -> "Green";
+            case "#0000FF" -> "Blue";
+            case "#FF00FF" -> "Magenta";
+            case "#CCCC00" -> "Yellow";
+            case "#FFA500" -> "Orange";
+            case "#009999" -> "Cyan";
+            default -> "Black";
+        };
     }
 
     public void setHabitRepository(HabitRepository habitRepository) {
@@ -119,44 +144,56 @@ public class EditHabitController {
 
     @FXML
     private void onSaveChanges(ActionEvent event) {
-        if (habit != null && habitRepository != null) {
-            String newName = editHabitNameField.getText();
-            if (newName == null || newName.trim().isEmpty()) {
-                notifier.showMessage("Habit name is required!", "red");
-                return;
-            }
+        if (habit == null || habitRepository == null) {return;}
 
-            habit.setName(newName);
-            habit.setFrequency(Habit.Frequency.valueOf(frequencyChoiceBox.getValue().toUpperCase()));
-            habit.setCreationDate(startDatePicker.getValue());
+        String newName = editHabitNameField.getText();
+        if (!isHabitNameValid(newName))  {return;}
 
-            String selectedColorHex = getColorHexCode(colorChoiceBox.getValue());
-            habit.setColor(selectedColorHex);
+        habit.setName(newName);
+        habit.setCreationDate(startDatePicker.getValue());
+        habit.setColor(getColorHexCode(colorChoiceBox.getValue()));
 
-            if ("Custom".equals(frequencyChoiceBox.getValue())) {
-                List<DayOfWeek> selectedDays = new ArrayList<>();
-                if (mondayToggle.isSelected()) selectedDays.add(DayOfWeek.MONDAY);
-                if (tuesdayToggle.isSelected()) selectedDays.add(DayOfWeek.TUESDAY);
-                if (wednesdayToggle.isSelected()) selectedDays.add(DayOfWeek.WEDNESDAY);
-                if (thursdayToggle.isSelected()) selectedDays.add(DayOfWeek.THURSDAY);
-                if (fridayToggle.isSelected()) selectedDays.add(DayOfWeek.FRIDAY);
-                if (saturdayToggle.isSelected()) selectedDays.add(DayOfWeek.SATURDAY);
-                if (sundayToggle.isSelected()) selectedDays.add(DayOfWeek.SUNDAY);
-                habit.setCustomDays(selectedDays);
-            } else {
-                habit.setCustomDays(null);
-            }
+        updateHabitFrequencyAndDays();
 
-            habitRepository.updateHabit(habit);
+        habitRepository.updateHabit(habit);
+        notifier.showMessage("Habit updated successfully!", NotificationColors.GREEN);
+        goBack();
+    }
 
-            notifier.showMessage("Habit updated successfully!", "green");
-            goBack();
+    private boolean isHabitNameValid(String habitName) {
+        if (habitName == null || habitName.isBlank()) {
+            notifier.showMessage("Habit name is required!", NotificationColors.RED);
+            return false;
+        }
+        return true;
+    }
+
+    private void updateHabitFrequencyAndDays() {
+        String selectedFrequency = frequencyChoiceBox.getValue().toUpperCase(Locale.ROOT);
+        habit.setFrequency(Habit.Frequency.valueOf(selectedFrequency));
+
+        if (FREQUENCY_CUSTOM.equals(frequencyChoiceBox.getValue())) {
+            habit.setCustomDays(getSelectedCustomDays());
+        } else {
+            habit.setCustomDays(null);
         }
     }
+
+    private List<DayOfWeek> getSelectedCustomDays() {
+        List<DayOfWeek> selectedDays = new ArrayList<>();
+        if (mondayToggle.isSelected()) {selectedDays.add(DayOfWeek.MONDAY);}
+        if (tuesdayToggle.isSelected()) {selectedDays.add(DayOfWeek.TUESDAY);}
+        if (wednesdayToggle.isSelected()) {selectedDays.add(DayOfWeek.WEDNESDAY);}
+        if (thursdayToggle.isSelected()) {selectedDays.add(DayOfWeek.THURSDAY);}
+        if (fridayToggle.isSelected()) {selectedDays.add(DayOfWeek.FRIDAY);}
+        if (saturdayToggle.isSelected()) {selectedDays.add(DayOfWeek.SATURDAY);}
+        if (sundayToggle.isSelected()) {selectedDays.add(DayOfWeek.SUNDAY);}
+        return selectedDays;
+    }
+
     @FXML
     private void onFrequencyChanged() {
-        String selectedFrequency = frequencyChoiceBox.getValue();
-        customDaysContainer.setVisible("Custom".equals(selectedFrequency));
+        customDaysContainer.setVisible(FREQUENCY_CUSTOM.equals(frequencyChoiceBox.getValue()));
     }
 
     @FXML
@@ -171,7 +208,6 @@ public class EditHabitController {
     protected Alert createConfirmationAlert(String message) {
         return new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.YES, ButtonType.NO);
     }
-
 
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;

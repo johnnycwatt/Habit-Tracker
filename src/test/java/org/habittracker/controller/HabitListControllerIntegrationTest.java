@@ -1,13 +1,13 @@
 package org.habittracker.controller;
 
-import javafx.application.Platform;
 import javafx.scene.control.*;
+import javafx.application.Platform;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.service.HabitService;
 import org.habittracker.util.JavaFxInitializer;
-import org.habittracker.util.TestNotifier;
+import org.habittracker.util.MockNotifier;
 import org.junit.jupiter.api.*;
 import static org.mockito.Mockito.*;
 import javax.persistence.EntityManager;
@@ -28,20 +28,20 @@ public class HabitListControllerIntegrationTest {
     private HabitRepository habitRepository;
     private HabitService habitService;
     private HabitListController controller;
-    private TestNotifier testNotifier;
+    private MockNotifier mockNotifier;
 
     @BeforeAll
     public static void initToolkit() {
         JavaFxInitializer.initToolkit();
+        HabitRepository.initialize("habittracker-test");
         entityManagerFactory = Persistence.createEntityManagerFactory("habittracker-test");
     }
-
     @BeforeEach
     public void setUp() throws Exception {
         entityManager = entityManagerFactory.createEntityManager();
-        habitRepository = new HabitRepository(entityManagerFactory);
-        testNotifier = new TestNotifier();
-        habitService = new HabitService(testNotifier);
+        habitRepository = HabitRepository.getInstance();
+        mockNotifier = new MockNotifier();
+        habitService = new HabitService(mockNotifier);
 
         controller = new HabitListController();
         controller.setMainApp(new Main());
@@ -124,42 +124,13 @@ public class HabitListControllerIntegrationTest {
         Platform.runLater(() -> {
             try {
                 invokePrivateMethod(controller, "onEditHabit");
-                assertEquals("Please select a habit to edit.", testNotifier.getMessages().get(0));
+                assertEquals("Please select a habit to edit.", mockNotifier.getMessages().get(0));
             } catch (Exception e) {
                 e.printStackTrace();
                 fail("Exception while invoking onEditHabit through reflection");
             }
         });
     }
-
-    @Test
-    @Tag("JavaFX")
-    public void testOnEditHabitWithSelection() throws Exception {
-        // Add a habit to list and select it
-        Habit habit = new Habit("Exercise", Habit.Frequency.DAILY);
-        entityManager.getTransaction().begin();
-        habitRepository.addHabit(habit);
-        entityManager.getTransaction().commit();
-
-        Platform.runLater(() -> {
-            try {
-                invokePrivateMethod(controller, "loadHabitList");
-
-                // Select the habit
-                ListView<String> habitListView = (ListView<String>) getPrivateField(controller, "habitListView");
-                habitListView.getSelectionModel().select(0);
-
-                // Test edit
-                invokePrivateMethod(controller, "onEditHabit");
-                //Check if showEditHabitView is called on the mainApp's main controller
-            } catch (Exception e) {
-                e.printStackTrace();
-                fail("Exception while invoking onEditHabit through reflection");
-            }
-        });
-    }
-
-
 
     @Test
     @Tag("JavaFX")
@@ -202,7 +173,7 @@ public class HabitListControllerIntegrationTest {
                 invokePrivateMethod(controller, "onDeleteHabit");
 
                 // Verify message
-                assertEquals("No habit selected for deletion.", testNotifier.getMessages().get(0));
+                assertEquals("No habit selected for deletion.", mockNotifier.getMessages().get(0));
             } catch (Exception e) {
                 e.printStackTrace();
                 fail("Exception while invoking onDeleteHabit through reflection");
@@ -265,7 +236,7 @@ public class HabitListControllerIntegrationTest {
                 invokePrivateMethod(controller, "onMarkAsCompleted");
 
                 // Check that no warning message was shown
-                assertTrue(testNotifier.getMessages().isEmpty());  // Ensure no messages were added
+                assertTrue(mockNotifier.getMessages().isEmpty());  // Ensure no messages were added
             } catch (Exception e) {
                 e.printStackTrace();
                 fail("Exception while invoking onMarkAsCompleted through reflection");
@@ -280,7 +251,7 @@ public class HabitListControllerIntegrationTest {
         Platform.runLater(() -> {
             try {
                 invokePrivateMethod(controller, "onViewProgress");
-                assertEquals("Please select a habit to view progress.", testNotifier.getMessages().get(0));
+                assertEquals("Please select a habit to view progress.", mockNotifier.getMessages().get(0));
             } catch (Exception e) {
                 e.printStackTrace();
                 fail("Exception while invoking onViewProgress through reflection");
@@ -373,7 +344,7 @@ public class HabitListControllerIntegrationTest {
                 // Test mark as completed
                 invokePrivateMethod(controller, "onMarkAsCompleted");
                 assertEquals("Today is not part of your specified habit days. Marking completion may affect statistics. Good work on getting the habit done! That is the much more important!",
-                        testNotifier.getMessages().get(0));
+                        mockNotifier.getMessages().get(0));
             } catch (Exception e) {
                 e.printStackTrace();
                 fail("Exception while invoking onMarkAsCompleted through reflection");

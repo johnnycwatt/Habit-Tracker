@@ -6,14 +6,17 @@ import javafx.scene.layout.VBox;
 import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.service.HabitService;
+import org.habittracker.util.NotificationColors;
 import org.habittracker.util.NotificationHelper;
 import org.habittracker.util.Notifier;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
 public class HabitListController {
+
+    private static final String ITEM_SEPARATOR = " - ";
+    private static final String DETAILS_TEXT_STYLE = "-fx-text-fill: #666666;";
 
     @FXML
     private TextField editHabitNameField;
@@ -34,6 +37,7 @@ public class HabitListController {
     private Main mainApp;
     private HabitService habitService;
     private Notifier notifier;
+    MainController mainController;
 
     @FXML
     private void initialize() {
@@ -48,51 +52,65 @@ public class HabitListController {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-
                 if (empty || item == null) {
-                    setText(null);
-                    setGraphic(null);
-                    setStyle("");
+                    clearCell();
                 } else {
-                    // Split item text to separate the habit name and details
-                    String[] parts = item.split(" - ");
-                    String habitName = parts[0];
-                    String details = String.join(" - ", Arrays.copyOfRange(parts, 1, parts.length));
-
-                    VBox cellLayout = new VBox(5);
-                    Label nameLabel = new Label(habitName);
-                    nameLabel.getStyleClass().add("habit-name");
-
-                    Label detailsLabel = new Label(details);
-                    detailsLabel.getStyleClass().add("habit-details");
-
-                    cellLayout.getChildren().addAll(nameLabel, detailsLabel);
-                    setGraphic(cellLayout);
-
-                    selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-                        if (isSelected) {
-                            // Style for selected cell
-                            setStyle("-fx-background-color: #cce5ff; -fx-text-fill: #333333; -fx-font-weight: bold;");
-                            nameLabel.setStyle("-fx-text-fill: #333333;");
-                            detailsLabel.setStyle("-fx-text-fill: #666666;");
-                        } else {
-                            // Styled for non-selected cell
-                            setStyle("-fx-background-color: #ffffff; -fx-text-fill: #333333;");
-                            nameLabel.setStyle("-fx-text-fill: #333333; -fx-font-weight: bold;");
-                            detailsLabel.setStyle("-fx-text-fill: #666666;");
-                        }
-                    });
-
-                    if (isSelected()) {
-                        setStyle("-fx-background-color: #cce5ff; -fx-text-fill: #333333; -fx-font-weight: bold;");
-                        nameLabel.setStyle("-fx-text-fill: #333333;");
-                        detailsLabel.setStyle("-fx-text-fill: #666666;");
-                    } else {
-                        setStyle("-fx-background-color: #ffffff; -fx-text-fill: #333333;");
-                        nameLabel.setStyle("-fx-text-fill: #333333; -fx-font-weight: bold;");
-                        detailsLabel.setStyle("-fx-text-fill: #666666;");
-                    }
+                    configureCell(item);
                 }
+            }
+
+            private void clearCell() {
+                setText(null);
+                setGraphic(null);
+                setStyle("");
+            }
+
+            private void configureCell(String item) {
+                VBox cellLayout = createCellLayout(item);
+                setGraphic(cellLayout);
+                updateCellStyle();
+            }
+
+            private VBox createCellLayout(String item) {
+                String[] parts = item.split(ITEM_SEPARATOR);
+                String habitName = parts[0];
+                String details = String.join(ITEM_SEPARATOR, Arrays.copyOfRange(parts, 1, parts.length));
+
+                VBox cellLayout = new VBox(5);
+                Label nameLabel = createLabel(habitName, "habit-name");
+                Label detailsLabel = createLabel(details, "habit-details");
+                cellLayout.getChildren().addAll(nameLabel, detailsLabel);
+                return cellLayout;
+            }
+
+            private Label createLabel(String text, String styleClass) {
+                Label label = new Label(text);
+                label.getStyleClass().add(styleClass);
+                return label;
+            }
+
+            private void updateCellStyle() {
+                selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+                    if (isSelected) {
+                        setSelectedStyle();
+                    } else {
+                        setDefaultStyle();
+                    }
+                });
+
+                if (isSelected()) {
+                    setSelectedStyle();
+                } else {
+                    setDefaultStyle();
+                }
+            }
+
+            private void setSelectedStyle() {
+                setStyle("-fx-background-color: #cce5ff; -fx-text-fill: #333333; -fx-font-weight: bold;");
+            }
+
+            private void setDefaultStyle() {
+                setStyle("-fx-background-color: #ffffff; -fx-text-fill: #333333;");
             }
         });
     }
@@ -102,7 +120,7 @@ public class HabitListController {
         List<Habit> habits = habitService.getAllHabits();
         for (Habit habit : habits) {
             String streakInfo = " (Streak: " + habit.getStreakCounter() + ")";
-            habitListView.getItems().add(habit.getName() + " - " + habit.getFrequency() + " - " + habit.getCreationDate() + " - " + streakInfo);
+            habitListView.getItems().add(habit.getName() + ITEM_SEPARATOR + habit.getFrequency() + ITEM_SEPARATOR + habit.getCreationDate() + ITEM_SEPARATOR + streakInfo);
         }
     }
 
@@ -110,11 +128,11 @@ public class HabitListController {
     public void onEditHabit() {
         String selectedItem = habitListView.getSelectionModel().getSelectedItem();
         if (selectedItem == null) {
-            notifier.showMessage("Please select a habit to edit.", "red");
+            notifier.showMessage("Please select a habit to edit.", NotificationColors.RED);
             return;
         }
 
-        String habitName = selectedItem.split(" - ")[0];
+        String habitName = selectedItem.split(ITEM_SEPARATOR)[0];
         Habit selectedHabit = habitService.findHabitByName(habitName);
         mainApp.getMainController().showEditHabitView(selectedHabit);
     }
@@ -123,47 +141,58 @@ public class HabitListController {
     private void onHabitSelected() {
         String selectedItem = habitListView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            String habitName = selectedItem.split(" - ")[0];
+            String habitName = selectedItem.split(ITEM_SEPARATOR)[0];
             selectedHabit = habitService.findHabitByName(habitName);
         }
     }
 
     @FXML
     private void onDeleteHabit() {
-        if (selectedHabit != null) {
-            habitService.deleteHabit(selectedHabit);
-            loadHabitList();
-            selectedHabit = null;
+        String selectedItem = habitListView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            String habitName = selectedItem.split(ITEM_SEPARATOR)[0];
+            Habit habit = habitService.findHabitByName(habitName);
+            if (habit != null) {
+                habitService.deleteHabit(habit);
+                loadHabitList();
+                resetSelectedHabit();
+            } else {
+                notifier.showMessage("Habit not found for deletion.", NotificationColors.RED);
+            }
         } else {
-            notifier.showMessage("No habit selected for deletion.", "red");
+            notifier.showMessage("No habit selected for deletion.", NotificationColors.RED);
         }
     }
+
+
+    private void resetSelectedHabit() {
+        habitListView.getSelectionModel().clearSelection();
+    }
+
 
     @FXML
     private void onMarkAsCompleted() {
         if (selectedHabit != null) {
-            // Check if the habit is custom and today is outside of specified days
             if (selectedHabit.getFrequency() == Habit.Frequency.CUSTOM &&
                     !selectedHabit.getCustomDays().contains(LocalDate.now().getDayOfWeek())) {
-                notifier.showMessage("Today is not part of your specified habit days. Marking completion may affect statistics. Good work on getting the habit done! That is the much more important!", "orange");
+                notifier.showMessage("Today is not part of your specified habit days. Marking completion may affect statistics.", "orange");
             }
             habitService.markHabitAsCompleted(selectedHabit);
             loadHabitList();
         } else {
-            notifier.showMessage("Please select a habit to mark as completed.", "red");
+            notifier.showMessage("Please select a habit to mark as completed.", NotificationColors.RED);
         }
     }
-
 
     @FXML
     public void onViewProgress() {
         String selectedItem = habitListView.getSelectionModel().getSelectedItem();
         if (selectedItem == null) {
-            notifier.showMessage("Please select a habit to view progress.", "red");
+            notifier.showMessage("Please select a habit to view progress.", NotificationColors.RED);
             return;
         }
 
-        String habitName = selectedItem.split(" - ")[0];
+        String habitName = selectedItem.split(ITEM_SEPARATOR)[0];
         Habit selectedHabit = habitService.findHabitByName(habitName);
         mainApp.getMainController().showProgressView(selectedHabit);
     }
@@ -176,6 +205,10 @@ public class HabitListController {
         mainApp.getMainController().showReportView();
     }
 
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+        this.notifier = new NotificationHelper(notificationLabel);
+    }
 
     @FXML
     private void goBack() {
