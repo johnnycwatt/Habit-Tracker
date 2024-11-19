@@ -1,0 +1,19 @@
+2024-11-19 20:11:03 INFO  Main:74 - Launching Habit Tracker application
+2024-11-19 20:11:03 INFO  Main:28 - Initializing HabitRepository...
+2024-11-19 20:11:04 INFO  Main:31 - init() completed in 1393 ms
+2024-11-19 20:11:07 INFO  Main:49 - Application started successfully
+2024-11-19 20:11:07 INFO  Main:50 - start() method completed in 2609 ms
+2024-11-19 20:11:07 INFO  Main:51 - Total startup time: 4031 ms
+2024-11-19 20:11:09 INFO  MainController:191 - View /view/AddHabitView.fxml loaded successfully by showAddHabitView in 42 ms
+2024-11-19 20:11:14 INFO  AddHabitController:109 - Habit added to repository
+2024-11-19 20:11:18 INFO  MainController:191 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 39 ms
+2024-11-19 20:11:20 INFO  MainController:191 - View /view/ProgressView.fxml loaded successfully by showProgressView in 73 ms
+2024-11-19 20:11:23 INFO  MainController:191 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 35 ms
+2024-11-19 20:11:24 INFO  MainController:191 - View /view/ProgressView.fxml loaded successfully by showProgressView in 12 ms
+2024-11-19 20:11:27 INFO  MainController:191 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 32 ms
+2024-11-19 20:11:29 INFO  MainController:191 - View /view/ReportView.fxml loaded successfully by showReportView in 62 ms
+2024-11-19 20:11:34 INFO  MainController:191 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 33 ms
+2024-11-19 20:11:38 INFO  MainController:191 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 14 ms
+2024-11-19 20:11:40 INFO  MainController:191 - View /view/HelpView.fxml loaded successfully by openHelp in 14 ms
+2024-11-19 20:11:41 INFO  MainController:191 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 7 ms
+2024-11-19 20:11:46 INFO  Main:60 - Shutting down application and closing HabitRepository...
