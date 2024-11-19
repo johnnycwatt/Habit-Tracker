@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -56,6 +55,9 @@ public class Habit {
     @CollectionTable(name = "habit_completions", joinColumns = @JoinColumn(name = "habit_id"))
     @Column(name = "completion_date")
     private Set<LocalDate> completions = new HashSet<>();
+
+    @Column(name = "best_streak", nullable = false)
+    private int bestStreak;
 
     public Habit() {}
 
@@ -105,32 +107,37 @@ public class Habit {
     private void calculateStreak() {
         int currentStreak = 0;
         int longestStreak = 0;
-        LocalDate previousDate = null;
+        LocalDate lastDate = null;
 
-        for (LocalDate completionDate : completions.stream().sorted().collect(Collectors.toList())) {
-            if (previousDate != null) {
+        for (LocalDate date : completions.stream().sorted().toList()) {
+            if (lastDate != null) {
                 boolean isConsecutive = switch (frequency) {
-                    case DAILY -> previousDate.plusDays(1).equals(completionDate);
-                    case WEEKLY -> previousDate.plusWeeks(1).equals(completionDate);
-                    case MONTHLY -> previousDate.plusMonths(1).equals(completionDate);
+                    case DAILY -> date.equals(lastDate.plusDays(1));
+                    case WEEKLY -> date.equals(lastDate.plusWeeks(1));
+                    case MONTHLY -> date.equals(lastDate.plusMonths(1));
                     default -> false;
                 };
 
                 if (isConsecutive) {
                     currentStreak++;
                 } else {
-                    longestStreak = Math.max(longestStreak, currentStreak);
                     currentStreak = 1;
                 }
             } else {
-                currentStreak = 1;
+                currentStreak = 1; // First completion starts a streak
             }
-            previousDate = completionDate;
+
+            longestStreak = Math.max(longestStreak, currentStreak);
+            lastDate = date;
         }
 
-        streakCounter = Math.max(longestStreak, currentStreak);
-        LOGGER.info("Streak calculated. Current streak: {}, Longest streak: {}", currentStreak, longestStreak);
+        streakCounter = currentStreak; // Current streak
+        bestStreak = Math.max(bestStreak, longestStreak); // Best streak
+        LOGGER.info("Streak calculated. Current streak: {}, Best streak: {}", streakCounter, bestStreak);
     }
+
+
+
 
     public int getCompletionsOnDate(LocalDate date) {
         return completions.contains(date) ? 1 : 0;
@@ -264,6 +271,10 @@ public class Habit {
         return completedMilestones.stream()
                 .max(Integer::compare)
                 .orElse(0);
+    }
+
+    public int getBestStreak() {
+        return bestStreak;
     }
 
 

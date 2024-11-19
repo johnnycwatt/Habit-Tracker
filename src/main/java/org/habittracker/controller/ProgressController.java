@@ -302,25 +302,9 @@ public class ProgressController {
         monthlyConsistencyLabel.setText(monthlyConsistency + " months");
 
 
-        bestStreakLabel.setText(String.valueOf(calculateBestStreak()));
+        bestStreakLabel.setText(String.valueOf(habit.getBestStreak()));
     }
 
-    private int calculateBestStreak() {
-        int longestStreak = 0;
-        int currentStreak = 0;
-        LocalDate lastDate = null;
-
-        for (LocalDate date : habit.getCompletedDates().stream().sorted().toList()) {
-            if (lastDate != null && date.equals(lastDate.plusDays(1))) {
-                currentStreak++;
-            } else {
-                longestStreak = Math.max(longestStreak, currentStreak);
-                currentStreak = 1;
-            }
-            lastDate = date;
-        }
-        return Math.max(longestStreak, currentStreak);
-    }
 
     private void updateHistoryChart() {
         historyChart.getData().clear();
