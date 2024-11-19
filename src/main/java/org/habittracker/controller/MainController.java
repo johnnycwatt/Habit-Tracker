@@ -176,7 +176,8 @@ public class MainController {
         rootStackPane.getScene().getStylesheets().remove(getClass().getResource("/css/dark-theme.css").toExternalForm());
     }
 
-    private void loadView(String fxmlPath, Consumer<Object> controllerSetup) {
+    private void loadView(String fxmlPath, Consumer<Object> controllerSetup, String caller) {
+        long startTime = System.currentTimeMillis();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Node view = loader.load();
@@ -185,11 +186,15 @@ public class MainController {
             dynamicViewContainer.getChildren().setAll(view);
             mainView.setVisible(false);
             dynamicViewContainer.setVisible(true);
-            LOGGER.info("View {} loaded successfully", fxmlPath);
+
+            long endTime = System.currentTimeMillis();
+            LOGGER.info("View {} loaded successfully by {} in {} ms", fxmlPath, caller, (endTime - startTime));
         } catch (IOException e) {
-            LOGGER.error("Error loading FXML file: {}", fxmlPath, e);
+            long endTime = System.currentTimeMillis();
+            LOGGER.error("Error loading FXML file: {} by {} (Elapsed Time: {} ms)", fxmlPath, caller, (endTime - startTime), e);
         }
     }
+
 
     @FXML
     public void showSettingsView() {
@@ -199,7 +204,7 @@ public class MainController {
                 settingsController.setMainApp(mainApp);
                 settingsController.setMainController(this);
             }
-        });
+        }, "showSettingsView");
     }
 
     public void openHelp() {
@@ -208,7 +213,7 @@ public class MainController {
                 HelpController helpController = (HelpController) controller;
                 helpController.setMainController(this);
             }
-        });
+        }, "openHelp");
     }
 
     @FXML
@@ -218,7 +223,7 @@ public class MainController {
                 AddHabitController addHabitController = (AddHabitController) controller;
                 addHabitController.setMainApp(mainApp);
             }
-        });
+        }, "showAddHabitView");
     }
 
     public void showEditHabitView(Habit habit) {
@@ -229,7 +234,7 @@ public class MainController {
                 editHabitController.setHabitRepository(HabitRepository.getInstance());
                 editHabitController.setMainApp(mainApp);
             }
-        });
+        }, "showEditHabitView");
     }
 
     public void showProgressView(Habit habit) {
@@ -240,7 +245,7 @@ public class MainController {
                 progressController.setMainController(this);
                 progressController.setHabit(habit);
             }
-        });
+        }, "showProgressView");
     }
 
     public void showReportView() {
@@ -249,7 +254,7 @@ public class MainController {
                 ReportViewController reportViewController = (ReportViewController) controller;
                 reportViewController.setMainController(this);
             }
-        });
+        }, "showReportView");
     }
 
     public void showHabitListView() {
@@ -259,9 +264,8 @@ public class MainController {
                 habitListController.setMainApp(mainApp);
                 habitListController.setMainController(this);
             }
-        });
+        }, "showHabitListView");
     }
-
     public HabitReminderScheduler getReminderScheduler() {
         return reminderScheduler;
     }

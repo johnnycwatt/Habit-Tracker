@@ -1,28 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn">
     <Appenders>
+        <!-- Console Appender -->
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %LOGGER{36} - %msg%n" />
         </Console>
-        <File name="File" fileName="logs/app.log">
+
+        <!-- File Appender -->
+        <File name="File" fileName="logs/app.log" append="true">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
         </File>
     </Appenders>
 
     <Loggers>
+        <!-- Root Logger -->
         <Root level="error">
             <AppenderRef ref="Console"/>
         </Root>
 
+        <!-- General Logger for org.habittracker -->
         <Logger name="org.habittracker" level="info" additivity="false">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </Logger>
 
+        <!-- Logger for Controllers -->
         <Logger name="org.habittracker.controller" level="info" additivity="false">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Logger>
 
+        <!-- Logger for MainController (Specific Focus) -->
+        <Logger name="org.habittracker.controller.MainController" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Logger>
+
+        <!-- Logger for Repository -->
         <Logger name="org.habittracker.repository" level="debug" additivity="false">
             <AppenderRef ref="File"/>
         </Logger>
