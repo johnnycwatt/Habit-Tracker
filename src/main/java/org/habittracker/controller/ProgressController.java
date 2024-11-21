@@ -97,9 +97,10 @@ public class ProgressController {
         // Define common styles
         String boldTextStyle = "-fx-text-fill: " + adjustedColor + "; -fx-font-weight: bold;";
         String defaultTextStyle = "-fx-text-fill: " + adjustedColor + ";";
+        String headerSize = " -fx-font-size: 18px;";
 
         // Apply styles to labels
-        habitNameLabel.setStyle(boldTextStyle);
+        habitNameLabel.setStyle(boldTextStyle + headerSize);
         currentStreakLabel.setStyle(boldTextStyle);
         bestStreakLabel.setStyle(boldTextStyle);
         totalCompletionsLabel.setStyle(defaultTextStyle);
@@ -109,7 +110,7 @@ public class ProgressController {
         weeklyConsistencyLabel.setStyle(defaultTextStyle);
         monthlyConsistencyLabel.setStyle(defaultTextStyle);
 
-        calendarMonthLabel.setStyle(boldTextStyle + " -fx-font-size: 18px;");
+        calendarMonthLabel.setStyle(boldTextStyle + headerSize);
         historyLabel.setStyle(defaultTextStyle);
 
         // Adjust day labels color

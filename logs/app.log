@@ -1180,3 +1180,196 @@ java.nio.file.NoSuchFileException: reports/MonthlyReport-2024-12.json
 2024-11-21 21:01:53 INFO  ReportGenerator:103 - Report saved successfully to reports/MonthlyReport-2024-10.json
 2024-11-21 21:01:53 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
 2024-11-21 21:01:53 INFO  Habit:103 - Habit marked as completed on 2024-11-21
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:164 - Milestone notification shown: You have created 50 habits! Great progress!
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:164 - Milestone notification shown: 100 habits and counting! Amazing dedication!
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:164 - Milestone notification shown: 150 habits! Quality over quantity! Remember, the habit limit is 200.
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:164 - Milestone notification shown: 200 habits! That's the maximum! Focus on your current habits.
+2024-11-21 23:00:48 WARN  AddHabitController:111 - Habit limit reached: 200 habits
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 WARN  AddHabitController:135 - Habit name is empty
+2024-11-21 23:00:48 WARN  AddHabitController:104 - Habit with this name already exists
+2024-11-21 23:00:48 WARN  AddHabitController:141 - Frequency not selected
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:00:48 INFO  AddHabitController:116 - Habit added to repository
+2024-11-21 23:01:41 INFO  Main:86 - Launching Habit Tracker application
+2024-11-21 23:01:41 INFO  Main:29 - Initializing HabitRepository...
+2024-11-21 23:01:44 INFO  Main:34 - init() completed in 3004 ms
+2024-11-21 23:01:48 INFO  Main:57 - Application started successfully
+2024-11-21 23:01:48 INFO  Main:58 - start() method completed in 4588 ms
+2024-11-21 23:01:48 INFO  Main:59 - Total startup time: 7646 ms
+2024-11-21 23:01:58 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 30 ms
+2024-11-21 23:02:02 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 12 ms
+2024-11-21 23:02:08 INFO  JsonBackupHelper:52 - Restored data from /Users/johnnycwatt/Desktop/projects/Habit-Tracker/generated-json/TestHabits.json
+2024-11-21 23:02:48 INFO  Main:86 - Launching Habit Tracker application
+2024-11-21 23:02:48 INFO  Main:29 - Initializing HabitRepository...
+2024-11-21 23:02:50 INFO  Main:34 - init() completed in 1898 ms
+2024-11-21 23:02:51 INFO  Main:57 - Application started successfully
+2024-11-21 23:02:51 INFO  Main:58 - start() method completed in 1901 ms
+2024-11-21 23:02:51 INFO  Main:59 - Total startup time: 3841 ms
+2024-11-21 23:02:56 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 32 ms
+2024-11-21 23:02:58 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 113 ms
+2024-11-21 23:04:51 INFO  Main:86 - Launching Habit Tracker application
+2024-11-21 23:04:51 INFO  Main:29 - Initializing HabitRepository...
+2024-11-21 23:04:53 INFO  Main:34 - init() completed in 1940 ms
+2024-11-21 23:04:55 INFO  Main:57 - Application started successfully
+2024-11-21 23:04:55 INFO  Main:58 - start() method completed in 2102 ms
+2024-11-21 23:04:55 INFO  Main:59 - Total startup time: 4080 ms
+2024-11-21 23:05:08 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 36 ms
+2024-11-21 23:05:09 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 113 ms
+2024-11-21 23:06:27 INFO  Main:86 - Launching Habit Tracker application
+2024-11-21 23:06:27 INFO  Main:29 - Initializing HabitRepository...
+2024-11-21 23:06:29 INFO  Main:34 - init() completed in 1915 ms
+2024-11-21 23:06:31 INFO  Main:57 - Application started successfully
+2024-11-21 23:06:31 INFO  Main:58 - start() method completed in 2086 ms
+2024-11-21 23:06:31 INFO  Main:59 - Total startup time: 4041 ms
+2024-11-21 23:06:45 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 45 ms
+2024-11-21 23:18:42 INFO  Main:86 - Launching Habit Tracker application
+2024-11-21 23:18:42 INFO  Main:29 - Initializing HabitRepository...
+2024-11-21 23:18:44 INFO  Main:34 - init() completed in 2006 ms
+2024-11-21 23:18:46 INFO  Main:57 - Application started successfully
+2024-11-21 23:18:46 INFO  Main:58 - start() method completed in 2331 ms
+2024-11-21 23:18:46 INFO  Main:59 - Total startup time: 4392 ms
+2024-11-21 23:18:49 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 43 ms
+2024-11-21 23:22:21 INFO  Main:86 - Launching Habit Tracker application
+2024-11-21 23:22:21 INFO  Main:29 - Initializing HabitRepository...
+2024-11-21 23:22:22 INFO  Main:34 - init() completed in 1934 ms
+2024-11-21 23:22:25 INFO  Main:57 - Application started successfully
+2024-11-21 23:22:25 INFO  Main:58 - start() method completed in 2100 ms
+2024-11-21 23:22:25 INFO  Main:59 - Total startup time: 4075 ms
+2024-11-21 23:22:30 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 45 ms
+2024-11-21 23:24:42 INFO  Main:86 - Launching Habit Tracker application
+2024-11-21 23:24:42 INFO  Main:29 - Initializing HabitRepository...
+2024-11-21 23:24:44 INFO  Main:34 - init() completed in 1955 ms
+2024-11-21 23:24:46 INFO  Main:57 - Application started successfully
+2024-11-21 23:24:46 INFO  Main:58 - start() method completed in 2079 ms
+2024-11-21 23:24:46 INFO  Main:59 - Total startup time: 4076 ms
+2024-11-21 23:24:48 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 45 ms
+2024-11-21 23:26:26 INFO  Main:86 - Launching Habit Tracker application
+2024-11-21 23:26:26 INFO  Main:29 - Initializing HabitRepository...
+2024-11-21 23:26:28 INFO  Main:34 - init() completed in 1937 ms
+2024-11-21 23:26:30 INFO  Main:57 - Application started successfully
+2024-11-21 23:26:30 INFO  Main:58 - start() method completed in 2098 ms
+2024-11-21 23:26:30 INFO  Main:59 - Total startup time: 4076 ms
+2024-11-21 23:26:31 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 45 ms
+2024-11-21 23:26:45 INFO  Main:86 - Launching Habit Tracker application
+2024-11-21 23:26:45 INFO  Main:29 - Initializing HabitRepository...
+2024-11-21 23:26:47 INFO  Main:34 - init() completed in 1692 ms
+2024-11-21 23:26:48 INFO  Main:57 - Application started successfully
+2024-11-21 23:26:48 INFO  Main:58 - start() method completed in 1924 ms
+2024-11-21 23:26:48 INFO  Main:59 - Total startup time: 3649 ms
+2024-11-21 23:26:50 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 49 ms
+2024-11-21 23:27:00 INFO  Main:86 - Launching Habit Tracker application
+2024-11-21 23:27:00 INFO  Main:29 - Initializing HabitRepository...
+2024-11-21 23:27:02 INFO  Main:34 - init() completed in 1825 ms
+2024-11-21 23:27:03 INFO  Main:57 - Application started successfully
+2024-11-21 23:27:03 INFO  Main:58 - start() method completed in 1874 ms
+2024-11-21 23:27:03 INFO  Main:59 - Total startup time: 3731 ms
+2024-11-21 23:27:05 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 39 ms
+2024-11-21 23:27:19 INFO  Main:86 - Launching Habit Tracker application
+2024-11-21 23:27:19 INFO  Main:29 - Initializing HabitRepository...
+2024-11-21 23:27:20 INFO  Main:34 - init() completed in 1681 ms
+2024-11-21 23:27:22 INFO  Main:57 - Application started successfully
+2024-11-21 23:27:22 INFO  Main:58 - start() method completed in 1804 ms
+2024-11-21 23:27:22 INFO  Main:59 - Total startup time: 3517 ms
+2024-11-21 23:27:24 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 44 ms
+2024-11-21 23:27:38 INFO  Main:86 - Launching Habit Tracker application
+2024-11-21 23:27:38 INFO  Main:29 - Initializing HabitRepository...
+2024-11-21 23:27:40 INFO  Main:34 - init() completed in 1921 ms
+2024-11-21 23:27:42 INFO  Main:57 - Application started successfully
+2024-11-21 23:27:42 INFO  Main:58 - start() method completed in 2068 ms
+2024-11-21 23:27:42 INFO  Main:59 - Total startup time: 4026 ms
+2024-11-21 23:27:48 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 52 ms
+2024-11-21 23:28:14 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 116 ms
+2024-11-21 23:28:15 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 15 ms
+2024-11-21 23:28:27 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 17 ms
+2024-11-21 23:28:30 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 18 ms
+2024-11-21 23:28:33 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 15 ms
+2024-11-21 23:28:48 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 34 ms
+2024-11-21 23:28:50 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 13 ms
+2024-11-21 23:29:30 INFO  Main:72 - Shutting down application and closing HabitRepository...
+2024-11-22 08:49:15 INFO  Main:86 - Launching Habit Tracker application
+2024-11-22 08:49:15 INFO  Main:29 - Initializing HabitRepository...
+2024-11-22 08:49:17 INFO  Main:34 - init() completed in 2320 ms
+2024-11-22 08:49:19 INFO  Main:57 - Application started successfully
+2024-11-22 08:49:19 INFO  Main:58 - start() method completed in 2318 ms
+2024-11-22 08:49:19 INFO  Main:59 - Total startup time: 4689 ms
+2024-11-22 08:49:21 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 55 ms
+2024-11-22 08:49:30 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 124 ms
+2024-11-22 08:49:36 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 19 ms
+2024-11-22 08:49:38 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 2
+2024-11-22 08:49:38 INFO  Habit:103 - Habit marked as completed on 2024-11-22
+2024-11-22 08:49:44 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 2
+2024-11-22 08:49:44 INFO  Habit:103 - Habit marked as completed on 2024-11-22
+2024-11-22 08:50:17 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 16 ms
+2024-11-22 08:50:21 INFO  MainController:192 - View /view/ReportView.fxml loaded successfully by showReportView in 114 ms
+2024-11-22 08:50:25 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 16 ms
+2024-11-22 08:50:29 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 15 ms
+2024-11-22 08:50:31 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 13 ms
+2024-11-22 08:57:28 INFO  Main:86 - Launching Habit Tracker application
+2024-11-22 08:57:28 INFO  Main:29 - Initializing HabitRepository...
+2024-11-22 08:57:30 INFO  Main:34 - init() completed in 1905 ms
+2024-11-22 08:57:32 INFO  Main:57 - Application started successfully
+2024-11-22 08:57:32 INFO  Main:58 - start() method completed in 2032 ms
+2024-11-22 08:57:32 INFO  Main:59 - Total startup time: 3989 ms
+2024-11-22 08:57:34 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 24 ms
+2024-11-22 08:59:26 INFO  Main:86 - Launching Habit Tracker application
+2024-11-22 08:59:26 INFO  Main:29 - Initializing HabitRepository...
+2024-11-22 08:59:28 INFO  Main:34 - init() completed in 1872 ms
+2024-11-22 08:59:30 INFO  Main:57 - Application started successfully
+2024-11-22 08:59:30 INFO  Main:58 - start() method completed in 2118 ms
+2024-11-22 08:59:30 INFO  Main:59 - Total startup time: 4028 ms
+2024-11-22 08:59:31 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 20 ms
+2024-11-22 09:00:05 INFO  Main:86 - Launching Habit Tracker application
+2024-11-22 09:00:05 INFO  Main:29 - Initializing HabitRepository...
+2024-11-22 09:00:07 INFO  Main:34 - init() completed in 1864 ms
+2024-11-22 09:00:09 INFO  Main:57 - Application started successfully
+2024-11-22 09:00:09 INFO  Main:58 - start() method completed in 2038 ms
+2024-11-22 09:00:09 INFO  Main:59 - Total startup time: 3937 ms
+2024-11-22 09:00:11 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 20 ms
+2024-11-22 09:02:47 INFO  Main:86 - Launching Habit Tracker application
+2024-11-22 09:02:47 INFO  Main:29 - Initializing HabitRepository...
+2024-11-22 09:02:49 INFO  Main:34 - init() completed in 2439 ms
+2024-11-22 09:02:51 INFO  Main:57 - Application started successfully
+2024-11-22 09:02:51 INFO  Main:58 - start() method completed in 2340 ms
+2024-11-22 09:02:51 INFO  Main:59 - Total startup time: 4818 ms
+2024-11-22 09:02:53 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 23 ms
+2024-11-22 09:03:25 INFO  Main:86 - Launching Habit Tracker application
+2024-11-22 09:03:25 INFO  Main:29 - Initializing HabitRepository...
+2024-11-22 09:03:27 INFO  Main:34 - init() completed in 1867 ms
+2024-11-22 09:03:29 INFO  Main:57 - Application started successfully
+2024-11-22 09:03:29 INFO  Main:58 - start() method completed in 2034 ms
+2024-11-22 09:03:29 INFO  Main:59 - Total startup time: 3940 ms
+2024-11-22 09:03:31 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 19 ms
+2024-11-22 09:03:44 INFO  Main:86 - Launching Habit Tracker application
+2024-11-22 09:03:44 INFO  Main:29 - Initializing HabitRepository...
+2024-11-22 09:03:45 INFO  Main:34 - init() completed in 1672 ms
+2024-11-22 09:03:47 INFO  Main:57 - Application started successfully
+2024-11-22 09:03:47 INFO  Main:58 - start() method completed in 1937 ms
+2024-11-22 09:03:47 INFO  Main:59 - Total startup time: 3639 ms
+2024-11-22 09:03:49 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 45 ms
+2024-11-22 09:03:51 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 15 ms
+2024-11-22 09:04:02 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 17 ms
+2024-11-22 09:07:26 INFO  Main:86 - Launching Habit Tracker application
+2024-11-22 09:07:26 INFO  Main:29 - Initializing HabitRepository...
+2024-11-22 09:07:28 INFO  Main:34 - init() completed in 1817 ms
+2024-11-22 09:07:30 INFO  Main:57 - Application started successfully
+2024-11-22 09:07:30 INFO  Main:58 - start() method completed in 2062 ms
+2024-11-22 09:07:30 INFO  Main:59 - Total startup time: 3912 ms
+2024-11-22 09:07:32 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 42 ms
+2024-11-22 09:07:43 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 15 ms
+2024-11-22 09:08:26 INFO  JsonBackupHelper:29 - Backup saved successfully to /Users/johnnycwatt/Desktop/projects/Habit-Tracker/generated-json/TestSaveOne.json
+2024-11-22 09:08:30 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 18 ms
