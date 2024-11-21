@@ -166,4 +166,14 @@ public class HabitRepository {
         }
     }
 
+    public int getHabitCount() {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            return em.createQuery("SELECT COUNT(h) FROM Habit h", Long.class).getSingleResult().intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+
 }

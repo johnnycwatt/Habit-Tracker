@@ -188,12 +188,17 @@ public class MainController {
             dynamicViewContainer.setVisible(true);
 
             long endTime = System.currentTimeMillis();
-            LOGGER.info("View {} loaded successfully by {} in {} ms", fxmlPath, caller, (endTime - startTime));
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("View {} loaded successfully by {} in {} ms", fxmlPath, caller, (endTime - startTime));
+            }
         } catch (IOException e) {
             long endTime = System.currentTimeMillis();
-            LOGGER.error("Error loading FXML file: {} by {} (Elapsed Time: {} ms)", fxmlPath, caller, (endTime - startTime), e);
+            if(LOGGER.isErrorEnabled()){
+                LOGGER.error("Error loading FXML file: {} by {} (Elapsed Time: {} ms)", fxmlPath, caller, (endTime - startTime), e);
+            }
         }
     }
+
 
 
     @FXML

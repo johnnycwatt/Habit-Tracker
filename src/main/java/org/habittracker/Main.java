@@ -24,12 +24,17 @@ public class Main extends Application {
 
     @Override
     public void init() {
-        initStartTimestamp = System.currentTimeMillis(); // Timestamp at the start of init()
-        LOGGER.info("Initializing HabitRepository...");
+        initStartTimestamp = System.currentTimeMillis();
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Initializing HabitRepository...");
+        }
         HabitRepository.initialize("habittracker");
         habitRepository = HabitRepository.getInstance();
-        LOGGER.info("init() completed in {} ms", System.currentTimeMillis() - initStartTimestamp);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("init() completed in {} ms", System.currentTimeMillis() - initStartTimestamp);
+        }
     }
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -38,7 +43,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainView.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1024, 768);
 
-            mainController = fxmlLoader.getController(); // Capture MainController instance
+            mainController = fxmlLoader.getController();
             mainController.setMainApp(this);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             primaryStage.setTitle("Habit Tracker");
@@ -46,14 +51,21 @@ public class Main extends Application {
             primaryStage.show();
 
             long endTimestamp = System.currentTimeMillis(); // Timestamp when the primary stage is shown
-            LOGGER.info("Application started successfully");
-            LOGGER.info("start() method completed in {} ms", endTimestamp - startMethodTimestamp);
-            LOGGER.info("Total startup time: {} ms", endTimestamp - startTimestamp);
+
+            // Log with guards
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("Application started successfully");
+                LOGGER.info("start() method completed in {} ms", endTimestamp - startMethodTimestamp);
+                LOGGER.info("Total startup time: {} ms", endTimestamp - startTimestamp);
+            }
 
         } catch (IOException e) {
-            LOGGER.error("Error loading FXML file: ", e);
+            if (LOGGER.isErrorEnabled()) {
+                LOGGER.error("Error loading FXML file: ", e);
+            }
         }
     }
+
 
     @Override
     public void stop() {

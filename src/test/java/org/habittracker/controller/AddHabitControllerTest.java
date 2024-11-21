@@ -21,7 +21,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,9 +58,8 @@ public class AddHabitControllerTest {
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
 
-        // Initialize AddHabitController with the mocked Notifier
-        addHabitController = new AddHabitController(habitRepository,notifier);
-        addHabitController.setMainApp(mainApp); // Set the mocked mainApp in AddHabitController
+        addHabitController = new AddHabitController(habitRepository, notifier);
+        addHabitController.setMainApp(mainApp);
 
         when(mainApp.getMainController()).thenReturn(mainController);
 
@@ -77,8 +78,12 @@ public class AddHabitControllerTest {
         setPrivateField(addHabitController, "sundayToggle", new ToggleButton());
 
         // Initialize ChoiceBox options
-        ((ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox")).getItems().addAll("Daily", "Weekly", "Monthly", "Custom");
-        ((ChoiceBox<String>) getPrivateField(addHabitController, "colorChoiceBox")).getItems().addAll("Black", "Red", "Green", "Blue");
+        ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
+        frequencyChoiceBox.getItems().addAll("Daily", "Weekly", "Monthly", "Custom");
+
+        ChoiceBox<String> colorChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "colorChoiceBox");
+        colorChoiceBox.getItems().addAll("Black", "Red", "Green", "Blue", "Magenta", "Yellow", "Orange", "Cyan");
+        colorChoiceBox.setValue("Black"); // Set a default color value to avoid null
     }
 
 
@@ -209,6 +214,56 @@ public class AddHabitControllerTest {
         }));
         verify(notifier, times(1)).showMessage("Habit added successfully!", "green");
     }
+
+
+    @ParameterizedTest
+    @CsvSource({
+            "49, 'You have created 50 habits! Great progress!', true",
+            "99, '100 habits and counting! Amazing dedication!', true",
+            "149, '150 habits! Quality over quantity! Remember, the habit limit is 200.', true",
+            "199, '200 habits! That''s the maximum! Focus on your current habits.', true",
+            "200, 'You have reached the maximum limit of 200 habits. Focus on the habits you currently have!', false",
+            "198, '', true"
+    })
+    @Tag("JavaFX")
+    void testHabitLimitAndMilestoneNotifications(int existingHabitsCount, String expectedNotification, boolean isAdditionAllowed) throws Exception {
+        // Simulate habit repository having `existingHabitsCount` habits
+        when(habitRepository.getAllHabits()).thenReturn(new ArrayList<>(Collections.nCopies(existingHabitsCount, new Habit())));
+
+        // Set habit details
+        TextField habitNameField = (TextField) getPrivateField(addHabitController, "habitNameField");
+        habitNameField.setText("New Habit");
+
+        ChoiceBox<String> frequencyChoiceBox = (ChoiceBox<String>) getPrivateField(addHabitController, "frequencyChoiceBox");
+        frequencyChoiceBox.getItems().setAll("Daily", "Weekly", "Monthly", "Custom"); // Ensure options are available
+        frequencyChoiceBox.setValue("Daily"); // Set a default value to prevent null
+
+        DatePicker startDatePicker = (DatePicker) getPrivateField(addHabitController, "startDatePicker");
+        startDatePicker.setValue(LocalDate.now()); // Set today's date
+
+        // Mock duplicate habit name behavior
+        when(habitRepository.habitExistsByName("New Habit")).thenReturn(false);
+
+        // Invoke addHabit method
+        Method addHabitMethod = addHabitController.getClass().getDeclaredMethod("addHabit");
+        addHabitMethod.setAccessible(true);
+        addHabitMethod.invoke(addHabitController);
+
+        // Assertions based on expected outcomes
+        if (isAdditionAllowed) {
+            verify(habitRepository, times(1)).addHabit(any(Habit.class));
+            if (!expectedNotification.isEmpty()) {
+                verify(notifier, times(1)).showMessage(expectedNotification, "blue");
+            } else {
+                verify(notifier, times(1)).showMessage("Habit added successfully!", "green");
+            }
+        } else {
+            verify(habitRepository, never()).addHabit(any(Habit.class));
+            verify(notifier, times(1)).showMessage(expectedNotification, "red");
+        }
+    }
+
+
 
 }
 
