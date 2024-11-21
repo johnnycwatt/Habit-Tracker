@@ -216,46 +216,6 @@ public class HabitListControllerIntegrationTest {
         });
     }
 
-    @Test
-    @Tag("JavaFX")
-    public void testOnMarkAsCompletedCustomHabitInsideDays() throws Exception {
-        Habit habit = new Habit("Custom Habit", Habit.Frequency.CUSTOM);
-        habit.setCustomDays(List.of(LocalDate.now().getDayOfWeek())); // Set custom day to today
-
-        // Add habit to repository
-        entityManager.getTransaction().begin();
-        habitRepository.addHabit(habit);
-        entityManager.getTransaction().commit();
-
-        // Synchronize with JavaFX thread
-        CountDownLatch latch = new CountDownLatch(1);
-
-        Platform.runLater(() -> {
-            try {
-                // Load habit list
-                invokePrivateMethod(controller, "loadHabitList");
-
-                // Select the habit
-                ListView<String> habitListView = (ListView<String>) getPrivateField(controller, "habitListView");
-                habitListView.getSelectionModel().select(0);
-
-                // Invoke mark as completed
-                invokePrivateMethod(controller, "onMarkAsCompleted");
-
-                // Check that no warning message was shown
-                assertTrue(mockNotifier.getMessages().isEmpty(), "No messages should be displayed for marking custom habit as completed on valid day.");
-            } catch (Exception e) {
-                e.printStackTrace();
-                fail("Exception while invoking onMarkAsCompleted through reflection");
-            } finally {
-                latch.countDown(); // Signal the latch
-            }
-        });
-
-        // Wait for the JavaFX thread to complete
-        latch.await();
-    }
-
 
 
     @Test

@@ -91,6 +91,9 @@ public class AddHabitController {
 
     @FXML
     private void addHabit() {
+        int habitCount = habitRepository.getAllHabits().size();
+        int habitLimit = 200;
+
         if (!validateInput()) {return;}
 
         String habitName = habitNameField.getText().trim();
@@ -103,11 +106,25 @@ public class AddHabitController {
             return;
         }
 
+        // Check if habit limit is reached
+        if (habitCount >= habitLimit) {
+            LOGGER.warn("Habit limit reached: 200 habits");
+            notifier.showMessage("You have reached the maximum limit of 200 habits. Focus on the habits you currently have!", NotificationColors.RED);
+            return;
+        }
+
+        LOGGER.info("Habit added to repository");
+        if (habitCount == 49 || habitCount == 99 || habitCount == 149 || habitCount == 199) {
+            notifyMilestone(habitCount + 1);
+        }else{
+
+            notifier.showMessage("Habit added successfully!", NotificationColors.GREEN);
+        }
+
         Habit newHabit = createHabit(habitName, frequency, startDate);
 
         habitRepository.addHabit(newHabit);
-        LOGGER.info("Habit added to repository");
-        notifier.showMessage("Habit added successfully!", NotificationColors.GREEN);
+
 
         clearForm();
         mainApp.getMainController().updateHabitsDueToday();
@@ -133,6 +150,18 @@ public class AddHabitController {
         }
 
         return true;
+    }
+
+    private void notifyMilestone(int milestone) {
+        String message = switch (milestone) {
+            case 50 -> "You have created 50 habits! Great progress!";
+            case 100 -> "100 habits and counting! Amazing dedication!";
+            case 150 -> "150 habits! Quality over quantity! Remember, the habit limit is 200.";
+            case 200 -> "200 habits! That's the maximum! Focus on your current habits.";
+            default -> "";
+        };
+        notifier.showMessage(message, NotificationColors.BLUE);
+        LOGGER.info("Milestone notification shown: {}", message);
     }
 
 

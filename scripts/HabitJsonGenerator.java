@@ -21,7 +21,7 @@ public class HabitJsonGenerator {
         // Generate JSON files with different habit counts
         generateHabitJson(50, outputFolder);
         generateHabitJson(100, outputFolder);
-        generateHabitJson(250, outputFolder);
+        generateHabitJson(200, outputFolder);
         generateHabitJson(1000, outputFolder);
 
         System.out.println("All JSON files generated successfully in the folder: " + outputFolder);
