@@ -6,11 +6,16 @@
     <!-- Header -->
     <Label text="Habit Tracker" styleClass="custom-label" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
-    <!-- Habit List Section -->
-    <VBox spacing="10" alignment="CENTER_LEFT" styleClass="section-container" style="-fx-pref-width: 450;">
+    <!-- Habit List Header with Search -->
+    <HBox spacing="10" alignment="CENTER_LEFT" styleClass="section-container" style="-fx-pref-width: 450;">
         <Label text="Your Habits" styleClass="custom-label" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-        <ListView fx:id="habitListView" prefHeight="300" styleClass="habit-list-view" onMouseClicked="#onHabitSelected"/>
-    </VBox>
+        <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
+        <Label text="Search:" styleClass="custom-label" style="-fx-font-size: 14px;"/>
+        <TextField fx:id="searchField" promptText="Type to search..." onKeyReleased="#onSearch" style="-fx-padding: 0 10px 0 0;"/>
+    </HBox>
+
+    <!-- Habit List Section -->
+    <ListView fx:id="habitListView" prefHeight="300" styleClass="habit-list-view" onMouseClicked="#onHabitSelected"/>
 
     <!-- Control Buttons -->
     <HBox spacing="10" alignment="CENTER">

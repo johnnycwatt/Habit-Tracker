@@ -12,6 +12,7 @@ import org.habittracker.util.Notifier;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class HabitListController {
 
@@ -33,6 +34,10 @@ public class HabitListController {
     @FXML
     private ListView<String> habitListView;
 
+    @FXML
+    private TextField searchField;
+
+
     private Habit selectedHabit;
     private Main mainApp;
     private HabitService habitService;
@@ -45,6 +50,7 @@ public class HabitListController {
         habitService = new HabitService(notifier);
         setupHabitListView();
         loadHabitList();
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filterHabitList(newValue));
     }
 
     private void setupHabitListView() {
@@ -114,6 +120,33 @@ public class HabitListController {
             }
         });
     }
+
+    private void filterHabitList(String query) {
+        habitListView.getItems().clear();
+        List<Habit> habits = habitService.getAllHabits();
+
+        // Filter habits based on the query (not case sensetive)
+        habits.stream()
+                .filter(habit -> habit.getName().toLowerCase(Locale.ENGLISH).startsWith(query.toLowerCase(Locale.ENGLISH)))
+                .forEach(habit -> {
+                    String streakInfo = " (Streak: " + habit.getStreakCounter() + ")";
+                    habitListView.getItems().add(habit.getName() + ITEM_SEPARATOR + habit.getFrequency() + ITEM_SEPARATOR + habit.getCreationDate() + ITEM_SEPARATOR + streakInfo);
+                });
+    }
+
+
+
+    @FXML
+    private void onSearch() {
+        String query = searchField.getText();
+        if (query.isEmpty()) {
+            loadHabitList(); // Reload full list if search is cleared
+        } else {
+            filterHabitList(query);
+        }
+    }
+
+
 
     private void loadHabitList() {
         habitListView.getItems().clear();
