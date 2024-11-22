@@ -66,8 +66,12 @@
         </HBox>
     </VBox>
 
-    <!-- Calendar Section Header with Current Month -->
-    <Label fx:id="calendarMonthLabel" text="" styleClass="custom-label" style="-fx-font-size: 18px; -fx-padding: 5 0;" />
+    <HBox alignment="CENTER" spacing="10">
+        <Button text="Previous Month" onAction="#showPreviousMonth" styleClass="primary-button" style="-fx-padding: 5;" />
+        <Label fx:id="calendarMonthLabel" text="" styleClass="custom-label" style="-fx-font-size: 18px; -fx-padding: 5 0;" />
+        <Button text="Next Month" onAction="#showNextMonth" styleClass="primary-button" style="-fx-padding: 5;" />
+    </HBox>
+
 
     <!-- Calendar Section with Day Names -->
     <VBox alignment="CENTER">
