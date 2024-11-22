@@ -52,6 +52,9 @@ public class ProgressController {
     @FXML
     private Label monthlyConsistencyLabel;
 
+    private YearMonth currentYearMonth;
+
+
 
     @FXML
     private Label notificationLabel;
@@ -85,6 +88,7 @@ public class ProgressController {
         applyColorTheme(color);
         habitNameLabel.setText(habit.getName());
         currentStreakLabel.setText(String.valueOf(habit.getStreakCounter()));
+        currentYearMonth = YearMonth.now();
 
         populateCalendar(LocalDate.now());
         displayStatistics();
@@ -146,6 +150,27 @@ public class ProgressController {
         }
     }
 
+    @FXML
+    private void showPreviousMonth() {
+        currentYearMonth = currentYearMonth.minusMonths(1);
+        updateCalendarView();
+    }
+
+    @FXML
+    private void showNextMonth() {
+        currentYearMonth = currentYearMonth.plusMonths(1);
+        updateCalendarView();
+    }
+
+
+    private void updateCalendarView() {
+        // Update the calendar label to show the new month and year
+        calendarMonthLabel.setText(currentYearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + currentYearMonth.getYear());
+
+        // Populate the calendar grid for the selected month
+        populateCalendar(currentYearMonth.atDay(1));
+    }
+
 
     private void populateCalendar(LocalDate date) {
         // Set the current month label
@@ -169,13 +194,16 @@ public class ProgressController {
     }
 
     private void setCalendarMonthLabel(LocalDate date) {
-        calendarMonthLabel.setText(date.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()));
+        String monthYear = date.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + date.getYear();
+        calendarMonthLabel.setText(monthYear);
     }
 
+
     private int calculateStartDay(LocalDate firstDayOfMonth) {
-        int startDay = firstDayOfMonth.getDayOfWeek().getValue();
-        return startDay == 7 ? 0 : startDay; // Adjust for Monday start
+        int startDay = firstDayOfMonth.getDayOfWeek().getValue(); // Monday = 1, Sunday = 7
+        return startDay % 7; // Convert Sunday (7) to 6, and Monday (1) to 0
     }
+
 
     private void prepareCalendarGrid() {
         calendarGrid.getChildren().clear();
@@ -204,6 +232,7 @@ public class ProgressController {
 
         String defaultStyle = "-fx-alignment: center; -fx-pref-width: 35; -fx-pref-height: 35;";
 
+        // Loop through each day of the current month
         for (int day = 1; day <= daysInMonth; day++) {
             LocalDate currentDate = firstDayOfMonth.plusDays(day - 1);
             Label dayLabel = createDayLabel(day, currentDate, completedDates, today, defaultStyle);
@@ -211,12 +240,15 @@ public class ProgressController {
             // Add context menu for incomplete days
             addContextMenuToDayLabel(dayLabel, currentDate, completedDates, today);
 
-            // Calculate row and column for placement
-            int row = (day + startDay - 2) / 7 + 1;
-            int col = (day + startDay - 2) % 7;
+            // Calculate the row and column for this day
+            int row = (day + startDay - 1) / 7 + 1; // +1 for the header row
+            int col = (day + startDay - 1) % 7;
+
+            // Add the day label to the grid
             calendarGrid.add(dayLabel, col, row);
         }
     }
+
 
     private Label createDayLabel(int day, LocalDate currentDate, Set<LocalDate> completedDates, LocalDate today, String defaultStyle) {
         Label dayLabel = new Label(String.valueOf(day));
