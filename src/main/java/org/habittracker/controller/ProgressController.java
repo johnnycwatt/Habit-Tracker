@@ -61,6 +61,8 @@ public class ProgressController {
 
     @FXML
     private Label calendarMonthLabel;
+    private int currentHistoryYear;
+
 
     private Notifier notifier;
 
@@ -68,6 +70,7 @@ public class ProgressController {
     private Main mainApp;
     private final HabitRepository habitRepository;
     private boolean isDarkModeEnabled;
+    private String blackColor = "#000000";
 
     public ProgressController() {
         this.habitRepository = HabitRepository.getInstance();
@@ -89,6 +92,7 @@ public class ProgressController {
         habitNameLabel.setText(habit.getName());
         currentStreakLabel.setText(String.valueOf(habit.getStreakCounter()));
         currentYearMonth = YearMonth.now();
+        currentHistoryYear = LocalDate.now().getYear();
 
         populateCalendar(LocalDate.now());
         displayStatistics();
@@ -150,6 +154,8 @@ public class ProgressController {
         }
     }
 
+    //Buttons to Navigate for Calendar
+
     @FXML
     private void showPreviousMonth() {
         currentYearMonth = currentYearMonth.minusMonths(1);
@@ -172,24 +178,46 @@ public class ProgressController {
     }
 
 
+    //Buttons to Navigate for Bar Graph
+
+    @FXML
+    private void showPreviousYear() {
+        int earliestYear = habitRepository.getEarliestCompletionYear(habit);
+
+
+        if (currentHistoryYear > earliestYear && (LocalDate.now().getYear() - currentHistoryYear) < 1) {
+            currentHistoryYear--;
+            updateHistoryChart();
+        } else {
+            notifier.showMessage("No data available for earlier years.", NotificationColors.RED);
+        }
+    }
+
+    @FXML
+    private void showNextYear() {
+        int currentYear = LocalDate.now().getYear();
+        if (currentHistoryYear < currentYear) {
+            currentHistoryYear++;
+            updateHistoryChart();
+        }
+    }
+
+
+
+
     private void populateCalendar(LocalDate date) {
-        // Set the current month label
         setCalendarMonthLabel(date);
 
         YearMonth yearMonth = YearMonth.of(date.getYear(), date.getMonthValue());
         int daysInMonth = yearMonth.lengthOfMonth();
         LocalDate firstDayOfMonth = LocalDate.of(date.getYear(), date.getMonthValue(), 1);
 
-        // Calculate the start day for the calendar
         int startDay = calculateStartDay(firstDayOfMonth);
 
-        // Clear the grid and prepare headers
         prepareCalendarGrid();
 
-        // Add day names to the grid
         addDayNamesToCalendar();
 
-        // Populate calendar grid with day labels
         populateCalendarDays(firstDayOfMonth, daysInMonth, startDay);
     }
 
@@ -255,10 +283,13 @@ public class ProgressController {
         dayLabel.setStyle(defaultStyle);
 
         if (completedDates.contains(currentDate)) {
-            String completedColor = adjustColorForMode(habit.getColor());
-            if ("#FFFFFF".equals(completedColor) && isDarkModeEnabled) {
-                dayLabel.setStyle(defaultStyle + "-fx-background-color: #333333; -fx-text-fill: white;");
+            String completedColor = habit.getColor();
+            if ("#000000".equals(completedColor) && isDarkModeEnabled) {
+                // Special handling for black color in dark mode
+                dayLabel.setStyle(defaultStyle + "-fx-background-color: white; -fx-text-fill: black;");
             } else {
+                // Use adjusted color for other cases
+                completedColor = adjustColorForMode(completedColor);
                 dayLabel.setStyle(defaultStyle + "-fx-background-color: " + completedColor + "; -fx-text-fill: white;");
             }
         } else if (currentDate.equals(today)) {
@@ -342,17 +373,48 @@ public class ProgressController {
     private void updateHistoryChart() {
         historyChart.getData().clear();
 
+        // Fetch habit completions for the current year
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Completions");
-        updateMonthView(series);
+        series.setName("Completions in " + currentHistoryYear);
+
+        boolean hasData = false; // Track if there is data for the year
+        for (int month = 1; month <= 12; month++) {
+            int completions = habit.getCompletionsInMonth(currentHistoryYear, month);
+            if (completions > 0) {
+                hasData = true;
+            }
+            String monthName = YearMonth.of(currentHistoryYear, month)
+                    .getMonth()
+                    .getDisplayName(TextStyle.SHORT, Locale.getDefault());
+            series.getData().add(new XYChart.Data<>(monthName, completions));
+        }
 
         historyChart.getData().add(series);
 
-        String habitColor = adjustColorForMode(habit.getColor());
+        // Assign color to the chart bars
+        String habitColor = habit.getColor();
+
+        if (isDarkModeEnabled && blackColor.equals(habitColor)) {
+            habitColor = blackColor; // Keep bars black even in dark mode
+        } else {
+            habitColor = adjustColorForMode(habitColor); // Adjust other colors for dark mode
+        }
+
         for (XYChart.Data<String, Number> data : series.getData()) {
             data.getNode().setStyle("-fx-bar-fill: " + habitColor + ";");
         }
+
+        historyLabel.setText(String.valueOf(currentHistoryYear));
+
+        if (!hasData) {
+            notifier.showMessage("No data available for the selected year.", NotificationColors.RED);
+        }
     }
+
+
+
+
+
 
     private void updateMonthView(XYChart.Series<String, Number> series) {
         int currentYear = LocalDate.now().getYear();

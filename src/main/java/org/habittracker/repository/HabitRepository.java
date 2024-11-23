@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class HabitRepository {
@@ -175,5 +176,12 @@ public class HabitRepository {
         }
     }
 
+    public int getEarliestCompletionYear(Habit habit) {
+        return habit.getCompletedDates()
+                .stream()
+                .mapToInt(LocalDate::getYear)
+                .min()
+                .orElse(LocalDate.now().getYear()); // Default to current year if no completions
+    }
 
 }
