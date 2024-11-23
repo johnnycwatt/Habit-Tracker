@@ -82,8 +82,12 @@
         </GridPane>
     </VBox>
 
-    <!-- History Section Header -->
-    <Label fx:id="historyLabel" text="History" styleClass="custom-label" style="-fx-font-size: 18px; -fx-padding: 5 0;" />
+    <HBox alignment="CENTER" spacing="10">
+        <Button text="Previous Year" onAction="#showPreviousYear" styleClass="primary-button" style="-fx-padding: 5;" />
+        <Label fx:id="historyLabel" text="2024" styleClass="custom-label" style="-fx-font-size: 18px; -fx-padding: 5 0;" />
+        <Button text="Next Year" onAction="#showNextYear" styleClass="primary-button" style="-fx-padding: 5;" />
+    </HBox>
+
 
     <!-- History Chart -->
     <BarChart fx:id="historyChart" prefWidth="600" prefHeight="200">

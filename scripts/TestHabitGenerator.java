@@ -38,21 +38,21 @@ public class TestHabitGenerator {
             habit.setId(i + 1);
             habit.setName(habitNames[i]);
             habit.setColor(colors[i % colors.length]);
-            habit.setCreationDate(LocalDate.now().minusMonths(10).toString());
+            habit.setCreationDate(LocalDate.now().minusMonths(24).toString());
             habit.setFrequency(frequencies[i % frequencies.length]);
             habit.setReminderEligible(random.nextBoolean());
 
-            // Generate completion dates
+            // Generate completion dates over the last 24 months
             Set<LocalDate> completions = new HashSet<>();
-            LocalDate startDate = LocalDate.now().minusMonths(10);
-            int completionCount = random.nextInt(150); // Random number of completions
+            LocalDate startDate = LocalDate.now().minusMonths(24);
+            LocalDate endDate = LocalDate.now();
+            int completionCount = random.nextInt(300); // Random number of completions
 
             for (int j = 0; j < completionCount; j++) {
-                LocalDate randomDate = startDate.plusDays(random.nextInt(300));
-                if (!randomDate.isAfter(LocalDate.now())) {
-                    completions.add(randomDate);
-                }
+                LocalDate randomDate = startDate.plusDays(random.nextInt((int) (endDate.toEpochDay() - startDate.toEpochDay() + 1)));
+                completions.add(randomDate);
             }
+
             habit.setCompletions(completions.stream().map(LocalDate::toString).collect(Collectors.toList()));
 
             // Calculate realistic streaks
@@ -62,11 +62,11 @@ public class TestHabitGenerator {
             habits.add(habit);
         }
 
-        try (FileWriter writer = new FileWriter(outputFolder+"/TestHabits.json")) {
+        try (FileWriter writer = new FileWriter(outputFolder + "/TestHabits.json")) {
             gson.toJson(habits, writer);
         }
 
-        System.out.println("20 habits generated successfully and saved to TestHabits.json");
+        System.out.println("20 habits generated successfully with completions spanning the last 24 months and saved to TestHabits.json");
     }
 
     static class Habit {

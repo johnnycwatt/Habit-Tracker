@@ -130,8 +130,11 @@ public class ReportGenerator {
             LOGGER.info("Generating missed report for {}", lastMonth);
             generateMonthlyReport(lastMonth);
             notifier.showMessage("New Monthly Report for " + lastMonth.getMonth() + " is available!", "green");
+        } else {
+            LOGGER.info("Report for {} already exists. No action needed.", lastMonth);
         }
     }
+
 
     public void startMonthlyReportScheduler() {
         scheduler.scheduleAtFixedRate(this::generateMonthlyReportIfEndOfMonth, 0, 1, TimeUnit.DAYS);

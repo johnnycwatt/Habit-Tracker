@@ -1407,3 +1407,814 @@ java.nio.file.NoSuchFileException: reports/MonthlyReport-2024-12.json
 2024-11-22 23:24:48 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 31 ms
 2024-11-22 23:24:50 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 78 ms
 2024-11-22 23:27:53 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 18 ms
+2024-11-23 19:18:02 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 19:18:02 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 19:18:05 INFO  Main:34 - init() completed in 2189 ms
+2024-11-23 19:18:08 INFO  Main:57 - Application started successfully
+2024-11-23 19:18:08 INFO  Main:58 - start() method completed in 3039 ms
+2024-11-23 19:18:08 INFO  Main:59 - Total startup time: 5284 ms
+2024-11-23 19:18:12 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 50 ms
+2024-11-23 19:18:14 INFO  MainController:192 - View /view/EditHabitView.fxml loaded successfully by showEditHabitView in 34 ms
+2024-11-23 19:18:17 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 16 ms
+2024-11-23 19:18:21 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 117 ms
+2024-11-23 19:32:35 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 19:32:35 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 19:32:37 INFO  Main:34 - init() completed in 1975 ms
+2024-11-23 19:32:39 INFO  Main:57 - Application started successfully
+2024-11-23 19:32:39 INFO  Main:58 - start() method completed in 2121 ms
+2024-11-23 19:32:39 INFO  Main:59 - Total startup time: 4137 ms
+2024-11-23 19:32:41 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 47 ms
+2024-11-23 19:32:43 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 101 ms
+2024-11-23 19:32:59 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 19 ms
+2024-11-23 19:33:00 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 30 ms
+2024-11-23 19:33:55 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 21 ms
+2024-11-23 19:33:57 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 25 ms
+2024-11-23 19:35:02 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 19:35:02 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 19:35:04 INFO  Main:34 - init() completed in 1939 ms
+2024-11-23 19:35:06 INFO  Main:57 - Application started successfully
+2024-11-23 19:35:06 INFO  Main:58 - start() method completed in 2098 ms
+2024-11-23 19:35:06 INFO  Main:59 - Total startup time: 4075 ms
+2024-11-23 19:35:08 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 43 ms
+2024-11-23 19:35:11 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 98 ms
+2024-11-23 19:35:18 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 19 ms
+2024-11-23 19:35:21 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 28 ms
+2024-11-23 19:35:23 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 18 ms
+2024-11-23 19:35:25 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 26 ms
+2024-11-23 19:35:26 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 17 ms
+2024-11-23 19:35:28 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 24 ms
+2024-11-23 19:35:29 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 17 ms
+2024-11-23 19:35:30 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 22 ms
+2024-11-23 19:35:32 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 17 ms
+2024-11-23 19:35:33 INFO  MainController:192 - View /view/EditHabitView.fxml loaded successfully by showEditHabitView in 32 ms
+2024-11-23 19:35:40 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 16 ms
+2024-11-23 19:35:42 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 22 ms
+2024-11-23 19:35:43 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 14 ms
+2024-11-23 19:35:47 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 15 ms
+2024-11-23 19:35:50 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 14 ms
+2024-11-23 19:35:52 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 22 ms
+2024-11-23 19:35:53 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 14 ms
+2024-11-23 19:35:56 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 18 ms
+2024-11-23 19:36:24 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 21 ms
+2024-11-23 19:36:25 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 20 ms
+2024-11-23 19:36:26 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 15 ms
+2024-11-23 19:36:28 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 15 ms
+2024-11-23 19:36:33 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 13 ms
+2024-11-23 19:36:34 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 16 ms
+2024-11-23 19:36:54 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 14 ms
+2024-11-23 19:37:36 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 13 ms
+2024-11-23 19:37:39 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 16 ms
+2024-11-23 19:37:40 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 13 ms
+2024-11-23 19:37:43 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 13 ms
+2024-11-23 19:37:45 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 5 ms
+2024-11-23 19:37:50 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 11 ms
+2024-11-23 19:37:53 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 18 ms
+2024-11-23 19:40:05 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 19:40:05 INFO  Habit:103 - Habit marked as completed on 2024-11-20
+2024-11-23 19:40:07 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 14 ms
+2024-11-23 19:40:52 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 19:40:52 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 19:40:54 INFO  Main:34 - init() completed in 1964 ms
+2024-11-23 19:40:56 INFO  Main:57 - Application started successfully
+2024-11-23 19:40:56 INFO  Main:58 - start() method completed in 2073 ms
+2024-11-23 19:40:56 INFO  Main:59 - Total startup time: 4077 ms
+2024-11-23 19:40:57 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 43 ms
+2024-11-23 19:40:59 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 101 ms
+2024-11-23 19:41:00 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 18 ms
+2024-11-23 19:41:02 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 29 ms
+2024-11-23 19:41:03 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 16 ms
+2024-11-23 19:41:07 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 11 ms
+2024-11-23 19:41:10 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 16 ms
+2024-11-23 19:41:11 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 31 ms
+2024-11-23 19:41:15 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 15 ms
+2024-11-23 19:41:17 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 8 ms
+2024-11-23 19:41:22 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 13 ms
+2024-11-23 19:41:24 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 25 ms
+2024-11-23 19:41:28 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 19:41:28 INFO  Habit:103 - Habit marked as completed on 2024-11-06
+2024-11-23 19:41:31 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 19:41:31 INFO  Habit:103 - Habit marked as completed on 2024-11-17
+2024-11-23 19:41:35 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 19:41:35 INFO  Habit:103 - Habit marked as completed on 2024-11-02
+2024-11-23 19:41:46 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 19:41:46 INFO  Habit:103 - Habit marked as completed on 2024-11-18
+2024-11-23 19:41:49 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 19:41:49 INFO  Habit:103 - Habit marked as completed on 2024-11-19
+2024-11-23 19:41:51 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 19:41:51 INFO  Habit:103 - Habit marked as completed on 2024-11-21
+2024-11-23 19:41:53 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 19:41:53 INFO  Habit:103 - Habit marked as completed on 2024-11-22
+2024-11-23 19:41:58 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 17 ms
+2024-11-23 19:42:01 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 19:42:01 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 19:42:03 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 15 ms
+2024-11-23 19:42:07 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 13 ms
+2024-11-23 19:42:09 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 16 ms
+2024-11-23 19:42:13 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 13 ms
+2024-11-23 19:42:16 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 14 ms
+2024-11-23 19:42:18 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 13 ms
+2024-11-23 19:42:20 INFO  MainController:192 - View /view/ReportView.fxml loaded successfully by showReportView in 107 ms
+2024-11-23 19:42:22 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 11 ms
+2024-11-23 19:42:23 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-11-23 19:42:23 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 19:42:25 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 15 ms
+2024-11-23 19:42:29 INFO  Habit:136 - Streak calculated. Current streak: 3, Best streak: 3
+2024-11-23 19:42:29 INFO  Habit:103 - Habit marked as completed on 2024-11-21
+2024-11-23 19:42:32 INFO  Habit:136 - Streak calculated. Current streak: 4, Best streak: 4
+2024-11-23 19:42:32 INFO  Habit:103 - Habit marked as completed on 2024-11-20
+2024-11-23 19:42:34 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 16 ms
+2024-11-23 19:42:36 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 15 ms
+2024-11-23 19:42:37 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 12 ms
+2024-11-23 19:42:38 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 14 ms
+2024-11-23 19:42:50 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 28 ms
+2024-11-23 19:42:52 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 9 ms
+2024-11-23 19:42:55 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 13 ms
+2024-11-23 19:42:57 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 18 ms
+2024-11-23 19:45:25 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 19:45:25 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 19:45:28 INFO  Main:34 - init() completed in 2140 ms
+2024-11-23 19:45:30 INFO  Main:57 - Application started successfully
+2024-11-23 19:45:30 INFO  Main:58 - start() method completed in 2101 ms
+2024-11-23 19:45:30 INFO  Main:59 - Total startup time: 4278 ms
+2024-11-23 19:45:32 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 43 ms
+2024-11-23 19:45:34 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 104 ms
+2024-11-23 19:45:40 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 20 ms
+2024-11-23 19:46:05 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 25 ms
+2024-11-23 19:46:53 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 19:46:53 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 19:46:55 INFO  Main:34 - init() completed in 1939 ms
+2024-11-23 19:46:57 INFO  Main:57 - Application started successfully
+2024-11-23 19:46:57 INFO  Main:58 - start() method completed in 2268 ms
+2024-11-23 19:46:57 INFO  Main:59 - Total startup time: 4244 ms
+2024-11-23 19:46:59 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 44 ms
+2024-11-23 19:47:01 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 101 ms
+2024-11-23 19:47:02 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 19 ms
+2024-11-23 19:47:04 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 12 ms
+2024-11-23 19:47:09 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 16 ms
+2024-11-23 19:47:11 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 29 ms
+2024-11-23 19:47:17 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 19:47:17 INFO  Habit:103 - Habit marked as completed on 2024-11-14
+2024-11-23 19:47:22 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 21 ms
+2024-11-23 19:49:21 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 11 ms
+2024-11-23 19:49:25 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 15 ms
+2024-11-23 19:49:29 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 25 ms
+2024-11-23 19:49:30 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 15 ms
+2024-11-23 19:49:58 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 19:49:58 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 19:50:00 INFO  Main:34 - init() completed in 1975 ms
+2024-11-23 19:50:02 INFO  Main:57 - Application started successfully
+2024-11-23 19:50:02 INFO  Main:58 - start() method completed in 1409 ms
+2024-11-23 19:50:02 INFO  Main:59 - Total startup time: 3426 ms
+2024-11-23 19:50:04 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 22 ms
+2024-11-23 19:50:07 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 27 ms
+2024-11-23 19:50:09 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 13 ms
+2024-11-23 19:50:21 INFO  JsonBackupHelper:52 - Restored data from /Users/johnnycwatt/Desktop/projects/Habit-Tracker/generated-json/TestHabits.json
+2024-11-23 19:50:24 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 22 ms
+2024-11-23 19:50:26 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 108 ms
+2024-11-23 19:50:41 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 25 ms
+2024-11-23 19:51:30 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 19:51:30 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 19:51:32 INFO  Main:34 - init() completed in 2035 ms
+2024-11-23 19:51:33 INFO  Main:57 - Application started successfully
+2024-11-23 19:51:33 INFO  Main:58 - start() method completed in 1392 ms
+2024-11-23 19:51:33 INFO  Main:59 - Total startup time: 3465 ms
+2024-11-23 19:51:35 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 24 ms
+2024-11-23 19:51:40 INFO  JsonBackupHelper:52 - Restored data from /Users/johnnycwatt/Desktop/projects/Habit-Tracker/generated-json/TestHabits.json
+2024-11-23 19:51:43 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 49 ms
+2024-11-23 19:51:46 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 99 ms
+2024-11-23 19:52:28 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 20 ms
+2024-11-23 19:52:29 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 22 ms
+2024-11-23 19:54:40 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 19:54:40 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 19:54:42 INFO  Main:34 - init() completed in 1962 ms
+2024-11-23 19:54:43 INFO  Main:57 - Application started successfully
+2024-11-23 19:54:43 INFO  Main:58 - start() method completed in 1385 ms
+2024-11-23 19:54:43 INFO  Main:59 - Total startup time: 3384 ms
+2024-11-23 19:54:45 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 21 ms
+2024-11-23 19:54:52 INFO  JsonBackupHelper:52 - Restored data from /Users/johnnycwatt/Desktop/projects/Habit-Tracker/generated-json/TestHabits.json
+2024-11-23 19:54:55 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 56 ms
+2024-11-23 19:54:58 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 101 ms
+2024-11-23 19:56:53 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 38 ms
+2024-11-23 19:56:54 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 31 ms
+2024-11-23 19:56:59 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 26 ms
+2024-11-23 19:58:37 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 19:58:37 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 19:58:39 INFO  Main:34 - init() completed in 1971 ms
+2024-11-23 19:58:41 INFO  Main:57 - Application started successfully
+2024-11-23 19:58:41 INFO  Main:58 - start() method completed in 1516 ms
+2024-11-23 19:58:41 INFO  Main:59 - Total startup time: 3527 ms
+2024-11-23 19:58:42 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 31 ms
+2024-11-23 19:58:44 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 18 ms
+2024-11-23 19:58:50 INFO  JsonBackupHelper:52 - Restored data from /Users/johnnycwatt/Desktop/projects/Habit-Tracker/generated-json/TestHabits.json
+2024-11-23 19:58:53 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 31 ms
+2024-11-23 19:58:55 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 104 ms
+2024-11-23 19:59:01 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 20 ms
+2024-11-23 19:59:04 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 25 ms
+2024-11-23 20:02:31 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:02:31 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:02:33 INFO  Main:34 - init() completed in 1984 ms
+2024-11-23 20:02:35 INFO  Main:57 - Application started successfully
+2024-11-23 20:02:35 INFO  Main:58 - start() method completed in 1465 ms
+2024-11-23 20:02:35 INFO  Main:59 - Total startup time: 3489 ms
+2024-11-23 20:02:38 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 21 ms
+2024-11-23 20:02:44 INFO  JsonBackupHelper:52 - Restored data from /Users/johnnycwatt/Desktop/projects/Habit-Tracker/generated-json/TestHabits.json
+2024-11-23 20:02:46 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 46 ms
+2024-11-23 20:02:48 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 100 ms
+2024-11-23 20:03:12 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:03:12 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:03:14 INFO  Main:34 - init() completed in 1702 ms
+2024-11-23 20:03:15 INFO  Main:57 - Application started successfully
+2024-11-23 20:03:15 INFO  Main:58 - start() method completed in 1225 ms
+2024-11-23 20:03:15 INFO  Main:59 - Total startup time: 2958 ms
+2024-11-23 20:03:18 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 27 ms
+2024-11-23 20:03:20 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 15 ms
+2024-11-23 20:03:26 INFO  JsonBackupHelper:52 - Restored data from /Users/johnnycwatt/Desktop/projects/Habit-Tracker/generated-json/TestHabits.json
+2024-11-23 20:03:29 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 9 ms
+2024-11-23 20:03:33 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 21 ms
+2024-11-23 20:03:35 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 98 ms
+2024-11-23 20:03:50 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:03:50 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:03:52 INFO  Main:34 - init() completed in 1809 ms
+2024-11-23 20:03:53 INFO  Main:57 - Application started successfully
+2024-11-23 20:03:53 INFO  Main:58 - start() method completed in 1270 ms
+2024-11-23 20:03:53 INFO  Main:59 - Total startup time: 3112 ms
+2024-11-23 20:03:55 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 27 ms
+2024-11-23 20:03:59 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 16 ms
+2024-11-23 20:07:27 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:07:27 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:07:29 INFO  Main:34 - init() completed in 1856 ms
+2024-11-23 20:07:30 INFO  Main:57 - Application started successfully
+2024-11-23 20:07:30 INFO  Main:58 - start() method completed in 1413 ms
+2024-11-23 20:07:30 INFO  Main:59 - Total startup time: 3302 ms
+2024-11-23 20:08:51 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 33 ms
+2024-11-23 20:08:59 INFO  JsonBackupHelper:52 - Restored data from /Users/johnnycwatt/Desktop/projects/Habit-Tracker/generated-json/TestHabits.json
+2024-11-23 20:09:02 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 52 ms
+2024-11-23 20:09:04 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 110 ms
+2024-11-23 20:10:40 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:10:40 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:10:42 INFO  Main:34 - init() completed in 1868 ms
+2024-11-23 20:10:45 INFO  Main:57 - Application started successfully
+2024-11-23 20:10:45 INFO  Main:58 - start() method completed in 2195 ms
+2024-11-23 20:10:45 INFO  Main:59 - Total startup time: 4096 ms
+2024-11-23 20:10:46 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 45 ms
+2024-11-23 20:10:48 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 115 ms
+2024-11-23 20:13:13 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:13:13 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:13:15 INFO  Main:34 - init() completed in 1948 ms
+2024-11-23 20:13:17 INFO  Main:57 - Application started successfully
+2024-11-23 20:13:17 INFO  Main:58 - start() method completed in 2218 ms
+2024-11-23 20:13:17 INFO  Main:59 - Total startup time: 4199 ms
+2024-11-23 20:13:18 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 51 ms
+2024-11-23 20:13:20 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 117 ms
+2024-11-23 20:16:30 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:16:30 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:16:32 INFO  Main:34 - init() completed in 1837 ms
+2024-11-23 20:16:34 INFO  Main:57 - Application started successfully
+2024-11-23 20:16:34 INFO  Main:58 - start() method completed in 2155 ms
+2024-11-23 20:16:34 INFO  Main:59 - Total startup time: 4026 ms
+2024-11-23 20:16:36 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 49 ms
+2024-11-23 20:16:38 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 117 ms
+2024-11-23 20:17:41 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:17:41 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:17:43 INFO  Main:34 - init() completed in 2257 ms
+2024-11-23 20:17:46 INFO  Main:57 - Application started successfully
+2024-11-23 20:17:46 INFO  Main:58 - start() method completed in 2461 ms
+2024-11-23 20:17:46 INFO  Main:59 - Total startup time: 4753 ms
+2024-11-23 20:17:47 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 46 ms
+2024-11-23 20:17:49 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 105 ms
+2024-11-23 20:23:03 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:23:03 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:23:04 INFO  Main:34 - init() completed in 1861 ms
+2024-11-23 20:23:07 INFO  Main:57 - Application started successfully
+2024-11-23 20:23:07 INFO  Main:58 - start() method completed in 2154 ms
+2024-11-23 20:23:07 INFO  Main:59 - Total startup time: 4047 ms
+2024-11-23 20:23:10 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 45 ms
+2024-11-23 20:23:12 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 105 ms
+2024-11-23 20:23:24 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 21 ms
+2024-11-23 20:23:26 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 26 ms
+2024-11-23 20:23:28 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 21 ms
+2024-11-23 20:24:11 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:24:11 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:24:13 INFO  Main:34 - init() completed in 2086 ms
+2024-11-23 20:24:17 INFO  Main:57 - Application started successfully
+2024-11-23 20:24:17 INFO  Main:58 - start() method completed in 3222 ms
+2024-11-23 20:24:17 INFO  Main:59 - Total startup time: 5342 ms
+2024-11-23 20:24:20 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 49 ms
+2024-11-23 20:24:21 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 105 ms
+2024-11-23 20:28:36 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:28:36 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:28:38 INFO  Main:34 - init() completed in 1850 ms
+2024-11-23 20:28:40 INFO  Main:57 - Application started successfully
+2024-11-23 20:28:40 INFO  Main:58 - start() method completed in 2097 ms
+2024-11-23 20:28:40 INFO  Main:59 - Total startup time: 3982 ms
+2024-11-23 20:28:41 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 48 ms
+2024-11-23 20:28:43 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 109 ms
+2024-11-23 20:29:00 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:29:01 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:29:02 INFO  Main:34 - init() completed in 1812 ms
+2024-11-23 20:29:04 INFO  Main:57 - Application started successfully
+2024-11-23 20:29:04 INFO  Main:58 - start() method completed in 1979 ms
+2024-11-23 20:29:04 INFO  Main:59 - Total startup time: 3823 ms
+2024-11-23 20:29:06 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 45 ms
+2024-11-23 20:29:08 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 105 ms
+2024-11-23 20:32:36 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 26 ms
+2024-11-23 20:32:37 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 22 ms
+2024-11-23 20:33:33 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:33:33 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:33:35 INFO  Main:34 - init() completed in 1865 ms
+2024-11-23 20:33:37 INFO  Main:57 - Application started successfully
+2024-11-23 20:33:37 INFO  Main:58 - start() method completed in 2254 ms
+2024-11-23 20:33:37 INFO  Main:59 - Total startup time: 4153 ms
+2024-11-23 20:33:39 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 47 ms
+2024-11-23 20:33:41 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 105 ms
+2024-11-23 20:33:49 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 23 ms
+2024-11-23 20:33:53 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 28 ms
+2024-11-23 20:33:56 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 22 ms
+2024-11-23 20:34:18 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 21 ms
+2024-11-23 20:34:22 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 13 ms
+2024-11-23 20:34:28 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 19 ms
+2024-11-23 20:34:30 INFO  MainController:192 - View /view/EditHabitView.fxml loaded successfully by showEditHabitView in 31 ms
+2024-11-23 20:34:32 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 21 ms
+2024-11-23 20:34:33 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 31 ms
+2024-11-23 20:37:11 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 20:37:11 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 20:37:13 INFO  Main:34 - init() completed in 1932 ms
+2024-11-23 20:37:16 INFO  Main:57 - Application started successfully
+2024-11-23 20:37:16 INFO  Main:58 - start() method completed in 2192 ms
+2024-11-23 20:37:16 INFO  Main:59 - Total startup time: 4165 ms
+2024-11-23 20:37:18 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 22 ms
+2024-11-23 20:37:21 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 42 ms
+2024-11-23 20:37:24 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 109 ms
+2024-11-23 20:37:34 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 22 ms
+2024-11-23 20:40:18 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 14 ms
+2024-11-23 20:40:41 INFO  MainController:192 - View /view/AddHabitView.fxml loaded successfully by showAddHabitView in 36 ms
+2024-11-23 20:40:44 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 19 ms
+2024-11-23 20:40:47 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 28 ms
+2024-11-23 20:40:57 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 20 ms
+2024-11-23 20:40:59 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 23 ms
+2024-11-23 20:41:01 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 17 ms
+2024-11-23 20:41:04 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 9 ms
+2024-11-23 20:41:08 INFO  MainController:192 - View /view/HelpView.fxml loaded successfully by openHelp in 20 ms
+2024-11-23 20:41:12 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 7 ms
+2024-11-23 20:41:15 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 17 ms
+2024-11-23 20:41:17 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 23 ms
+2024-11-23 20:46:18 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 20 ms
+2024-11-23 20:46:27 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 17 ms
+2024-11-23 20:46:45 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 7 ms
+2024-11-23 20:47:02 INFO  MainController:192 - View /view/AddHabitView.fxml loaded successfully by showAddHabitView in 11 ms
+2024-11-23 20:47:05 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 17 ms
+2024-11-23 20:47:08 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 7
+2024-11-23 20:47:08 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 20:47:09 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 19 ms
+2024-11-23 20:47:19 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 18 ms
+2024-11-23 20:47:24 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 8 ms
+2024-11-23 20:47:28 INFO  MainController:192 - View /view/HelpView.fxml loaded successfully by openHelp in 7 ms
+2024-11-23 20:47:32 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 7 ms
+2024-11-23 20:47:36 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 18 ms
+2024-11-23 20:47:38 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 19 ms
+2024-11-23 20:47:40 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 16 ms
+2024-11-23 20:47:42 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 15 ms
+2024-11-23 20:47:44 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 14 ms
+2024-11-23 20:47:48 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 20:47:48 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 20:48:17 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 5 ms
+2024-11-23 20:48:41 INFO  MainController:192 - View /view/AddHabitView.fxml loaded successfully by showAddHabitView in 8 ms
+2024-11-23 20:48:45 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 18 ms
+2024-11-23 20:48:51 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 19 ms
+2024-11-23 20:48:58 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 14 ms
+2024-11-23 20:49:23 INFO  MainController:192 - View /view/AddHabitView.fxml loaded successfully by showAddHabitView in 5 ms
+2024-11-23 20:49:26 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 16 ms
+2024-11-23 20:49:31 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 12 ms
+2024-11-23 20:49:40 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 16 ms
+2024-11-23 20:49:44 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 6 ms
+2024-11-23 20:49:47 INFO  MainController:192 - View /view/HelpView.fxml loaded successfully by openHelp in 8 ms
+2024-11-23 20:49:51 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 6 ms
+2024-11-23 20:49:55 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 15 ms
+2024-11-23 20:49:57 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 15 ms
+2024-11-23 20:50:01 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 15 ms
+2024-11-23 20:50:03 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 13 ms
+2024-11-23 20:50:08 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 15 ms
+2024-11-23 20:57:41 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 17 ms
+2024-11-23 20:57:43 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 17 ms
+2024-11-23 20:57:45 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 14 ms
+2024-11-23 20:57:48 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 6 ms
+2024-11-23 20:57:51 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 14 ms
+2024-11-23 20:57:53 INFO  MainController:192 - View /view/ProgressView.fxml loaded successfully by showProgressView in 15 ms
+2024-11-23 20:59:53 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 15 ms
+2024-11-23 20:59:55 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 14 ms
+2024-11-23 20:59:57 INFO  MainController:192 - View /view/ReportView.fxml loaded successfully by showReportView in 95 ms
+2024-11-23 21:01:24 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 21:01:24 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 21:01:26 INFO  Main:34 - init() completed in 1957 ms
+2024-11-23 21:01:28 INFO  Main:57 - Application started successfully
+2024-11-23 21:01:28 INFO  Main:58 - start() method completed in 2324 ms
+2024-11-23 21:01:28 INFO  Main:59 - Total startup time: 4324 ms
+2024-11-23 21:01:32 INFO  MainController:192 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 20 ms
+2024-11-23 21:01:36 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 42 ms
+2024-11-23 21:01:37 INFO  MainController:192 - View /view/ReportView.fxml loaded successfully by showReportView in 83 ms
+2024-11-23 21:01:41 INFO  MainController:192 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 24 ms
+2024-11-23 21:05:03 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 21:05:03 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 21:05:05 INFO  Main:34 - init() completed in 1834 ms
+2024-11-23 21:05:07 INFO  Main:57 - Application started successfully
+2024-11-23 21:05:07 INFO  Main:58 - start() method completed in 2183 ms
+2024-11-23 21:05:07 INFO  Main:59 - Total startup time: 4052 ms
+2024-11-23 21:05:32 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 21:05:32 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 21:05:34 INFO  Main:34 - init() completed in 2021 ms
+2024-11-23 21:05:37 INFO  Main:57 - Application started successfully
+2024-11-23 21:05:37 INFO  Main:58 - start() method completed in 2366 ms
+2024-11-23 21:05:37 INFO  Main:59 - Total startup time: 4423 ms
+2024-11-23 21:05:50 INFO  MainController:198 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 20 ms
+2024-11-23 21:05:57 INFO  MainController:198 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 56 ms
+2024-11-23 21:05:59 INFO  MainController:198 - View /view/ReportView.fxml loaded successfully by showReportView in 64 ms
+2024-11-23 21:06:02 INFO  MainController:198 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 26 ms
+2024-11-23 21:08:02 INFO  ReportGenerator:152 - Scheduler stopped.
+2024-11-23 21:08:05 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 21:08:05 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 21:08:07 INFO  Main:34 - init() completed in 1416 ms
+2024-11-23 21:08:07 INFO  ReportGenerator:130 - Generating missed report for 2024-10
+2024-11-23 21:08:07 INFO  ReportGenerator:103 - Report saved successfully to reports/MonthlyReport-2024-10.json
+2024-11-23 21:08:09 INFO  Main:57 - Application started successfully
+2024-11-23 21:08:09 INFO  Main:58 - start() method completed in 1660 ms
+2024-11-23 21:08:09 INFO  Main:59 - Total startup time: 3101 ms
+2024-11-23 21:08:14 INFO  MainController:196 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 18 ms
+2024-11-23 21:08:18 INFO  MainController:196 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 36 ms
+2024-11-23 21:08:20 INFO  MainController:196 - View /view/ReportView.fxml loaded successfully by showReportView in 43 ms
+2024-11-23 21:12:21 INFO  MainController:196 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 21 ms
+2024-11-23 21:12:25 INFO  Main:72 - Shutting down application and closing HabitRepository...
+2024-11-23 21:12:27 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-11-23 21:12:30 INFO  Main:86 - Launching Habit Tracker application
+2024-11-23 21:12:30 INFO  Main:29 - Initializing HabitRepository...
+2024-11-23 21:12:32 INFO  Main:34 - init() completed in 1346 ms
+2024-11-23 21:12:32 INFO  ReportGenerator:134 - Report for 2024-10 already exists. No action needed.
+2024-11-23 21:12:33 INFO  Main:57 - Application started successfully
+2024-11-23 21:12:33 INFO  Main:58 - start() method completed in 1687 ms
+2024-11-23 21:12:33 INFO  Main:59 - Total startup time: 3056 ms
+2024-11-23 21:12:37 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-11-21
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-11-19
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-11-17
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-11-15
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-11-13
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-11-11
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-11-09
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-11-07
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-11-05
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-11-09
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-10-26
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-10-12
+2024-11-23 21:16:33 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:33 INFO  Habit:103 - Habit marked as completed on 2024-09-28
+2024-11-23 21:16:34 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:34 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:16:34 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:34 INFO  Habit:103 - Habit marked as completed on 2024-09-23
+2024-11-23 21:16:34 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:34 INFO  Habit:103 - Habit marked as completed on 2024-07-23
+2024-11-23 21:16:35 INFO  JsonBackupHelper:29 - Backup saved successfully to /var/folders/q6/fxv4yd0x52vgmg7m0tlbnx480000gn/T/junit11052433796348259826/backup.json
+2024-11-23 21:16:35 INFO  JsonBackupHelper:29 - Backup saved successfully to /var/folders/q6/fxv4yd0x52vgmg7m0tlbnx480000gn/T/junit3571430478357786590/backup.json
+2024-11-23 21:16:35 INFO  JsonBackupHelper:52 - Restored data from /var/folders/q6/fxv4yd0x52vgmg7m0tlbnx480000gn/T/junit3571430478357786590/backup.json
+2024-11-23 21:16:35 INFO  BackupScheduler:47 - Auto-backup enabled.
+2024-11-23 21:16:35 INFO  BackupScheduler:38 - Auto-backup timer scheduled to run every month starting from 2024-12-23
+2024-11-23 21:16:35 INFO  BackupScheduler:55 - Auto-backup disabled and timer cancelled.
+2024-11-23 21:16:35 INFO  BackupScheduler:47 - Auto-backup enabled.
+2024-11-23 21:16:35 INFO  BackupScheduler:38 - Auto-backup timer scheduled to run every month starting from 2024-12-23
+2024-11-23 21:16:35 WARN  HelpController:78 - MainController reference is not set. Unable to navigate back.
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:164 - Milestone notification shown: You have created 50 habits! Great progress!
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:164 - Milestone notification shown: 100 habits and counting! Amazing dedication!
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:164 - Milestone notification shown: 150 habits! Quality over quantity! Remember, the habit limit is 200.
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:164 - Milestone notification shown: 200 habits! That's the maximum! Focus on your current habits.
+2024-11-23 21:16:36 WARN  AddHabitController:111 - Habit limit reached: 200 habits
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 WARN  AddHabitController:135 - Habit name is empty
+2024-11-23 21:16:36 WARN  AddHabitController:104 - Habit with this name already exists
+2024-11-23 21:16:36 WARN  AddHabitController:141 - Frequency not selected
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:16:36 INFO  MainController:190 - View /view/ReportView.fxml loaded successfully by showReportView in 68 ms
+2024-11-23 21:16:36 INFO  MainController:190 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 15 ms
+2024-11-23 21:16:36 INFO  MainController:190 - View /view/ProgressView.fxml loaded successfully by showProgressView in 165 ms
+2024-11-23 21:16:36 INFO  MainController:190 - View /view/AddHabitView.fxml loaded successfully by showAddHabitView in 10 ms
+2024-11-23 21:16:36 INFO  MainController:190 - View /view/EditHabitView.fxml loaded successfully by showEditHabitView in 5 ms
+2024-11-23 21:16:36 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-11-23 21:16:36 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:16:36 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-11-23 21:16:36 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:16:36 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-11-23 21:16:36 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:16:36 WARN  Habit:94 - Cannot mark a future date as completed.
+2024-11-23 21:16:36 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:36 INFO  Habit:103 - Habit marked as completed on 2024-11-17
+2024-11-23 21:16:36 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-11-23 21:16:36 INFO  Habit:103 - Habit marked as completed on 2024-11-18
+2024-11-23 21:16:36 INFO  Habit:136 - Streak calculated. Current streak: 3, Best streak: 3
+2024-11-23 21:16:36 INFO  Habit:103 - Habit marked as completed on 2024-11-19
+2024-11-23 21:16:36 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 3
+2024-11-23 21:16:36 INFO  Habit:103 - Habit marked as completed on 2024-11-22
+2024-11-23 21:16:36 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 3
+2024-11-23 21:16:36 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:16:36 INFO  ReportGenerator:103 - Report saved successfully to reports/MonthlyReport-2024-11.json
+2024-11-23 21:16:36 INFO  ReportGenerator:103 - Report saved successfully to reports/MonthlyReport-2024-11.json
+2024-11-23 21:16:36 ERROR ReportGenerator:117 - Error loading monthly report from JSON file: reports/MonthlyReport-2024-12.json
+java.nio.file.NoSuchFileException: reports/MonthlyReport-2024-12.json
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:92) ~[?:?]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106) ~[?:?]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111) ~[?:?]
+	at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:261) ~[?:?]
+	at java.nio.file.Files.newByteChannel(Files.java:379) ~[?:?]
+	at java.nio.file.Files.newByteChannel(Files.java:431) ~[?:?]
+	at java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:420) ~[?:?]
+	at java.nio.file.Files.newInputStream(Files.java:159) ~[?:?]
+	at java.nio.file.Files.newBufferedReader(Files.java:2902) ~[?:?]
+	at java.nio.file.Files.newBufferedReader(Files.java:2935) ~[?:?]
+	at org.habittracker.service.ReportGenerator.loadMonthlyReport(ReportGenerator.java:114) ~[classes/:?]
+	at org.habittracker.service.ReportGeneratorTest.testLoadMonthlyReport_nonexistentReport(ReportGeneratorTest.java:79) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727) ~[junit-platform-commons-1.9.2.jar:1.9.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:217) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1597) ~[?:?]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1597) ~[?:?]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56) [surefire-junit-platform-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) [surefire-junit-platform-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) [surefire-junit-platform-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) [surefire-junit-platform-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) [surefire-booter-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) [surefire-booter-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) [surefire-booter-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) [surefire-booter-3.2.5.jar:3.2.5]
+2024-11-23 21:16:36 INFO  ReportGenerator:103 - Report saved successfully to reports/MonthlyReport-2024-11.json
+2024-11-23 21:16:36 INFO  ReportGenerator:134 - Report for 2024-10 already exists. No action needed.
+2024-11-23 21:16:36 INFO  ReportGenerator:130 - Generating missed report for 2024-10
+2024-11-23 21:16:36 INFO  ReportGenerator:103 - Report saved successfully to reports/MonthlyReport-2024-10.json
+2024-11-23 21:16:37 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:16:37 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-11-21
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-11-19
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-11-17
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-11-15
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-11-13
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-11-11
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-11-09
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-11-07
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-11-05
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-11-09
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-10-26
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-10-12
+2024-11-23 21:17:39 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:39 INFO  Habit:103 - Habit marked as completed on 2024-09-28
+2024-11-23 21:17:40 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:40 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:17:40 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:40 INFO  Habit:103 - Habit marked as completed on 2024-09-23
+2024-11-23 21:17:40 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:40 INFO  Habit:103 - Habit marked as completed on 2024-07-23
+2024-11-23 21:17:41 INFO  JsonBackupHelper:29 - Backup saved successfully to /var/folders/q6/fxv4yd0x52vgmg7m0tlbnx480000gn/T/junit11472480269088411865/backup.json
+2024-11-23 21:17:41 INFO  JsonBackupHelper:29 - Backup saved successfully to /var/folders/q6/fxv4yd0x52vgmg7m0tlbnx480000gn/T/junit7968612392668917877/backup.json
+2024-11-23 21:17:41 INFO  JsonBackupHelper:52 - Restored data from /var/folders/q6/fxv4yd0x52vgmg7m0tlbnx480000gn/T/junit7968612392668917877/backup.json
+2024-11-23 21:17:41 INFO  BackupScheduler:47 - Auto-backup enabled.
+2024-11-23 21:17:41 INFO  BackupScheduler:38 - Auto-backup timer scheduled to run every month starting from 2024-12-23
+2024-11-23 21:17:41 INFO  BackupScheduler:55 - Auto-backup disabled and timer cancelled.
+2024-11-23 21:17:41 INFO  BackupScheduler:47 - Auto-backup enabled.
+2024-11-23 21:17:41 INFO  BackupScheduler:38 - Auto-backup timer scheduled to run every month starting from 2024-12-23
+2024-11-23 21:17:41 WARN  HelpController:78 - MainController reference is not set. Unable to navigate back.
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:164 - Milestone notification shown: You have created 50 habits! Great progress!
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:164 - Milestone notification shown: 100 habits and counting! Amazing dedication!
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:164 - Milestone notification shown: 150 habits! Quality over quantity! Remember, the habit limit is 200.
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:164 - Milestone notification shown: 200 habits! That's the maximum! Focus on your current habits.
+2024-11-23 21:17:41 WARN  AddHabitController:111 - Habit limit reached: 200 habits
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 WARN  AddHabitController:135 - Habit name is empty
+2024-11-23 21:17:41 WARN  AddHabitController:104 - Habit with this name already exists
+2024-11-23 21:17:41 WARN  AddHabitController:141 - Frequency not selected
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  AddHabitController:116 - Habit added to repository
+2024-11-23 21:17:41 INFO  MainController:190 - View /view/ReportView.fxml loaded successfully by showReportView in 60 ms
+2024-11-23 21:17:41 INFO  MainController:190 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 12 ms
+2024-11-23 21:17:41 INFO  MainController:190 - View /view/ProgressView.fxml loaded successfully by showProgressView in 130 ms
+2024-11-23 21:17:41 INFO  MainController:190 - View /view/AddHabitView.fxml loaded successfully by showAddHabitView in 8 ms
+2024-11-23 21:17:41 INFO  MainController:190 - View /view/EditHabitView.fxml loaded successfully by showEditHabitView in 5 ms
+2024-11-23 21:17:42 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-11-23 21:17:42 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:17:42 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-11-23 21:17:42 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:17:42 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-11-23 21:17:42 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:17:42 WARN  Habit:94 - Cannot mark a future date as completed.
+2024-11-23 21:17:42 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:42 INFO  Habit:103 - Habit marked as completed on 2024-11-17
+2024-11-23 21:17:42 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-11-23 21:17:42 INFO  Habit:103 - Habit marked as completed on 2024-11-18
+2024-11-23 21:17:42 INFO  Habit:136 - Streak calculated. Current streak: 3, Best streak: 3
+2024-11-23 21:17:42 INFO  Habit:103 - Habit marked as completed on 2024-11-19
+2024-11-23 21:17:42 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 3
+2024-11-23 21:17:42 INFO  Habit:103 - Habit marked as completed on 2024-11-22
+2024-11-23 21:17:42 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 3
+2024-11-23 21:17:42 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-11-23 21:17:42 INFO  ReportGenerator:103 - Report saved successfully to reports/MonthlyReport-2024-11.json
+2024-11-23 21:17:42 INFO  ReportGenerator:103 - Report saved successfully to reports/MonthlyReport-2024-11.json
+2024-11-23 21:17:42 ERROR ReportGenerator:117 - Error loading monthly report from JSON file: reports/MonthlyReport-2024-12.json
+java.nio.file.NoSuchFileException: reports/MonthlyReport-2024-12.json
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:92) ~[?:?]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106) ~[?:?]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111) ~[?:?]
+	at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:261) ~[?:?]
+	at java.nio.file.Files.newByteChannel(Files.java:379) ~[?:?]
+	at java.nio.file.Files.newByteChannel(Files.java:431) ~[?:?]
+	at java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:420) ~[?:?]
+	at java.nio.file.Files.newInputStream(Files.java:159) ~[?:?]
+	at java.nio.file.Files.newBufferedReader(Files.java:2902) ~[?:?]
+	at java.nio.file.Files.newBufferedReader(Files.java:2935) ~[?:?]
+	at org.habittracker.service.ReportGenerator.loadMonthlyReport(ReportGenerator.java:114) ~[classes/:?]
+	at org.habittracker.service.ReportGeneratorTest.testLoadMonthlyReport_nonexistentReport(ReportGeneratorTest.java:79) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727) ~[junit-platform-commons-1.9.2.jar:1.9.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:217) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1597) ~[?:?]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1597) ~[?:?]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56) [surefire-junit-platform-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) [surefire-junit-platform-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) [surefire-junit-platform-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) [surefire-junit-platform-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) [surefire-booter-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) [surefire-booter-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) [surefire-booter-3.2.5.jar:3.2.5]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) [surefire-booter-3.2.5.jar:3.2.5]
+2024-11-23 21:17:42 INFO  ReportGenerator:103 - Report saved successfully to reports/MonthlyReport-2024-11.json
+2024-11-23 21:17:42 INFO  ReportGenerator:134 - Report for 2024-10 already exists. No action needed.
+2024-11-23 21:17:42 INFO  ReportGenerator:130 - Generating missed report for 2024-10
+2024-11-23 21:17:42 INFO  ReportGenerator:103 - Report saved successfully to reports/MonthlyReport-2024-10.json
+2024-11-23 21:17:42 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-11-23 21:17:42 INFO  Habit:103 - Habit marked as completed on 2024-11-23

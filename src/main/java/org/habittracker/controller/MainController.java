@@ -13,6 +13,7 @@ import org.habittracker.Main;
 import org.habittracker.model.Habit;
 import org.habittracker.repository.HabitRepository;
 import org.habittracker.service.HabitReminderScheduler;
+import org.habittracker.service.ReportGenerator;
 import org.habittracker.util.HabitCalendarPopulator;
 import org.habittracker.util.NotificationHelper;
 import org.habittracker.util.Notifier;
@@ -50,13 +51,11 @@ public class MainController {
     private Notifier notifier;
     private HabitReminderScheduler reminderScheduler;
     private HabitCalendarPopulator calendarPopulator;
+    private ReportGenerator reportGenerator;
 
     // State
     private boolean darkModeStatus;
 
-    /**
-     * Initialize the controller.
-     */
     @FXML
     void initialize() {
         HabitRepository habitRepository = HabitRepository.getInstance();
@@ -65,27 +64,32 @@ public class MainController {
         notifier = new NotificationHelper(notificationLabel);
         reminderScheduler = new HabitReminderScheduler(notifier, habitRepository);
         calendarPopulator = new HabitCalendarPopulator(calendarGrid, calendarMonthLabel, habitRepository);
+        reportGenerator = new ReportGenerator(habitRepository, notifier);
 
         // Start reminder scheduler
         reminderScheduler.start();
 
+        // Check for missed reports
+        reportGenerator.checkForMissedReports();
+
+        // Start the monthly report scheduler
+        reportGenerator.startMonthlyReportScheduler();
+
         // Set up shutdown hook
-        Runtime.getRuntime().addShutdownHook(new Thread(reminderScheduler::stop));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            reminderScheduler.stop();
+            reportGenerator.stopScheduler();
+        }));
 
         // Show main view initially
         showMainView();
     }
 
-    /**
-     * Set the main application reference.
-     */
     public void setMainApp(Main mainApp) {
         this.mainApp = mainApp;
     }
 
-    /**
-     * Display the main view.
-     */
+
     public void showMainView() {
         mainView.setVisible(true);
         dynamicViewContainer.setVisible(false);
@@ -154,12 +158,6 @@ public class MainController {
     }
 
 
-
-
-
-    /**
-     * Determine if a habit is due today.
-     */
     private boolean isHabitDueToday(Habit habit) {
         LocalDate today = LocalDate.now();
         return habit.getFrequency() == Habit.Frequency.DAILY ||
