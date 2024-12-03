@@ -1,6 +1,7 @@
 package org.habittracker;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -8,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.habittracker.controller.MainController;
 import org.habittracker.repository.HabitRepository;
-
 import java.io.IOException;
 
 public class Main extends Application {
@@ -34,8 +34,7 @@ public class Main extends Application {
             LOGGER.info("init() completed in {} ms", System.currentTimeMillis() - initStartTimestamp);
         }
     }
-
-
+    
     @Override
     public void start(Stage primaryStage) {
         startMethodTimestamp = System.currentTimeMillis(); // Timestamp at the start of start()
@@ -48,6 +47,22 @@ public class Main extends Application {
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             primaryStage.setTitle("Habit Tracker");
             primaryStage.setScene(scene);
+
+            // Add close request handler
+            primaryStage.setOnCloseRequest(event -> {
+                try {
+                    LOGGER.info("Application closing...");
+                    if (mainController != null) {
+                        mainController.getReminderScheduler().stop(); // Stop reminders
+                    }
+                    if (habitRepository != null) {
+                        habitRepository.close(); // Close database connections
+                    }
+                } finally {
+                    Platform.exit();
+                }
+            });
+
             primaryStage.show();
 
             long endTimestamp = System.currentTimeMillis(); // Timestamp when the primary stage is shown
@@ -66,11 +81,21 @@ public class Main extends Application {
         }
     }
 
-
+    @SuppressWarnings("PMD.DoNotTerminateVM")
     @Override
     public void stop() {
-        LOGGER.info("Shutting down application and closing HabitRepository...");
-        habitRepository.close();
+        LOGGER.info("Shutting down application...");
+        if (mainController != null) {
+            if (mainController.getReminderScheduler() != null) {
+                mainController.getReminderScheduler().shutdownNow();
+            }
+        }
+        if (habitRepository != null) {
+            habitRepository.close();
+        }
+        LOGGER.info("Application shutdown complete.");
+        Platform.exit(); // Ensure JavaFX terminates
+        System.exit(0); // Suppression annotation used
     }
 
     public MainController getMainController() {
@@ -84,6 +109,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         startTimestamp = System.currentTimeMillis(); // Timestamp at the start of main()
         LOGGER.info("Launching Habit Tracker application");
-        launch(args); // Launch the JavaFX application
+        launch(args);
     }
 }

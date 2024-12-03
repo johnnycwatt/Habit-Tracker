@@ -10,12 +10,14 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class HabitReminderScheduler {
     final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final Notifier notifier;
     private final HabitRepository habitRepository;
-
+    private static final Logger LOGGER = LogManager.getLogger(HabitReminderScheduler.class);
     private boolean remindersEnabled = true;
 
     public HabitReminderScheduler(Notifier notifier, HabitRepository habitRepository) {
@@ -67,4 +69,22 @@ public class HabitReminderScheduler {
         }
         return false;
     }
+
+    public void shutdownNow() {
+        if (!scheduler.isShutdown()) {
+            LOGGER.info("Forcefully shutting down HabitReminderScheduler...");
+            scheduler.shutdownNow();
+            try {
+                if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
+                    LOGGER.warn("Scheduler did not terminate gracefully. Forcing shutdown.");
+                } else {
+                    LOGGER.info("Scheduler terminated successfully.");
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                LOGGER.error("Scheduler shutdown interrupted.", e);
+            }
+        }
+    }
+
 }

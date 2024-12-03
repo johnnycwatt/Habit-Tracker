@@ -186,7 +186,7 @@ class HabitStatisticsCalculatorTest {
     @Test
     void testCalculateWeeklyConsistency_MonthlyHabit() {
         Habit monthlyHabit = new Habit("Monthly Habit for Weekly Consistency", Frequency.MONTHLY);
-        LocalDate today = LocalDate.of(2024, 11, 10); // Assume today is a Sunday
+        LocalDate today = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), 10);// Assume today is a Sunday
 
         // Monthly habit should not have weekly consistency, so simulate with a monthly completion
         monthlyHabit.addCompletionForTesting(today.minusMonths(1).withDayOfMonth(1)); // One month ago
@@ -217,7 +217,7 @@ class HabitStatisticsCalculatorTest {
     void testCalculateWeeklyConsistency_WeeklyHabit_WithTwoIncompleteWeeks() {
         Habit weeklyHabit = new Habit("Weekly Habit for Weekly Consistency", Frequency.WEEKLY);
 
-        LocalDate today = LocalDate.of(2024, 11, 10);
+        LocalDate today = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), 10);
         weeklyHabit.setCreationDate(today.minusWeeks(4));
 
         // Simulate completions only in the third and fourth previous weeks
@@ -232,7 +232,7 @@ class HabitStatisticsCalculatorTest {
     void testCalculateMonthlyConsistency_DailyHabit() {
         Habit dailyHabit = new Habit("Daily Habit for Monthly Consistency", Frequency.DAILY);
 
-        LocalDate today = LocalDate.of(2024, 11, 10);
+        LocalDate today = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), 10);
         dailyHabit.setCreationDate(today.minusMonths(3));
 
         // Simulate completions for every day of last two months
@@ -249,7 +249,7 @@ class HabitStatisticsCalculatorTest {
     void testCalculateMonthlyConsistency_WeeklyHabit() {
         Habit weeklyHabit = new Habit("Weekly Habit for Monthly Consistency", Frequency.WEEKLY);
 
-        LocalDate today = LocalDate.of(2024, 11, 10);
+        LocalDate today = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), 10);
         weeklyHabit.setCreationDate(today.minusMonths(3));
 
         // Simulate at least one completion per week for last two months
@@ -266,7 +266,7 @@ class HabitStatisticsCalculatorTest {
     void testCalculateMonthlyConsistency_MonthlyHabit() {
         Habit monthlyHabit = new Habit("Monthly Habit for Monthly Consistency", Frequency.MONTHLY);
 
-        LocalDate today = LocalDate.of(2024, 11, 10);
+        LocalDate today = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), 10);
         monthlyHabit.setCreationDate(today.minusMonths(3));
 
         // Simulate one completion per month
