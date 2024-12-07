@@ -1,0 +1,70 @@
+
+
+Version:	3.50
+CmdLine:	C:\Users\johnn\Projects\Habit-Tracker\Habit-Tracker.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\johnn\Projects\Habit-Tracker\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.017.000
+Java max ver:	
+JRE paths:	C:\Program Files\Java\jdk-23 
+Check launcher:	C:\Program Files\Java\jdk-23 \bin\javaw.exe (not found)
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Version string: 1.008.000 / 32-Bit (Ignore)
+Ignore:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_431
+Version string: 1.008.000_431 / 32-Bit (Ignore)
+Ignore:		1.008.000_431
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\23.0.1
+Version string: 1.023.000_001 / 64-Bit (OK)
+Check launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe (OK)
+Match:		1.023.000_001
+Runtime used:	1.023.000_001 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe
+Launcher args:	--module-path C:\Users\johnn\Projects\Habit-Tracker\javafx-sdk-17.0.13\lib --add-modules javafx.controls,javafx.fxml -jar "C:\Users\johnn\Projects\Habit-Tracker\Habit-Tracker.exe"
+Args length:	179/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\johnn\Projects\Habit-Tracker\Habit-Tracker.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\johnn\Projects\Habit-Tracker\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.017.000
+Java max ver:	
+JRE paths:	C:\Program Files\Java\jdk-23 
+Check launcher:	C:\Program Files\Java\jdk-23 \bin\javaw.exe (not found)
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Version string: 1.008.000 / 32-Bit (Ignore)
+Ignore:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_431
+Version string: 1.008.000_431 / 32-Bit (Ignore)
+Ignore:		1.008.000_431
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\23.0.1
+Version string: 1.023.000_001 / 64-Bit (OK)
+Check launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe (OK)
+Match:		1.023.000_001
+Runtime used:	1.023.000_001 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-23\bin\javaw.exe
+Launcher args:	--module-path C:\Users\johnn\Projects\Habit-Tracker\javafx-sdk-17.0.13\lib --add-modules javafx.controls,javafx.fxml -jar "C:\Users\johnn\Projects\Habit-Tracker\Habit-Tracker.exe"
+Args length:	179/32768 chars
+Exit code:	0
