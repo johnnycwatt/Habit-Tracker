@@ -5475,3 +5475,502 @@ java.nio.file.NoSuchFileException: reports/MonthlyReport-2024-12.json
 2024-12-03 21:41:57 INFO  ReportGenerator:103 - Report saved successfully to reports/MonthlyReport-2024-11.json
 2024-12-03 21:41:57 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
 2024-12-03 21:41:57 INFO  Habit:103 - Habit marked as completed on 2024-12-03
+2024-12-07 20:16:29 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:29 INFO  AddHabitController:164 - Milestone notification shown: You have created 50 habits! Great progress!
+2024-12-07 20:16:29 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:29 INFO  AddHabitController:164 - Milestone notification shown: 100 habits and counting! Amazing dedication!
+2024-12-07 20:16:29 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:29 INFO  AddHabitController:164 - Milestone notification shown: 150 habits! Quality over quantity! Remember, the habit limit is 200.
+2024-12-07 20:16:29 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:29 INFO  AddHabitController:164 - Milestone notification shown: 200 habits! That's the maximum! Focus on your current habits.
+2024-12-07 20:16:29 WARN  AddHabitController:111 - Habit limit reached: 200 habits
+2024-12-07 20:16:29 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:29 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:29 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:29 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:30 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:30 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:30 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:30 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:30 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:30 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:30 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:30 WARN  AddHabitController:135 - Habit name is empty
+2024-12-07 20:16:30 WARN  AddHabitController:104 - Habit with this name already exists
+2024-12-07 20:16:30 WARN  AddHabitController:141 - Frequency not selected
+2024-12-07 20:16:30 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:30 INFO  AddHabitController:116 - Habit added to repository
+2024-12-07 20:16:30 WARN  HelpController:78 - MainController reference is not set. Unable to navigate back.
+2024-12-07 20:16:33 INFO  MainController:190 - View /view/ReportView.fxml loaded successfully by showReportView in 239 ms
+2024-12-07 20:16:33 INFO  MainController:190 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 21 ms
+2024-12-07 20:16:33 ERROR MainController:195 - Error loading FXML file: /view/ProgressView.fxml by showProgressView (Elapsed Time: 17 ms)
+javafx.fxml.LoadException: 
+/C:/Users/johnn/Projects/Habit-Tracker/target/classes/view/ProgressView.fxml:8
+
+	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2722) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processAttribute(FXMLLoader.java:946) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader$InstanceDeclarationElement.processAttribute(FXMLLoader.java:983) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader$Element.processStartElement(FXMLLoader.java:230) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:757) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2853) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2649) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2563) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:2531) ~[javafx-fxml-21-win.jar:?]
+	at org.habittracker.controller.MainController.loadView(MainController.java:181) ~[classes/:?]
+	at org.habittracker.controller.MainController.showProgressView(MainController.java:244) ~[classes/:?]
+	at org.habittracker.controller.MainControllerTest.testShowProgressView(MainControllerTest.java:141) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727) ~[junit-platform-commons-1.9.2.jar:1.9.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:217) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1597) ~[?:?]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1597) ~[?:?]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56) [surefire-junit-platform-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) [surefire-junit-platform-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) [surefire-junit-platform-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) [surefire-junit-platform-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) [surefire-booter-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) [surefire-booter-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) [surefire-booter-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) [surefire-booter-3.1.2.jar:3.1.2]
+Caused by: java.lang.reflect.InvocationTargetException
+	at jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:74) ~[?:?]
+	at java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:485) ~[?:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processAttribute(FXMLLoader.java:941) ~[javafx-fxml-21-win.jar:?]
+	... 79 more
+Caused by: java.lang.IllegalStateException: HabitRepository has not been initialized. Call initialize() first.
+	at org.habittracker.repository.HabitRepository.getInstance(HabitRepository.java:40) ~[classes/:?]
+	at org.habittracker.controller.ProgressController.<init>(ProgressController.java:76) ~[classes/:?]
+	at jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[?:?]
+	at java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:485) ~[?:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processAttribute(FXMLLoader.java:941) ~[javafx-fxml-21-win.jar:?]
+	... 79 more
+2024-12-07 20:16:33 ERROR MainController:195 - Error loading FXML file: /view/AddHabitView.fxml by showAddHabitView (Elapsed Time: 2 ms)
+javafx.fxml.LoadException: 
+/C:/Users/johnn/Projects/Habit-Tracker/target/classes/view/AddHabitView.fxml:7
+
+	at javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2722) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processAttribute(FXMLLoader.java:946) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader$InstanceDeclarationElement.processAttribute(FXMLLoader.java:983) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader$Element.processStartElement(FXMLLoader.java:230) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:757) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2853) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2649) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2563) ~[javafx-fxml-21-win.jar:?]
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:2531) ~[javafx-fxml-21-win.jar:?]
+	at org.habittracker.controller.MainController.loadView(MainController.java:181) ~[classes/:?]
+	at org.habittracker.controller.MainController.showAddHabitView(MainController.java:224) ~[classes/:?]
+	at org.habittracker.controller.MainControllerTest.testShowAddHabitView(MainControllerTest.java:123) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727) ~[junit-platform-commons-1.9.2.jar:1.9.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:217) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1597) ~[?:?]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1597) ~[?:?]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56) [surefire-junit-platform-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) [surefire-junit-platform-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) [surefire-junit-platform-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) [surefire-junit-platform-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) [surefire-booter-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) [surefire-booter-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) [surefire-booter-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) [surefire-booter-3.1.2.jar:3.1.2]
+Caused by: java.lang.reflect.InvocationTargetException
+	at jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:74) ~[?:?]
+	at java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:485) ~[?:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processAttribute(FXMLLoader.java:941) ~[javafx-fxml-21-win.jar:?]
+	... 79 more
+Caused by: java.lang.IllegalStateException: HabitRepository has not been initialized. Call initialize() first.
+	at org.habittracker.repository.HabitRepository.getInstance(HabitRepository.java:40) ~[classes/:?]
+	at org.habittracker.controller.AddHabitController.<init>(AddHabitController.java:71) ~[classes/:?]
+	at jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62) ~[?:?]
+	at java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:485) ~[?:?]
+	at javafx.fxml.FXMLLoader$ValueElement.processAttribute(FXMLLoader.java:941) ~[javafx-fxml-21-win.jar:?]
+	... 79 more
+2024-12-07 20:16:37 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-12-07 20:16:37 INFO  Habit:103 - Habit marked as completed on 2024-12-07
+2024-12-07 20:16:37 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-12-07 20:16:37 INFO  Habit:103 - Habit marked as completed on 2024-12-07
+2024-12-07 20:16:37 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-12-07 20:16:37 INFO  Habit:103 - Habit marked as completed on 2024-12-07
+2024-12-07 20:16:37 WARN  Habit:94 - Cannot mark a future date as completed.
+2024-12-07 20:16:38 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:38 INFO  Habit:103 - Habit marked as completed on 2024-12-01
+2024-12-07 20:16:38 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 2
+2024-12-07 20:16:38 INFO  Habit:103 - Habit marked as completed on 2024-12-02
+2024-12-07 20:16:38 INFO  Habit:136 - Streak calculated. Current streak: 3, Best streak: 3
+2024-12-07 20:16:38 INFO  Habit:103 - Habit marked as completed on 2024-12-03
+2024-12-07 20:16:38 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 3
+2024-12-07 20:16:38 INFO  Habit:103 - Habit marked as completed on 2024-12-06
+2024-12-07 20:16:38 INFO  Habit:136 - Streak calculated. Current streak: 2, Best streak: 3
+2024-12-07 20:16:38 INFO  Habit:103 - Habit marked as completed on 2024-12-07
+2024-12-07 20:16:46 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:46 INFO  Habit:103 - Habit marked as completed on 2024-12-07
+2024-12-07 20:16:47 INFO  ReportGenerator:103 - Report saved successfully to reports\MonthlyReport-2024-11.json
+2024-12-07 20:16:47 INFO  ReportGenerator:103 - Report saved successfully to reports\MonthlyReport-2024-11.json
+2024-12-07 20:16:47 ERROR ReportGenerator:117 - Error loading monthly report from JSON file: reports\MonthlyReport-2024-12.json
+java.nio.file.NoSuchFileException: reports\MonthlyReport-2024-12.json
+	at sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:85) ~[?:?]
+	at sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103) ~[?:?]
+	at sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108) ~[?:?]
+	at sun.nio.fs.WindowsFileSystemProvider.newByteChannel(WindowsFileSystemProvider.java:234) ~[?:?]
+	at java.nio.file.Files.newByteChannel(Files.java:380) ~[?:?]
+	at java.nio.file.Files.newByteChannel(Files.java:432) ~[?:?]
+	at java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:420) ~[?:?]
+	at java.nio.file.Files.newInputStream(Files.java:160) ~[?:?]
+	at java.nio.file.Files.newBufferedReader(Files.java:2921) ~[?:?]
+	at java.nio.file.Files.newBufferedReader(Files.java:2954) ~[?:?]
+	at org.habittracker.service.ReportGenerator.loadMonthlyReport(ReportGenerator.java:114) ~[classes/:?]
+	at org.habittracker.service.ReportGeneratorTest.testLoadMonthlyReport_nonexistentReport(ReportGeneratorTest.java:79) ~[test-classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727) ~[junit-platform-commons-1.9.2.jar:1.9.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:217) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.9.2.jar:5.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1597) ~[?:?]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at java.util.ArrayList.forEach(ArrayList.java:1597) ~[?:?]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55) ~[junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86) [junit-platform-launcher-1.9.2.jar:1.9.2]
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56) [surefire-junit-platform-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184) [surefire-junit-platform-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148) [surefire-junit-platform-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122) [surefire-junit-platform-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385) [surefire-booter-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162) [surefire-booter-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507) [surefire-booter-3.1.2.jar:3.1.2]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495) [surefire-booter-3.1.2.jar:3.1.2]
+2024-12-07 20:16:47 INFO  ReportGenerator:103 - Report saved successfully to reports\MonthlyReport-2024-11.json
+2024-12-07 20:16:47 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-07 20:16:47 INFO  ReportGenerator:130 - Generating missed report for 2024-11
+2024-12-07 20:16:47 INFO  ReportGenerator:103 - Report saved successfully to reports\MonthlyReport-2024-11.json
+2024-12-07 20:16:51 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:51 INFO  Habit:103 - Habit marked as completed on 2024-12-07
+2024-12-07 20:16:51 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:51 INFO  Habit:103 - Habit marked as completed on 2024-12-05
+2024-12-07 20:16:51 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:51 INFO  Habit:103 - Habit marked as completed on 2024-12-03
+2024-12-07 20:16:51 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:51 INFO  Habit:103 - Habit marked as completed on 2024-12-01
+2024-12-07 20:16:51 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:51 INFO  Habit:103 - Habit marked as completed on 2024-11-29
+2024-12-07 20:16:51 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:51 INFO  Habit:103 - Habit marked as completed on 2024-11-27
+2024-12-07 20:16:51 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:51 INFO  Habit:103 - Habit marked as completed on 2024-11-25
+2024-12-07 20:16:51 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:51 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-12-07 20:16:51 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:51 INFO  Habit:103 - Habit marked as completed on 2024-11-21
+2024-12-07 20:16:51 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:51 INFO  Habit:103 - Habit marked as completed on 2024-11-19
+2024-12-07 20:16:53 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:53 INFO  Habit:103 - Habit marked as completed on 2024-12-07
+2024-12-07 20:16:53 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:53 INFO  Habit:103 - Habit marked as completed on 2024-11-23
+2024-12-07 20:16:53 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:53 INFO  Habit:103 - Habit marked as completed on 2024-11-09
+2024-12-07 20:16:53 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:53 INFO  Habit:103 - Habit marked as completed on 2024-10-26
+2024-12-07 20:16:53 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:16:53 INFO  Habit:103 - Habit marked as completed on 2024-10-12
+2024-12-07 20:17:02 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:17:02 INFO  Habit:103 - Habit marked as completed on 2024-12-07
+2024-12-07 20:17:02 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:17:02 INFO  Habit:103 - Habit marked as completed on 2024-10-07
+2024-12-07 20:17:02 INFO  Habit:136 - Streak calculated. Current streak: 1, Best streak: 1
+2024-12-07 20:17:02 INFO  Habit:103 - Habit marked as completed on 2024-08-07
+2024-12-07 21:05:30 INFO  Main:111 - Launching Habit Tracker application
+2024-12-07 21:05:30 INFO  Main:29 - Initializing HabitRepository...
+2024-12-07 21:05:33 INFO  Main:34 - init() completed in 3297 ms
+2024-12-07 21:05:33 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-07 21:05:34 INFO  Main:72 - Application started successfully
+2024-12-07 21:05:34 INFO  Main:73 - start() method completed in 966 ms
+2024-12-07 21:05:34 INFO  Main:74 - Total startup time: 4294 ms
+2024-12-07 21:05:40 INFO  MainController:190 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 36 ms
+2024-12-07 21:05:43 INFO  MainController:190 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 22 ms
+2024-12-07 21:05:45 INFO  Main:54 - Application closing...
+2024-12-07 21:05:45 INFO  Main:87 - Shutting down application...
+2024-12-07 21:05:45 INFO  Main:96 - Application shutdown complete.
+2024-12-07 21:05:45 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-07 21:08:20 INFO  Main:111 - Launching Habit Tracker application
+2024-12-07 21:08:20 INFO  Main:29 - Initializing HabitRepository...
+2024-12-07 21:08:22 INFO  Main:34 - init() completed in 2438 ms
+2024-12-07 21:08:22 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-07 21:08:23 INFO  Main:72 - Application started successfully
+2024-12-07 21:08:23 INFO  Main:73 - start() method completed in 779 ms
+2024-12-07 21:08:23 INFO  Main:74 - Total startup time: 3242 ms
+2024-12-07 21:08:27 INFO  Main:54 - Application closing...
+2024-12-07 21:08:27 INFO  Main:87 - Shutting down application...
+2024-12-07 21:08:27 INFO  Main:96 - Application shutdown complete.
+2024-12-07 21:08:27 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-07 21:20:11 INFO  Main:111 - Launching Habit Tracker application
+2024-12-07 21:20:11 INFO  Main:29 - Initializing HabitRepository...
+2024-12-07 21:20:13 INFO  Main:34 - init() completed in 2617 ms
+2024-12-07 21:20:14 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-07 21:20:14 INFO  Main:72 - Application started successfully
+2024-12-07 21:20:14 INFO  Main:73 - start() method completed in 784 ms
+2024-12-07 21:20:14 INFO  Main:74 - Total startup time: 3424 ms
+2024-12-07 21:20:19 INFO  Main:54 - Application closing...
+2024-12-07 21:20:19 INFO  Main:87 - Shutting down application...
+2024-12-07 21:20:19 INFO  Main:96 - Application shutdown complete.
+2024-12-07 21:20:19 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-07 21:20:34 INFO  Main:111 - Launching Habit Tracker application
+2024-12-07 21:20:34 INFO  Main:29 - Initializing HabitRepository...
+2024-12-07 21:20:37 INFO  Main:34 - init() completed in 2788 ms
+2024-12-07 21:20:37 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-07 21:20:37 INFO  Main:72 - Application started successfully
+2024-12-07 21:20:37 INFO  Main:73 - start() method completed in 660 ms
+2024-12-07 21:20:37 INFO  Main:74 - Total startup time: 3475 ms
+2024-12-07 21:20:41 INFO  MainController:190 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 21 ms
+2024-12-07 21:20:45 INFO  MainController:190 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 29 ms
+2024-12-07 21:20:48 INFO  MainController:190 - View /view/HabitListView.fxml loaded successfully by showHabitListView in 9 ms
+2024-12-07 21:20:54 INFO  Main:54 - Application closing...
+2024-12-07 21:20:54 INFO  Main:87 - Shutting down application...
+2024-12-07 21:20:54 INFO  Main:96 - Application shutdown complete.
+2024-12-07 21:20:54 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-07 21:21:32 INFO  Main:111 - Launching Habit Tracker application
+2024-12-07 21:21:32 INFO  Main:29 - Initializing HabitRepository...
+2024-12-07 21:21:35 INFO  Main:34 - init() completed in 2806 ms
+2024-12-07 21:21:35 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-07 21:21:36 INFO  Main:72 - Application started successfully
+2024-12-07 21:21:36 INFO  Main:73 - start() method completed in 1257 ms
+2024-12-07 21:21:36 INFO  Main:74 - Total startup time: 4096 ms
+2024-12-07 21:21:38 INFO  Main:54 - Application closing...
+2024-12-07 21:21:38 INFO  Main:87 - Shutting down application...
+2024-12-07 21:21:38 INFO  Main:96 - Application shutdown complete.
+2024-12-07 21:21:38 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-07 21:22:19 INFO  Main:111 - Launching Habit Tracker application
+2024-12-07 21:22:19 INFO  Main:29 - Initializing HabitRepository...
+2024-12-07 21:22:23 INFO  Main:34 - init() completed in 3613 ms
+2024-12-07 21:22:23 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-07 21:22:24 INFO  Main:72 - Application started successfully
+2024-12-07 21:22:24 INFO  Main:73 - start() method completed in 1074 ms
+2024-12-07 21:22:24 INFO  Main:74 - Total startup time: 4790 ms
+2024-12-07 21:22:54 INFO  Main:54 - Application closing...
+2024-12-07 21:22:54 INFO  Main:87 - Shutting down application...
+2024-12-07 21:22:54 INFO  Main:96 - Application shutdown complete.
+2024-12-07 21:22:54 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-07 21:42:57 INFO  Main:125 - Launching Habit Tracker application
+2024-12-07 21:42:57 INFO  Main:32 - Initializing HabitRepository...
+2024-12-07 21:43:00 INFO  Main:37 - init() completed in 3270 ms
+2024-12-07 21:43:01 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-07 21:43:01 WARN  Main:59 - Application icon not found at '/habitTrackerIcon.ico'. Default icon will be used.
+2024-12-07 21:43:01 INFO  Main:86 - Application started successfully
+2024-12-07 21:43:01 INFO  Main:87 - start() method completed in 999 ms
+2024-12-07 21:43:01 INFO  Main:88 - Total startup time: 4307 ms
+2024-12-07 21:43:08 INFO  Main:68 - Application closing...
+2024-12-07 21:43:08 INFO  Main:101 - Shutting down application...
+2024-12-07 21:43:08 INFO  Main:110 - Application shutdown complete.
+2024-12-07 21:43:08 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-07 21:50:15 INFO  Main:125 - Launching Habit Tracker application
+2024-12-07 21:50:15 INFO  Main:32 - Initializing HabitRepository...
+2024-12-07 21:50:19 INFO  Main:37 - init() completed in 4127 ms
+2024-12-07 21:50:19 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-07 21:50:19 WARN  Main:59 - Application icon not found at '/habitTrackerIcon.ico'. Default icon will be used.
+2024-12-07 21:50:20 INFO  Main:86 - Application started successfully
+2024-12-07 21:50:20 INFO  Main:87 - start() method completed in 905 ms
+2024-12-07 21:50:20 INFO  Main:88 - Total startup time: 5075 ms
+2024-12-07 21:50:29 INFO  Main:68 - Application closing...
+2024-12-07 21:50:29 INFO  Main:101 - Shutting down application...
+2024-12-07 21:50:29 INFO  Main:110 - Application shutdown complete.
+2024-12-07 21:50:29 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-07 21:58:38 INFO  Main:125 - Launching Habit Tracker application
+2024-12-07 21:58:39 INFO  Main:32 - Initializing HabitRepository...
+2024-12-07 21:58:43 INFO  Main:37 - init() completed in 4304 ms
+2024-12-07 21:58:43 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-07 21:58:44 INFO  Main:86 - Application started successfully
+2024-12-07 21:58:44 INFO  Main:87 - start() method completed in 1123 ms
+2024-12-07 21:58:44 INFO  Main:88 - Total startup time: 5513 ms
+2024-12-07 21:58:58 INFO  Main:68 - Application closing...
+2024-12-07 21:58:59 INFO  Main:101 - Shutting down application...
+2024-12-07 21:58:59 INFO  Main:110 - Application shutdown complete.
+2024-12-07 21:58:59 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-07 21:59:32 INFO  Main:125 - Launching Habit Tracker application
+2024-12-07 21:59:32 INFO  Main:32 - Initializing HabitRepository...
+2024-12-07 21:59:35 INFO  Main:37 - init() completed in 3680 ms
+2024-12-07 21:59:36 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-07 21:59:36 INFO  Main:86 - Application started successfully
+2024-12-07 21:59:36 INFO  Main:87 - start() method completed in 1029 ms
+2024-12-07 21:59:36 INFO  Main:88 - Total startup time: 4741 ms
+2024-12-07 21:59:40 INFO  MainController:190 - View /view/SettingsView.fxml loaded successfully by showSettingsView in 24 ms
+2024-12-07 21:59:44 INFO  Main:68 - Application closing...
+2024-12-07 21:59:44 INFO  Main:101 - Shutting down application...
+2024-12-07 21:59:44 INFO  Main:110 - Application shutdown complete.
+2024-12-07 21:59:44 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-07 21:59:48 INFO  Main:125 - Launching Habit Tracker application
+2024-12-07 21:59:48 INFO  Main:32 - Initializing HabitRepository...
+2024-12-07 21:59:52 INFO  Main:37 - init() completed in 3295 ms
+2024-12-07 21:59:52 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-07 21:59:53 INFO  Main:86 - Application started successfully
+2024-12-07 21:59:53 INFO  Main:87 - start() method completed in 1213 ms
+2024-12-07 21:59:53 INFO  Main:88 - Total startup time: 4537 ms
+2024-12-07 22:00:23 INFO  Main:68 - Application closing...
+2024-12-07 22:00:23 INFO  Main:101 - Shutting down application...
+2024-12-07 22:00:23 INFO  Main:110 - Application shutdown complete.
+2024-12-07 22:00:23 INFO  ReportGenerator:155 - Scheduler stopped.

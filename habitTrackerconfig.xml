@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>C:\Users\johnn\Projects\Habit-Tracker\target\Habit-Tracker-1.0-SNAPSHOT.jar</jar>
+  <outfile>C:\Users\johnn\Projects\Habit-Tracker\Habit-Tracker.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>C:\Users\johnn\Projects\Habit-Tracker\src\main\resources\habitTrackerIcon.ico.ico</icon>
+  <jre>
+    <path>C:\Program Files\Java\jdk-23 </path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion>17</minVersion>
+    <maxVersion></maxVersion>
+    <opt>--module-path C:\Users\johnn\Projects\Habit-Tracker\javafx-sdk-17.0.13\lib</opt>
+    <opt>--add-modules javafx.controls,javafx.fxml</opt>
+  </jre>
+  <versionInfo>
+    <fileVersion>1.0.0.0</fileVersion>
+    <txtFileVersion>Version 1.0.0 Beta</txtFileVersion>
+    <fileDescription>A simple application to track your habits.</fileDescription>
+    <copyright>@2024 Johnny C Watt. All Rights Reserved</copyright>
+    <productVersion>1.0.0.0</productVersion>
+    <txtProductVersion>Version 1.0.0 Beta</txtProductVersion>
+    <productName>Habit Tracker</productName>
+    <companyName>Johnny C Watt</companyName>
+    <internalName>Habit-Tracker</internalName>
+    <originalFilename>Habit-Tracker.exe</originalFilename>
+    <trademarks></trademarks>
+    <language>ENGLISH_US</language>
+  </versionInfo>
+  <messages>
+    <startupErr>An error occurred while starting the application.</startupErr>
+    <jreNotFoundErr>This application requires a Java Runtime Environment.</jreNotFoundErr>
+    <jreVersionErr>This application requires a Java Runtime Environment</jreVersionErr>
+    <launcherErr>The registry refers to a nonexistent Java Runtime Environment installation or the runtime is corrupted.</launcherErr>
+    <instanceAlreadyExistsMsg>An application instance is already running.</instanceAlreadyExistsMsg>
+  </messages>
+</launch4jConfig>

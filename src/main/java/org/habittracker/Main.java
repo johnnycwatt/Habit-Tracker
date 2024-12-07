@@ -5,11 +5,14 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.habittracker.controller.MainController;
 import org.habittracker.repository.HabitRepository;
+
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
@@ -34,7 +37,7 @@ public class Main extends Application {
             LOGGER.info("init() completed in {} ms", System.currentTimeMillis() - initStartTimestamp);
         }
     }
-    
+
     @Override
     public void start(Stage primaryStage) {
         startMethodTimestamp = System.currentTimeMillis(); // Timestamp at the start of start()
@@ -46,6 +49,17 @@ public class Main extends Application {
             mainController.setMainApp(this);
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             primaryStage.setTitle("Habit Tracker");
+
+            // Set the application icon
+            try {
+                Image appIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/habitTrackerIcon.png")));
+                primaryStage.getIcons().add(appIcon);
+            } catch (NullPointerException e) {
+                if (LOGGER.isWarnEnabled()) {
+                    LOGGER.warn("Application icon not found at '/habitTrackerIcon.ico'. Default icon will be used.");
+                }
+            }
+
             primaryStage.setScene(scene);
 
             // Add close request handler
