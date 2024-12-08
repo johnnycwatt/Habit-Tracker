@@ -4,8 +4,6 @@
 
 Habit Tracker is a simple application designed to help users build and maintain good habits through effective tracking and reporting. The app allows users to create customizable habits with various frequencies and provides insightful progress reports to keep motivation high.
 
-
-
 ## Features
 
 - **Habit Management**: Add, edit, and delete habits with customizable frequency options (Daily, Weekly, Monthly, and custom days), colors for easy identification, and start dates.
@@ -17,9 +15,44 @@ Habit Tracker is a simple application designed to help users build and maintain 
 
 ## Getting Started
 
-This section will provide instructions on how to install and run the application.
+### Prerequisites
 
-*(Placeholder for installation and setup instructions.)*
+The Habit Tracker Beta Release comes bundled with a Java Runtime Environment (JRE) and the necessary JavaFX modules. No additional software is required to run the application.
+
+### Installation
+
+1. **Download the Beta Release**
+   - Download the `Habit-Tracker.zip` file from the release section of the repository.
+
+2. **Extract the Zip File**
+   - Use a tool like **7-Zip** or the default extraction tool in Windows to extract the contents of `Habit-Tracker.zip` to a folder of your choice.
+
+
+### Running the Application
+
+1. **Navigate to the Folder**
+- Open the folder where you extracted the `Habit-Tracker` files.
+
+2. **Launch the Application**
+- Double-click on the `Habit-Tracker.exe` file to start the application.
+
+3. **First-Time Setup**
+- The application will automatically load the bundled runtime and required resources. No additional setup is needed.
+
+4. **Enjoy Using Habit Tracker**
+- Follow the [Usage](#usage) instructions to explore the app's features.
+
+### Troubleshooting
+
+- **Error: Missing Configuration File**
+- Ensure that the `habitTrackerconfig.xml` file is located in the same folder as `Habit-Tracker.exe`.
+
+- **Error: Application Does Not Start**
+- Verify that the extracted `runtime` folder contains the bundled JRE and JavaFX modules.
+
+- **Logs and Error Reporting**
+- Check the `logs/` directory for any application logs that can help diagnose issues.
+
 
 ## Usage
 
@@ -141,12 +174,36 @@ The Habit Tracker app is built using JavaFX and follows the Model-View-Controlle
 
 ## Contributing
 
-*(Placeholder for contribution guidelines.)*
+Thank you for your interest in contributing to the Habit Tracker project!
+
+At this time, this is a personal project, and I am not actively seeking external contributions. However, I welcome your feedback, suggestions, and feature requests. If you have ideas or notice areas for improvement, please feel free to:
+
+1. Open an issue in the [GitHub Issues](https://github.com/johnnycwatt/Habit-Tracker/issues) section of this repository.
+2. Include as much detail as possible about your suggestion or feedback, such as:
+   - A clear description of the feature, enhancement, or bug.
+   - Any supporting screenshots or examples.
+   - How the change could improve the user experience or functionality.
+
+### For Developers Interested in Contributing Code
+
+While I am not accepting pull requests at this time, if you want to fork the project and experiment, feel free to do so under the terms of the MIT License. You can share your fork or modifications with me by:
+1. Opening an issue to discuss your changes.
+2. Including a link to your forked repository for me to review.
+
+While I cannot guarantee that all requests will be implemented, I will review and consider each one carefully as part of the project’s development.
+
+Thank you for understanding and for supporting the Habit Tracker project!
+
 
 ## License
 
-*(Placeholder for license information.)*
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
-*(Placeholder for contact details.)*
+For questions, feedback, or issues, please reach out:
+
+- **Email**: [johnnycwatt@gmail.com](mailto:johnnycwatt@gmail.com)
+- **GitHub**: [Johnny's GitHub](https://github.com/johnnycwatt)
+- **Project Issues**: Use the [Issue Tracker](https://github.com/johnnycwatt/Habit-Tracker/issues) to report bugs or request features.
+
