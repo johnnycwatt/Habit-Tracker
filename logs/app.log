@@ -5974,3 +5974,136 @@ java.nio.file.NoSuchFileException: reports\MonthlyReport-2024-12.json
 2024-12-07 22:00:23 INFO  Main:101 - Shutting down application...
 2024-12-07 22:00:23 INFO  Main:110 - Application shutdown complete.
 2024-12-07 22:00:23 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-08 15:18:53 INFO  Main:125 - Launching Habit Tracker application
+2024-12-08 15:18:53 INFO  Main:32 - Initializing HabitRepository...
+2024-12-08 15:18:56 INFO  Main:37 - init() completed in 2956 ms
+2024-12-08 15:18:56 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-08 15:18:57 INFO  Main:86 - Application started successfully
+2024-12-08 15:18:57 INFO  Main:87 - start() method completed in 1011 ms
+2024-12-08 15:18:57 INFO  Main:88 - Total startup time: 4037 ms
+2024-12-08 15:18:59 INFO  Main:68 - Application closing...
+2024-12-08 15:18:59 INFO  Main:101 - Shutting down application...
+2024-12-08 15:18:59 INFO  Main:110 - Application shutdown complete.
+2024-12-08 15:18:59 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-08 15:20:58 INFO  Main:125 - Launching Habit Tracker application
+2024-12-08 15:20:58 INFO  Main:32 - Initializing HabitRepository...
+2024-12-08 15:21:01 INFO  Main:37 - init() completed in 3098 ms
+2024-12-08 15:21:01 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-08 15:21:02 INFO  Main:86 - Application started successfully
+2024-12-08 15:21:02 INFO  Main:87 - start() method completed in 987 ms
+2024-12-08 15:21:02 INFO  Main:88 - Total startup time: 4149 ms
+2024-12-08 15:21:03 INFO  Main:68 - Application closing...
+2024-12-08 15:21:03 INFO  Main:101 - Shutting down application...
+2024-12-08 15:21:03 INFO  Main:110 - Application shutdown complete.
+2024-12-08 15:21:03 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-08 15:22:55 INFO  Main:125 - Launching Habit Tracker application
+2024-12-08 15:22:55 INFO  Main:32 - Initializing HabitRepository...
+2024-12-08 15:22:58 INFO  Main:37 - init() completed in 2742 ms
+2024-12-08 15:22:58 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-08 15:22:59 INFO  Main:86 - Application started successfully
+2024-12-08 15:22:59 INFO  Main:87 - start() method completed in 1085 ms
+2024-12-08 15:22:59 INFO  Main:88 - Total startup time: 3912 ms
+2024-12-08 15:23:01 INFO  Main:68 - Application closing...
+2024-12-08 15:23:01 INFO  Main:101 - Shutting down application...
+2024-12-08 15:23:01 INFO  Main:110 - Application shutdown complete.
+2024-12-08 15:23:01 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-08 15:25:39 INFO  Main:125 - Launching Habit Tracker application
+2024-12-08 15:25:39 INFO  Main:32 - Initializing HabitRepository...
+2024-12-08 15:25:42 INFO  Main:37 - init() completed in 2852 ms
+2024-12-08 15:25:42 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-08 15:25:43 INFO  Main:86 - Application started successfully
+2024-12-08 15:25:43 INFO  Main:87 - start() method completed in 1031 ms
+2024-12-08 15:25:43 INFO  Main:88 - Total startup time: 3907 ms
+2024-12-08 15:25:55 INFO  Main:68 - Application closing...
+2024-12-08 15:25:55 INFO  Main:101 - Shutting down application...
+2024-12-08 15:25:55 INFO  Main:110 - Application shutdown complete.
+2024-12-08 15:25:55 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-08 15:26:09 INFO  Main:125 - Launching Habit Tracker application
+2024-12-08 15:26:09 INFO  Main:32 - Initializing HabitRepository...
+2024-12-08 15:26:12 INFO  Main:37 - init() completed in 3264 ms
+2024-12-08 15:26:13 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-08 15:26:13 INFO  Main:86 - Application started successfully
+2024-12-08 15:26:13 INFO  Main:87 - start() method completed in 960 ms
+2024-12-08 15:26:13 INFO  Main:88 - Total startup time: 4255 ms
+2024-12-08 15:26:22 INFO  Main:68 - Application closing...
+2024-12-08 15:26:22 INFO  Main:101 - Shutting down application...
+2024-12-08 15:26:22 INFO  Main:110 - Application shutdown complete.
+2024-12-08 15:26:22 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-08 15:26:29 INFO  Main:125 - Launching Habit Tracker application
+2024-12-08 15:26:29 INFO  Main:32 - Initializing HabitRepository...
+2024-12-08 15:26:32 INFO  Main:37 - init() completed in 2946 ms
+2024-12-08 15:26:32 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-08 15:26:33 INFO  Main:86 - Application started successfully
+2024-12-08 15:26:33 INFO  Main:87 - start() method completed in 1063 ms
+2024-12-08 15:26:33 INFO  Main:88 - Total startup time: 4040 ms
+2024-12-08 15:26:37 INFO  MainController:190 - View /view/AddHabitView.fxml loaded successfully by showAddHabitView in 64 ms
+2024-12-08 15:34:31 INFO  Main:68 - Application closing...
+2024-12-08 15:34:31 INFO  Main:101 - Shutting down application...
+2024-12-08 15:34:31 INFO  Main:110 - Application shutdown complete.
+2024-12-08 15:34:31 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-08 15:44:15 INFO  Main:125 - Launching Habit Tracker application
+2024-12-08 15:44:15 INFO  Main:32 - Initializing HabitRepository...
+2024-12-08 15:44:18 INFO  Main:37 - init() completed in 3146 ms
+2024-12-08 15:44:19 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-08 15:44:19 INFO  Main:86 - Application started successfully
+2024-12-08 15:44:19 INFO  Main:87 - start() method completed in 1283 ms
+2024-12-08 15:44:19 INFO  Main:88 - Total startup time: 4483 ms
+2024-12-08 15:44:21 INFO  Main:68 - Application closing...
+2024-12-08 15:44:21 INFO  Main:101 - Shutting down application...
+2024-12-08 15:44:21 INFO  Main:110 - Application shutdown complete.
+2024-12-08 15:44:21 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-08 15:45:24 INFO  Main:125 - Launching Habit Tracker application
+2024-12-08 15:45:24 INFO  Main:32 - Initializing HabitRepository...
+2024-12-08 15:45:27 INFO  Main:37 - init() completed in 3230 ms
+2024-12-08 15:45:28 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-08 15:45:28 INFO  Main:86 - Application started successfully
+2024-12-08 15:45:28 INFO  Main:87 - start() method completed in 908 ms
+2024-12-08 15:45:28 INFO  Main:88 - Total startup time: 4172 ms
+2024-12-08 15:45:30 INFO  Main:68 - Application closing...
+2024-12-08 15:45:30 INFO  Main:101 - Shutting down application...
+2024-12-08 15:45:30 INFO  Main:110 - Application shutdown complete.
+2024-12-08 15:45:30 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-08 15:49:23 INFO  Main:125 - Launching Habit Tracker application
+2024-12-08 15:49:23 INFO  Main:32 - Initializing HabitRepository...
+2024-12-08 15:49:27 INFO  Main:37 - init() completed in 3968 ms
+2024-12-08 15:49:28 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-08 15:49:29 INFO  Main:86 - Application started successfully
+2024-12-08 15:49:29 INFO  Main:87 - start() method completed in 1142 ms
+2024-12-08 15:49:29 INFO  Main:88 - Total startup time: 5178 ms
+2024-12-08 15:49:30 INFO  Main:68 - Application closing...
+2024-12-08 15:49:30 INFO  Main:101 - Shutting down application...
+2024-12-08 15:49:30 INFO  Main:110 - Application shutdown complete.
+2024-12-08 15:49:30 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-08 15:50:58 INFO  Main:125 - Launching Habit Tracker application
+2024-12-08 15:50:58 INFO  Main:32 - Initializing HabitRepository...
+2024-12-08 15:51:01 INFO  Main:37 - init() completed in 3497 ms
+2024-12-08 15:51:02 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-08 15:51:03 INFO  Main:86 - Application started successfully
+2024-12-08 15:51:03 INFO  Main:87 - start() method completed in 1263 ms
+2024-12-08 15:51:03 INFO  Main:88 - Total startup time: 4808 ms
+2024-12-08 15:51:04 INFO  Main:68 - Application closing...
+2024-12-08 15:51:04 INFO  Main:101 - Shutting down application...
+2024-12-08 15:51:04 INFO  Main:110 - Application shutdown complete.
+2024-12-08 15:51:04 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-08 15:52:10 INFO  Main:125 - Launching Habit Tracker application
+2024-12-08 15:52:10 INFO  Main:32 - Initializing HabitRepository...
+2024-12-08 15:52:13 INFO  Main:37 - init() completed in 3519 ms
+2024-12-08 15:52:14 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-08 15:52:15 INFO  Main:86 - Application started successfully
+2024-12-08 15:52:15 INFO  Main:87 - start() method completed in 1075 ms
+2024-12-08 15:52:15 INFO  Main:88 - Total startup time: 4626 ms
+2024-12-08 15:52:30 INFO  Main:68 - Application closing...
+2024-12-08 15:52:30 INFO  Main:101 - Shutting down application...
+2024-12-08 15:52:30 INFO  Main:110 - Application shutdown complete.
+2024-12-08 15:52:30 INFO  ReportGenerator:155 - Scheduler stopped.
+2024-12-08 15:53:44 INFO  Main:125 - Launching Habit Tracker application
+2024-12-08 15:53:44 INFO  Main:32 - Initializing HabitRepository...
+2024-12-08 15:53:48 INFO  Main:37 - init() completed in 3195 ms
+2024-12-08 15:53:48 INFO  ReportGenerator:134 - Report for 2024-11 already exists. No action needed.
+2024-12-08 15:53:49 INFO  Main:86 - Application started successfully
+2024-12-08 15:53:49 INFO  Main:87 - start() method completed in 981 ms
+2024-12-08 15:53:49 INFO  Main:88 - Total startup time: 4276 ms
+2024-12-08 15:53:51 INFO  Main:68 - Application closing...
+2024-12-08 15:53:51 INFO  Main:101 - Shutting down application...
+2024-12-08 15:53:51 INFO  Main:110 - Application shutdown complete.
+2024-12-08 15:53:51 INFO  ReportGenerator:155 - Scheduler stopped.
