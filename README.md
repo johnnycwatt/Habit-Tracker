@@ -197,7 +197,7 @@ Thank you for understanding and for supporting the Habit Tracker project!
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) file for details.
 
 ## Contact
 
@@ -207,3 +207,23 @@ For questions, feedback, or issues, please reach out:
 - **GitHub**: [Johnny's GitHub](https://github.com/johnnycwatt)
 - **Project Issues**: Use the [Issue Tracker](https://github.com/johnnycwatt/Habit-Tracker/issues) to report bugs or request features.
 
+
+## Gallery:
+
+**Main View**
+Here you can view the Habits that are due today. You can also hover over the calendar days to view the habits that are due on those dates.
+
+![image](https://github.com/user-attachments/assets/884bb7b5-4792-4898-819c-cf701e7b4935)
+
+**Habit List View**
+Here you can view all of your habits, mark habits as complete, edit/delete habits, and select and navigate to each habits progress view. 
+
+![image](https://github.com/user-attachments/assets/54e576cc-f0b0-47a8-b19c-b736f90db60d)
+
+**Progress View**
+Here you can track progress of each individual habit. Showing the number of weeks and months that you have remained consistent, best/current streaks, and completion rates. This is calculated by your selected Habit Frequency. (Daily, Weekly, Monthly or Custom)
+
+![image](https://github.com/user-attachments/assets/c4e9d5e7-e603-46a6-bb62-b84ad548ccba)
+
+**Dark Mode**
+![image](https://github.com/user-attachments/assets/85a5f50a-534b-4630-829a-455bbe8142da)
