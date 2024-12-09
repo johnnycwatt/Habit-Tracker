@@ -76,15 +76,7 @@ public class Main extends Application {
             scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
             primaryStage.setTitle("Habit Tracker");
 
-            // Set the application icon
-            try {
-                Image appIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/habitTrackerIcon.png")));
-                primaryStage.getIcons().add(appIcon);
-            } catch (NullPointerException e) {
-                if (LOGGER.isWarnEnabled()) {
-                    LOGGER.warn("Application icon not found at '/habitTrackerIcon.ico'. Default icon will be used.");
-                }
-            }
+            setApplicationIcon(primaryStage);
 
             primaryStage.setScene(scene);
 
@@ -117,6 +109,23 @@ public class Main extends Application {
         } catch (IOException e) {
             if (LOGGER.isErrorEnabled()) {
                 LOGGER.error("Error loading FXML file: ", e);
+            }
+        }
+    }
+
+    private void setApplicationIcon(Stage primaryStage) {
+        try (java.io.InputStream iconStream = getClass().getResourceAsStream("/habitTrackerIcon.png")) {
+            if (iconStream != null) {
+                Image appIcon = new Image(iconStream);
+                primaryStage.getIcons().add(appIcon);
+            } else {
+                if (LOGGER.isWarnEnabled()) {
+                    LOGGER.warn("Application icon not found at '/habitTrackerIcon.png'. Default icon will be used.");
+                }
+            }
+        } catch (IOException e) {
+            if (LOGGER.isErrorEnabled()) {
+                LOGGER.error("Error while loading the application icon: ", e);
             }
         }
     }
